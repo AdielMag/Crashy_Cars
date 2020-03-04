@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 7;
 
+    public DynamicJoystick joystick;
+
     TouchManager tMan;
     [HideInInspector]
     public Rigidbody rigidBdy;
@@ -21,7 +23,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+#if UNITY_EDITOR
         Movement(new Vector3(tMan.input.y, 0, -tMan.input.x));
+#else
+        Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
+#endif
+
     }
 
     void Movement(Vector3 input)

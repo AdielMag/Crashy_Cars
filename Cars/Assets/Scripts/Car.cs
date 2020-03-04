@@ -9,15 +9,15 @@ public class Car : MonoBehaviour
     public Wheel[] wheels;
 
     Transform mesh;
-    TouchManager tMan;
     PlayerController pCon;
 
     private void Start()
     {
         mesh = transform.GetChild(0);
 
-        tMan = target.GetComponent<TouchManager>();
         pCon = target.GetComponent<PlayerController>();
+
+        targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
 
     }
 
@@ -53,7 +53,10 @@ public class Car : MonoBehaviour
                 FrontWheelsRotation(direction);
             }
             else
+            {
                 targetRot = Quaternion.LookRotation(hit.normal, transform.up);
+                FrontWheelsRotation(transform.up);
+            }
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 7);
@@ -92,8 +95,8 @@ public class Car : MonoBehaviour
 
     void FrontWheelsRotation(Vector3 direction)
     {
-        wheels[0].transform.forward = -direction;
-        wheels[1].transform.forward = -direction;
+        wheels[0].actualWheel.forward = -direction;
+        wheels[1].actualWheel.transform.forward = -direction;
     }
 
     // Data methods

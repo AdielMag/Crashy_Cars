@@ -7,26 +7,35 @@ public class Wheel : MonoBehaviour
     TrailRenderer trail;
     Vector3 origPos,targetPos;
 
+    [HideInInspector]
+    public Transform actualWheel;
+
     private void Start()
     {
-        trail = GetComponentInChildren<TrailRenderer>();
+        actualWheel = transform.GetChild(0);
+
+        trail = actualWheel.GetComponentInChildren<TrailRenderer>();
 
         origPos = transform.localPosition;
     }
 
     private void Update()
     {
-        if (hit.transform != null)
-            targetPos = origPos - Vector3.up * (hit.distance - .7f);
-        else
-            targetPos = origPos - Vector3.up * .05f;
+        if (grounded())
+        {
+            targetPos = Vector3.up * (-hit.distance + .49f);
 
-        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, Time.deltaTime * 7);
+            targetPos.y = Mathf.Clamp(targetPos.y, -.1f, 0);
+        }
+        else
+            targetPos = Vector3.zero;
+
+        actualWheel.localPosition = Vector3.Lerp(actualWheel.localPosition, targetPos, Time.deltaTime * 7);
     }
 
     public void HandleEmission(bool state)
     {
-        if (grounded())
+        if (hit.point != null)
         {
             if (!state && trail.emitting)
                 trail.emitting = false;
@@ -40,7 +49,7 @@ public class Wheel : MonoBehaviour
     RaycastHit hit;
     bool grounded()
     {
-        if (Physics.Raycast(origPos + Vector3.up * .65f, -Vector3.up, out hit, 1.2f))
+        if (Physics.Raycast(transform.position+Vector3.up*.3f, -Vector3.up, out hit, .9f))
             return true;
 
         return false;
