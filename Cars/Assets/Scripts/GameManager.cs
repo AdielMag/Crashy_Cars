@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Singelton + set data manager.
     public static GameManager instance;   
     private void Awake()
     {
@@ -19,10 +18,18 @@ public class GameManager : MonoBehaviour
 
     public Animator transitionAnimatorController;
 
-
     public void LoadScene(string name)
     {
         instance.StartCoroutine(LoadSceneWithTransition(name));
+    }
+
+    [Space]
+    public int currentLevel;
+
+    public void LoadLevel()
+    {
+        instance.StartCoroutine
+            (LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
     }
 
     IEnumerator LoadSceneWithTransition(string name)

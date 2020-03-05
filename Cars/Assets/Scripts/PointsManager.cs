@@ -5,13 +5,19 @@ using UnityEngine;
 public class PointsManager : MonoBehaviour
 {
     public int points;
+    public int pointsNeeded;
+
+    bool isPlayer;
+    private void Start()
+    {
+        isPlayer = GetComponent<PlayerController>() ? true : false;
+    }
 
     public void AddPoints(int amount)
     {
         points += amount;
-    }
-    public void ResetPoints()
-    {
-        points = 0;
+
+        if(points> pointsNeeded)
+            LevelManager.instance.LevelCompleted(isPlayer);
     }
 }
