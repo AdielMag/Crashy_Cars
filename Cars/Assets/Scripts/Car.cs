@@ -50,12 +50,12 @@ public class Car : MonoBehaviour
             if (direction.normalized.magnitude > 0)
             {
                 targetRot = Quaternion.LookRotation(hit.normal, direction);
-                FrontWheelsRotation(direction);
+                WheelsRotation(direction);
             }
             else
             {
                 targetRot = Quaternion.LookRotation(hit.normal, transform.up);
-                FrontWheelsRotation(transform.up);
+                WheelsRotation(transform.up);
             }
         }
 
@@ -93,10 +93,13 @@ public class Car : MonoBehaviour
                 wheel.HandleEmission(false);
     }
 
-    void FrontWheelsRotation(Vector3 direction)
+    void WheelsRotation(Vector3 direction)
     {
-        wheels[0].actualWheel.forward = -direction;
-        wheels[1].actualWheel.transform.forward = -direction;
+        wheels[0].transform.forward = -direction;
+        wheels[1].transform.forward = -direction;
+
+         foreach (Wheel wheel in wheels)
+             wheel.actualWheel.Rotate(0, 0, -pCon.rigidBdy.velocity.magnitude * 1.5f);
     }
 
     // Data methods

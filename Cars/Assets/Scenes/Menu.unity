@@ -683,11 +683,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 1226405368197993401, guid: a633e2b179ec95341973928e238c6ea8,
-        type: 3}
-      propertyPath: currentLevel
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3931704033044346254, guid: a633e2b179ec95341973928e238c6ea8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -747,9 +742,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 483858731, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 7645294392835772769, guid: 8c9f144e85119904d9a586b90f0a884f,
+        type: 3}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[0].tag
+      value: Money Collectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[0].size
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[0].poolObjectChild
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a633e2b179ec95341973928e238c6ea8, type: 3}

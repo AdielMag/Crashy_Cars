@@ -14,7 +14,7 @@ public class Wheel : MonoBehaviour
     {
         actualWheel = transform.GetChild(0);
 
-        trail = actualWheel.GetComponentInChildren<TrailRenderer>();
+        trail = transform.GetChild(1).GetComponentInChildren<TrailRenderer>();
 
         origPos = transform.localPosition;
     }
