@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class CarController : MonoBehaviour
 {
     public float movementSpeed = 7;
 
+    [Header("Inputs")]
     public DynamicJoystick joystick;
+    public BotBrain bBrain;
 
-    TouchManager tMan;
     [HideInInspector]
     public Rigidbody rigidBdy;
 
     private void Start()
     {
         rigidBdy = GetComponent<Rigidbody>();
-        tMan = GetComponent<TouchManager>();
 
         rigidBdy.maxAngularVelocity = 1000000;
 
@@ -23,11 +23,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-#if UNITY_EDITOR
-        Movement(new Vector3(tMan.input.y, 0, -tMan.input.x));
-#else
-        Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
-#endif
+        if (joystick)
+            Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
+        else if (bBrain)
+            Movement(new Vector3(bBrain.moveDirection.y, 0, -bBrain.moveDirection.x));
 
     }
 

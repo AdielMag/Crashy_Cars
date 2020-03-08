@@ -9,13 +9,13 @@ public class Car : MonoBehaviour
     public Wheel[] wheels;
 
     Transform mesh;
-    PlayerController pCon;
+    CarController cCon;
 
     private void Start()
     {
         mesh = transform.GetChild(0);
 
-        pCon = target.GetComponent<PlayerController>();
+        cCon = target.GetComponent<CarController>();
 
         targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
 
@@ -28,9 +28,9 @@ public class Car : MonoBehaviour
         // TransformRotation(new Vector3(tMan.input.y, 0, -tMan.input.x));
         TransformRotation(
             new Vector3(
-                pCon.rigidBdy.angularVelocity.x,
+                cCon.rigidBdy.angularVelocity.x,
                 0,
-                pCon.rigidBdy.angularVelocity.z));
+                cCon.rigidBdy.angularVelocity.z));
 
         CarSwivel();
         HandleSkidMarks();
@@ -40,14 +40,14 @@ public class Car : MonoBehaviour
         RotationDeltaHandler();
     }
 
-    Quaternion targetRot;
+    public Quaternion targetRot;
     private void TransformRotation(Vector3 direction)
     {
         CheckGrounded();
 
         if (isGrounded)
         {
-            if (direction.normalized.magnitude > 0)
+            if (direction.normalized.magnitude > 0f)
             {
                 targetRot = Quaternion.LookRotation(hit.normal, direction);
                 WheelsRotation(direction);
@@ -70,7 +70,7 @@ public class Car : MonoBehaviour
         currentSwivel.x = Mathf.Lerp(currentSwivel.x, targetSwivel.x, Time.deltaTime * 5);
 
         if (!isGrounded)
-            targetSwivel.z = pCon.rigidBdy.velocity.y * 4;
+            targetSwivel.z = cCon.rigidBdy.velocity.y * 4;
         else
             targetSwivel.z = 0;
 
@@ -81,7 +81,7 @@ public class Car : MonoBehaviour
 
     void HandleSkidMarks()
     {
-        if (pCon.rigidBdy.velocity.magnitude < 7)
+        if (cCon.rigidBdy.velocity.magnitude < 7)
             return;
 
         // Skid marks
@@ -99,7 +99,7 @@ public class Car : MonoBehaviour
         wheels[1].transform.forward = -direction;
 
          foreach (Wheel wheel in wheels)
-             wheel.actualWheel.Rotate(0, 0, -pCon.rigidBdy.velocity.magnitude * 1.5f);
+             wheel.actualWheel.Rotate(0, 0, -cCon.rigidBdy.velocity.magnitude * 1.5f);
     }
 
     // Data methods
@@ -121,9 +121,10 @@ public class Car : MonoBehaviour
 
     RaycastHit hit;
     bool isGrounded;
+    public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.5f))
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.5f,groundLayerMask))
             isGrounded = true;
         else
             isGrounded = false;

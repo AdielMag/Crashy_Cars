@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - PlayerCar
-  - PlayerMovement
-  - 
-  - 
+  - Controllers
+  - FloorEdge
+  - Obstacles
+  - Money
   - 
   - 
   - 
