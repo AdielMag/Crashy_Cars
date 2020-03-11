@@ -12,20 +12,25 @@ public class BotBrain : MonoBehaviour
 
     public float edgeRayLength = 12;
     float origEdgeRayLength;
-    public float carsMoneyRadius = 10;
+    public float carsRadius = 14;
+    public float moneyRadius = 7;
 
+    // The number of point neede to chase a car
+    float pointsToChase;
 
     [Space]
     public Transform chaseTarget;
 
     public Vector2 moveDirection { get; private set; }
 
-    Car car;
+    Car mCar;
     Rigidbody rgdbdy;
     private void Start()
     {
-        car = GetComponent<Car>();
-        rgdbdy = car.target.GetComponent<Rigidbody>();
+        mCar = GetComponent<Car>();
+        pointsToChase = 
+            Mathf.RoundToInt(mCar.target.GetComponent<PointsManager>().pointsNeeded / 1.75f);
+        rgdbdy = mCar.target.GetComponent<Rigidbody>();
 
         // Set random direction
         moveDirection = RandomDirection(0, 359);
@@ -81,8 +86,8 @@ public class BotBrain : MonoBehaviour
         Physics.Raycast(forwardRay, out edgeHit, edgeRayLength, edgeLm);
         Physics.Raycast(forwardRay, out obstacleHit, edgeRayLength, obstacleLM);
 
-        carsHit = Physics.OverlapSphere(transform.position, carsMoneyRadius, carsLM);
-        moneyHit = Physics.OverlapSphere(transform.position, carsMoneyRadius, moneyLM);
+        carsHit = Physics.OverlapSphere(transform.position, carsRadius, carsLM);
+        moneyHit = Physics.OverlapSphere(transform.position, moneyRadius, moneyLM);
 
         SetCurrentChaseTarget();
     }
@@ -91,14 +96,19 @@ public class BotBrain : MonoBehaviour
     {
         chaseTarget = null;
 
-        if (moneyHit.Length > 0)
-            chaseTarget = moneyHit[0].transform;
-
-        if (carsHit.Length > 1)
+        if (rgdbdy.velocity.magnitude > 5 && carsHit.Length > 0)
         {
-            // Check how many money they have and than chase or not
+            foreach (Collider car in carsHit)
+                if (car.transform != mCar.target)
+                    if (car.GetComponent<PointsManager>().points >= pointsToChase)
+                    {
+                        chaseTarget = car.transform;
+                        return;
+                    }
         }
 
+        if (moneyHit.Length > 0)
+            chaseTarget = moneyHit[0].transform;
     }
 
     Vector2 ChaseTargetDirection()
@@ -108,7 +118,7 @@ public class BotBrain : MonoBehaviour
 
         return targetDir;
     }
-
+     
     Vector2 RandomDirection(float min,float max)
     {
         float angle = Random.Range(min, max);
@@ -168,10 +178,5 @@ public class BotBrain : MonoBehaviour
         yield return new WaitForSecondsRealtime(dirChangeTime);
 
         cantChangeSwivelDir = false;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, carsMoneyRadius);
     }
 }

@@ -15,7 +15,7 @@ public class Car : MonoBehaviour
     private void Start()
     {
         mesh = transform.GetChild(0);
-
+ 
         cCon = target.GetComponent<CarController>();
 
         targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
@@ -24,7 +24,8 @@ public class Car : MonoBehaviour
 
     private void Update()
     {
-        transform.position = target.position;
+        if (target)
+            transform.position = target.position;
 
         // TransformRotation(new Vector3(tMan.input.y, 0, -tMan.input.x));
         TransformRotation(
@@ -36,6 +37,7 @@ public class Car : MonoBehaviour
         CarSwivel();
         HandleSkidMarks();
     }
+
     private void FixedUpdate()
     {
         RotationDeltaHandler();
