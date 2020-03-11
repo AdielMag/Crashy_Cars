@@ -41,9 +41,8 @@ public class PointsCollectable : MonoBehaviour,IPooledObject
 
         yield return new WaitForSeconds(.5f);
 
-        LevelManager.instance.moneyColCount--;
-
-
+        if (LevelManager.instance)
+            LevelManager.instance.moneyColCount--;
 
         gameObject.SetActive(false);
     }

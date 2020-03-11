@@ -1,51 +1,113 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BotBrain : MonoBehaviour
 {
-    public LayerMask edgeObstacleLM;
-    public LayerMask carsMoneyLM;
+    public LayerMask edgeLm;
+    public LayerMask obstacleLM;
+    public LayerMask carsLM;
+    public LayerMask moneyLM;
 
-    public float edgeObstRadius = 12;
+    public float edgeRayLength = 12;
+    float origEdgeRayLength;
     public float carsMoneyRadius = 10;
 
-    [Header("Debugging")]
-    public Vector2 moveDirection;
-    public Transform edgeObstTarget, carsMoneyTarget;
 
+    [Space]
+    public Transform chaseTarget;
+
+    public Vector2 moveDirection { get; private set; }
+
+    Car car;
+    Rigidbody rgdbdy;
     private void Start()
     {
+        car = GetComponent<Car>();
+        rgdbdy = car.target.GetComponent<Rigidbody>();
+
         // Set random direction
-        moveDirection = RandomDirection(-90, -60);
+        moveDirection = RandomDirection(0, 359);
+
+        origEdgeRayLength = edgeRayLength;
     }
 
-    private void FixedUpdate()
+     private void FixedUpdate()
     {
         Collisions();
 
-        #region Debugging
-        if (edgeObstHit.Length > 0)
-            edgeObstTarget = edgeObstHit[0].transform;
-        else
-            edgeObstTarget = null;
-        if (carsMoneyHit.Length > 0)
+        if (chaseTarget)
         {
-            if (carsMoneyHit[0].transform != transform)
-                carsMoneyTarget = carsMoneyHit[0].transform;
+            moveDirection = ChaseTargetDirection();
+
+            return;
         }
-        else
-            carsMoneyTarget = null;
-        #endregion
+
+        if (edgeHit.transform != null)
+        {
+            if (!cantChangeEdgeDir)
+            {
+                Vector3 dir = -(edgeHit.point - Vector3.zero);
+
+                float angle = Vector3.SignedAngle(Vector3.right, -dir, Vector3.up);
+
+                StartCoroutine(EdgeChangeDir(angle - 45, angle - 145));
+            }
+        }
+
+        else if (!cantChangeSwivelDir && !cantChangeEdgeDir)
+        {
+            float angle = Vector3.SignedAngle(Vector3.right, -transform.right, Vector3.up);
+
+            StartCoroutine(SwivelChangeDir(angle - 55, angle - 125));
+        }
     }
 
-    Collider[] edgeObstHit,carsMoneyHit;
+    Collider[] carsHit;
+    Collider[] moneyHit;
+
+    RaycastHit edgeHit;
+    RaycastHit obstacleHit;
+
+    Ray forwardRay,rightRay,leftRay;
     void Collisions()
     {
-        edgeObstHit = Physics.OverlapSphere(transform.position, edgeObstRadius, edgeObstacleLM);
-        carsMoneyHit = Physics.OverlapSphere(transform.position, carsMoneyRadius, carsMoneyLM);
+        forwardRay = new Ray(transform.position, transform.right);
+
+        edgeRayLength = Mathf.Lerp(0, origEdgeRayLength, rgdbdy.velocity.magnitude);
+        Debug.DrawLine(transform.position, transform.position + transform.right * rgdbdy.velocity.magnitude);
+
+        Physics.Raycast(forwardRay, out edgeHit, edgeRayLength, edgeLm);
+        Physics.Raycast(forwardRay, out obstacleHit, edgeRayLength, obstacleLM);
+
+        carsHit = Physics.OverlapSphere(transform.position, carsMoneyRadius, carsLM);
+        moneyHit = Physics.OverlapSphere(transform.position, carsMoneyRadius, moneyLM);
+
+        SetCurrentChaseTarget();
     }
 
+    void SetCurrentChaseTarget()
+    {
+        chaseTarget = null;
+
+        if (moneyHit.Length > 0)
+            chaseTarget = moneyHit[0].transform;
+
+        if (carsHit.Length > 1)
+        {
+            // Check how many money they have and than chase or not
+        }
+
+    }
+
+    Vector2 ChaseTargetDirection()
+    {
+        Vector2 targetDir = new Vector2(chaseTarget.position.x - transform.position.x,
+                     chaseTarget.position.z - transform.position.z).normalized;
+
+        return targetDir;
+    }
 
     Vector2 RandomDirection(float min,float max)
     {
@@ -54,12 +116,62 @@ public class BotBrain : MonoBehaviour
         var a = (90 + angle) * Mathf.Deg2Rad;
         var dir = new Vector2(-Mathf.Cos(a), Mathf.Sin(a)).normalized;
 
+
+        Debug.DrawLine(transform.position,
+            transform.position + new Vector3(dir.x, 0, dir.y), Color.red, 5);
+
+        min =(90+min)* Mathf.Deg2Rad;
+        max = (90 + max) * Mathf.Deg2Rad;
+
+        Debug.DrawLine(transform.position,
+            transform.position +
+            new Vector3(-Mathf.Cos(min),0, Mathf.Sin(min)).normalized, Color.black, 5);
+        Debug.DrawLine(transform.position,
+            transform.position +
+            new Vector3(-Mathf.Cos(max),0, Mathf.Sin(max)).normalized, Color.black, 5);
+
         return dir;
+    }
+
+    Vector3 currentDir()
+    {
+        float angle = transform.localEulerAngles.y;
+
+        var a = (90 + angle) * Mathf.Deg2Rad;
+        var dir = new Vector2(-Mathf.Cos(a), Mathf.Sin(a)).normalized;
+
+        return dir;
+    }
+
+    // Coutoutins
+    bool cantChangeEdgeDir;
+    IEnumerator EdgeChangeDir(float min, float max)
+    {
+        float dirChangeTime = 1;
+        DOTween.To(() => moveDirection, x => moveDirection = x,
+            RandomDirection(min, max), dirChangeTime);
+
+        cantChangeEdgeDir = true;
+        yield return new WaitForSecondsRealtime(dirChangeTime);
+
+        cantChangeEdgeDir = false;
+    }
+
+    bool cantChangeSwivelDir;
+    IEnumerator SwivelChangeDir(float min, float max)
+    {
+        float dirChangeTime = 1f;
+        DOTween.To(() => moveDirection, x => moveDirection = x,
+            RandomDirection(min, max), dirChangeTime);
+
+        cantChangeSwivelDir = true;
+        yield return new WaitForSecondsRealtime(dirChangeTime);
+
+        cantChangeSwivelDir = false;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, edgeObstRadius);
         Gizmos.DrawWireSphere(transform.position, carsMoneyRadius);
     }
 }

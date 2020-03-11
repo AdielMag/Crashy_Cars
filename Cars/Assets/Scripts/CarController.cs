@@ -18,7 +18,6 @@ public class CarController : MonoBehaviour
         rigidBdy = GetComponent<Rigidbody>();
 
         rigidBdy.maxAngularVelocity = 1000000;
-
     }
 
     private void Update()

@@ -19,7 +19,7 @@ public class PointsManager : MonoBehaviour
 
         UpdateIndicator();
 
-        if (points >= pointsNeeded)
+        if (points >= pointsNeeded && LevelManager.instance)
             LevelManager.instance.LevelCompleted();
     }
 
