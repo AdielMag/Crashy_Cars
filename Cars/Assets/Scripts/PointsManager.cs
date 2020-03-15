@@ -12,6 +12,16 @@ public class PointsManager : MonoBehaviour
 
     [Space]
     public Slider slider;
+    public Transform dollar;
+
+    bool isBot;
+    private void Start()
+    {
+        isBot = GetComponent<CarController>().bBrain;
+
+        if (dollar)
+            dollar.localScale = Vector3.zero;
+    }
 
     public void AddPoints(int amount = 1)
     {
@@ -19,7 +29,7 @@ public class PointsManager : MonoBehaviour
 
         UpdateIndicator();
 
-        if (points >= pointsNeeded && LevelManager.instance)
+        if (!isBot && points >= pointsNeeded && LevelManager.instance)
             LevelManager.instance.LevelCompleted();
     }
 
@@ -27,6 +37,13 @@ public class PointsManager : MonoBehaviour
     {
         float targetValue = (float)points / (float)pointsNeeded;
 
-        slider.DOValue(targetValue, 1.5f);
+        if(slider)
+            slider.DOValue(targetValue, 1.5f);
+        else if(dollar)
+        {
+            dollar.DOScale(1 * targetValue, 2);
+        }
     }
+
+    public void ThrowAllPoints() { }
 }

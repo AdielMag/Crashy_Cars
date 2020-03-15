@@ -10,7 +10,7 @@ public class Car : MonoBehaviour
 
     Transform mesh;
 
-     CarController cCon;
+    CarController cCon;
 
     private void Start()
     {
@@ -19,6 +19,9 @@ public class Car : MonoBehaviour
         cCon = target.GetComponent<CarController>();
 
         targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
+
+        cCon.bBrain = GetComponent<BotBrain>();
+        target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
 
     }
 
@@ -43,7 +46,7 @@ public class Car : MonoBehaviour
         RotationDeltaHandler();
     }
 
-    public Quaternion targetRot;
+    Quaternion targetRot;
     private void TransformRotation(Vector3 direction)
     {
         CheckGrounded();

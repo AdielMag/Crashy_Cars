@@ -19,18 +19,21 @@ public class BotBrain : MonoBehaviour
     float pointsToChase;
 
     [Space]
+    public bool beingChased;
     public Transform chaseTarget;
-
     public Vector2 moveDirection { get; private set; }
 
     Car mCar;
+    PointsManager pointsMan;
     Rigidbody rgdbdy;
     private void Start()
     {
         mCar = GetComponent<Car>();
-        pointsToChase = 
-            Mathf.RoundToInt(mCar.target.GetComponent<PointsManager>().pointsNeeded / 1.75f);
+        pointsMan = mCar.target.GetComponent<PointsManager>();
         rgdbdy = mCar.target.GetComponent<Rigidbody>();
+
+        pointsToChase = 
+            Mathf.RoundToInt(pointsMan.pointsNeeded / 1.75f);
 
         // Set random direction
         moveDirection = RandomDirection(0, 359);
@@ -45,10 +48,9 @@ public class BotBrain : MonoBehaviour
         if (chaseTarget)
         {
             moveDirection = ChaseTargetDirection();
-
             return;
         }
-
+            
         if (edgeHit.transform != null)
         {
             if (!cantChangeEdgeDir)
@@ -96,7 +98,7 @@ public class BotBrain : MonoBehaviour
     {
         chaseTarget = null;
 
-        if (rgdbdy.velocity.magnitude > 5 && carsHit.Length > 0)
+        if (carsHit.Length > 0)
         {
             foreach (Collider car in carsHit)
                 if (car.transform != mCar.target)
@@ -140,7 +142,7 @@ public class BotBrain : MonoBehaviour
             transform.position +
             new Vector3(-Mathf.Cos(max),0, Mathf.Sin(max)).normalized, Color.black, 5);
 
-        return dir;
+        return dir / (pointsMan.points >= pointsToChase ? 1 : 1.4f);
     }
 
     Vector3 currentDir()

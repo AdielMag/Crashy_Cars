@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DG.Tweening;
 
 public class CarController : MonoBehaviour
 {
@@ -14,11 +15,18 @@ public class CarController : MonoBehaviour
     [HideInInspector]
     public Rigidbody rigidBdy;
 
+    PointsManager pointsMan;
+
     private void Start()
     {
         rigidBdy = GetComponent<Rigidbody>();
 
+        pointsMan = GetComponent<PointsManager>();
+
+
         rigidBdy.maxAngularVelocity = 1000000;
+
+        startPos = transform.position;
     }
 
     private void Update()
@@ -37,22 +45,68 @@ public class CarController : MonoBehaviour
 
     [Space]
     public CinemachineVirtualCamera inGameCam;
+    public CinemachineVirtualCamera fallCam;
+
+    Vector3 startPos;
+
     public IEnumerator CarFallOff()
     {
-        // Throw half of your money
+        float duration = 2;
 
-        inGameCam.m_Follow = null;
-        inGameCam.m_LookAt = null;
+        if (!joystick)
+        {
+            yield return new WaitForSeconds(duration);
+            transform.position = startPos;
+        }
+        else
+        {
+            inGameCam.m_Follow = null;
+            inGameCam.m_LookAt = null;
 
-        yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(.4f);
 
-        // UI transition
+            fallCam.enabled = true;
+            inGameCam.enabled = false;
 
-        // Set the position to close to where you fell
-        transform.position = Vector3.zero;
+            // Throw half of your money
 
-        inGameCam.m_Follow = transform;
-        inGameCam.m_LookAt = transform;
+
+            yield return new WaitForSeconds(duration);
+
+            // Set the position to close to where you fell
+            transform.position = startPos;
+
+            fallCam.enabled = false;
+            inGameCam.enabled = true;
+
+            inGameCam.m_Follow = transform;
+            inGameCam.m_LookAt = transform;
+        }
+
+        pointsMan.ThrowAllPoints();
     }
-    
+
+    bool cantHitCars;
+    IEnumerator HitCar()
+    {
+        cantHitCars = true;
+        yield return new WaitForSeconds(1);
+        cantHitCars = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (rigidBdy.velocity.magnitude > 6 &&
+            collision.transform.GetComponent<CarController>()
+            && !cantHitCars)
+        {
+            StartCoroutine(HitCar());
+            collision.transform.GetComponent<CarController>().CarGotHit();
+        }
+    }
+
+    public void CarGotHit()
+    {
+        pointsMan.ThrowAllPoints();
+    }
 }
