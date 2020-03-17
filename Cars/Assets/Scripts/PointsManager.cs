@@ -9,7 +9,7 @@ public class PointsManager : MonoBehaviour
     public int pointsNeeded;
 
     [Space]
-    public Slider slider;
+    public MoneyIndicator moneyIndicator;
     public Transform dollar;
 
     ObjectPooler objPool;
@@ -39,8 +39,8 @@ public class PointsManager : MonoBehaviour
     {
         float targetValue = (float)points / (float)pointsNeeded;
 
-        if(slider)
-            slider.DOValue(targetValue, 1.5f);
+        if(moneyIndicator)
+            moneyIndicator.UpdateUI(targetValue);
         else if(dollar)
         {
             dollar.DOScale(1 * targetValue, 2);
@@ -55,11 +55,11 @@ public class PointsManager : MonoBehaviour
                 objPool.SpawnFromPool("Money Collectable",
                 lastPos, Quaternion.identity).transform;
 
-            float radius = 15;
+            float radius = 10;
             Vector3 throwDir = new Vector3(
                 Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
 
-            Vector3 targetPos = moneyCollectable.position + throwDir;
+            Vector3 targetPos = new Vector3(moneyCollectable.position.x + throwDir.x, 0, moneyCollectable.position.z + throwDir.z);
 
             Sequence mSeq = DOTween.Sequence();
 

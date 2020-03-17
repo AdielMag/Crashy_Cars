@@ -19,21 +19,17 @@ public class Wheel : MonoBehaviour
         origPos = transform.localPosition;
     }
 
-    public bool grouasdned;
     public Vector3 asd;
     private void Update()
     {
         if (grounded())
         {
-            grouasdned = true;
             targetPos = Vector3.up * (-hit.distance + 1.1f);
 
             targetPos.y = Mathf.Clamp(targetPos.y, -.175f, 0);
         }
         else
         {
-            grouasdned = false;
-
             targetPos = Vector3.zero - Vector3.up * .1f;
         }
 
