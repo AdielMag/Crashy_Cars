@@ -16,13 +16,13 @@ public class CarController : MonoBehaviour
     public Rigidbody rigidBdy;
 
     PointsManager pointsMan;
+    ObjectPooler objPool;
 
     private void Start()
     {
         rigidBdy = GetComponent<Rigidbody>();
-
         pointsMan = GetComponent<PointsManager>();
-
+        objPool = ObjectPooler.instance;
 
         rigidBdy.maxAngularVelocity = 1000000;
 
@@ -105,6 +105,7 @@ public class CarController : MonoBehaviour
 
             if (rigidBdy.velocity.magnitude > 7 && !cantHitCars)
             {
+                objPool.SpawnFromPool("HitVFX", collision.GetContact(0).point+ Vector3.up*1.5f, Quaternion.identity);
                 StartCoroutine(HitCar());
                 collision.transform.GetComponent<CarController>().CarGotHit();
             }
