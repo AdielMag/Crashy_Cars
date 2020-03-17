@@ -15,13 +15,18 @@ public class Car : MonoBehaviour
     private void Start()
     {
         mesh = transform.GetChild(0);
- 
+
+        if (!target)
+            return;
+
         cCon = target.GetComponent<CarController>();
 
         targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
 
         cCon.bBrain = GetComponent<BotBrain>();
-        target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
+
+        if(transform.childCount>1)
+            target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
 
     }
 
@@ -30,7 +35,9 @@ public class Car : MonoBehaviour
         if (target)
             transform.position = target.position;
 
-        // TransformRotation(new Vector3(tMan.input.y, 0, -tMan.input.x));
+        if (!cCon || !cCon.rigidBdy)
+            return;
+
         TransformRotation(
             new Vector3(
                 cCon.rigidBdy.angularVelocity.x,
@@ -130,7 +137,7 @@ public class Car : MonoBehaviour
     public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.5f,groundLayerMask))
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.7f,groundLayerMask))
             isGrounded = true;
         else
             isGrounded = false;

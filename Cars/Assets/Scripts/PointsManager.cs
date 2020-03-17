@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
@@ -14,6 +12,8 @@ public class PointsManager : MonoBehaviour
     public Slider slider;
     public Transform dollar;
 
+    ObjectPooler objPool;
+
     bool isBot;
     private void Start()
     {
@@ -21,6 +21,8 @@ public class PointsManager : MonoBehaviour
 
         if (dollar)
             dollar.localScale = Vector3.zero;
+
+        objPool = ObjectPooler.instance;
     }
 
     public void AddPoints(int amount = 1)
@@ -45,5 +47,28 @@ public class PointsManager : MonoBehaviour
         }
     }
 
-    public void ThrowAllPoints() { }
+    public void ThrowAllPoints(Vector3 lastPos)
+    {
+        for (int i = points; i > 0; i--)
+        {
+            Transform moneyCollectable =
+                objPool.SpawnFromPool("Money Collectable",
+                lastPos, Quaternion.identity).transform;
+
+            float radius = 15;
+            Vector3 throwDir = new Vector3(
+                Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
+
+            Vector3 targetPos = moneyCollectable.position + throwDir;
+
+            Sequence mSeq = DOTween.Sequence();
+
+            float time = 1;
+            mSeq.Append(moneyCollectable.DOJump(targetPos, Random.Range(1, 3f), 1, time));
+        }
+
+        points = 0;
+
+        UpdateIndicator();
+    }
 }

@@ -22,7 +22,7 @@ public class PointsCollectable : MonoBehaviour,IPooledObject
         if (origScale != Vector3.zero)
             transform.localScale = origScale;
 
-        transform.DOPunchScale(Vector3.one, 1f);
+        StartCoroutine(Enable());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +30,18 @@ public class PointsCollectable : MonoBehaviour,IPooledObject
         other.GetComponent<PointsManager>().AddPoints();
 
         StartCoroutine (Disable());
+    }
+
+    IEnumerator Enable()
+    {
+        col.enabled = false;
+
+        transform.DOPunchScale(Vector3.one, 1f);
+
+        yield return new WaitForSeconds(1);
+
+        col.enabled = true;
+
     }
 
     IEnumerator Disable()

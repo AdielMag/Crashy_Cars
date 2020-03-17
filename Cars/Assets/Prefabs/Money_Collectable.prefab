@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7645294391519905884}
   - component: {fileID: 7645294391519905886}
   - component: {fileID: 7645294391519905885}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4772,7 +4772,7 @@ GameObject:
   - component: {fileID: 7645294392835772770}
   - component: {fileID: 7645294392835772780}
   - component: {fileID: 2507243947242882077}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Money_Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4832,7 +4832,7 @@ GameObject:
   - component: {fileID: 7644349544438982517}
   - component: {fileID: 7555681347634214247}
   - component: {fileID: 7556989489786496037}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9651,7 +9651,7 @@ GameObject:
   - component: {fileID: 7644579855457942165}
   - component: {fileID: 7555139307156208979}
   - component: {fileID: 7556095540380428113}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: VerticalGlowWidening
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14461,7 +14461,7 @@ GameObject:
   - component: {fileID: 7640630557428677443}
   - component: {fileID: 7540836770204595331}
   - component: {fileID: 7556368542309319335}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LootRayGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

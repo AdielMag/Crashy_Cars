@@ -35,7 +35,6 @@ public class CarController : MonoBehaviour
             Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
         else if (bBrain)
             Movement(new Vector3(bBrain.moveDirection.y, 0, -bBrain.moveDirection.x));
-
     }
 
     void Movement(Vector3 input)
@@ -51,6 +50,9 @@ public class CarController : MonoBehaviour
 
     public IEnumerator CarFallOff()
     {
+        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
+        pointsMan.ThrowAllPoints(lastPos);
+
         float duration = 2;
 
         if (!joystick)
@@ -82,8 +84,6 @@ public class CarController : MonoBehaviour
             inGameCam.m_Follow = transform;
             inGameCam.m_LookAt = transform;
         }
-
-        pointsMan.ThrowAllPoints();
     }
 
     bool cantHitCars;
@@ -96,17 +96,23 @@ public class CarController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (rigidBdy.velocity.magnitude > 6 &&
-            collision.transform.GetComponent<CarController>()
-            && !cantHitCars)
+        if (collision.transform.GetComponent<CarController>())
         {
-            StartCoroutine(HitCar());
-            collision.transform.GetComponent<CarController>().CarGotHit();
+            if (Physics.Raycast(transform.position, rigidBdy.velocity.normalized, 3))
+                rigidBdy.AddForce(-collision.relativeVelocity / 4, ForceMode.Impulse);
+            else
+                rigidBdy.AddForce(collision.relativeVelocity / 1.5f, ForceMode.Impulse);
+
+            if (rigidBdy.velocity.magnitude > 7 && !cantHitCars)
+            {
+                StartCoroutine(HitCar());
+                collision.transform.GetComponent<CarController>().CarGotHit();
+            }
         }
     }
 
     public void CarGotHit()
     {
-        pointsMan.ThrowAllPoints();
+        pointsMan.ThrowAllPoints(transform.position);
     }
 }

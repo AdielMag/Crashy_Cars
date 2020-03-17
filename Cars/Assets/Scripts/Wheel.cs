@@ -19,18 +19,26 @@ public class Wheel : MonoBehaviour
         origPos = transform.localPosition;
     }
 
+    public bool grouasdned;
+    public Vector3 asd;
     private void Update()
     {
         if (grounded())
         {
-            targetPos = Vector3.up * (-hit.distance + .49f);
+            grouasdned = true;
+            targetPos = Vector3.up * (-hit.distance + 1.1f);
 
-            targetPos.y = Mathf.Clamp(targetPos.y, -.1f, 0);
+            targetPos.y = Mathf.Clamp(targetPos.y, -.175f, 0);
         }
         else
-            targetPos = Vector3.zero;
+        {
+            grouasdned = false;
 
-        actualWheel.localPosition = Vector3.Lerp(actualWheel.localPosition, targetPos, Time.deltaTime * 7);
+            targetPos = Vector3.zero - Vector3.up * .1f;
+        }
+
+        asd = targetPos;
+        actualWheel.localPosition = Vector3.Lerp(actualWheel.localPosition, targetPos, Time.deltaTime * 9);
     }
 
     public void HandleEmission(bool state)
@@ -49,7 +57,7 @@ public class Wheel : MonoBehaviour
     RaycastHit hit;
     bool grounded()
     {
-        if (Physics.Raycast(transform.position+Vector3.up*.3f, -Vector3.up, out hit, .9f))
+        if (Physics.Raycast(transform.position+Vector3.up*.8f, -Vector3.up, out hit, 1.8f))
             return true;
 
         return false;

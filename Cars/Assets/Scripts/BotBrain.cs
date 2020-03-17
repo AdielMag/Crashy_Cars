@@ -98,16 +98,17 @@ public class BotBrain : MonoBehaviour
     {
         chaseTarget = null;
 
-        if (carsHit.Length > 0)
-        {
-            foreach (Collider car in carsHit)
-                if (car.transform != mCar.target)
-                    if (car.GetComponent<PointsManager>().points >= pointsToChase)
-                    {
-                        chaseTarget = car.transform;
-                        return;
-                    }
-        }
+        if (pointsMan.points < pointsToChase)
+            if (carsHit.Length > 0)
+            {
+                foreach (Collider car in carsHit)
+                    if (car.transform != mCar.target)
+                        if (car.GetComponent<PointsManager>().points >= pointsToChase)
+                        {
+                            chaseTarget = car.transform;
+                            return;
+                        }
+            }
 
         if (moneyHit.Length > 0)
             chaseTarget = moneyHit[0].transform;

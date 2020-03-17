@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     {
         instance.transitionAnimatorController.SetBool("On", true);
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.8f);
 
         // Start loading the scene
         AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);
