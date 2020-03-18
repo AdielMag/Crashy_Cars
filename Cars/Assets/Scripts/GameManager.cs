@@ -28,12 +28,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        instance.StartCoroutine
-            (LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
+        if(!currentlyLoading)
+            instance.StartCoroutine
+                (LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
     }
 
+    bool currentlyLoading;
     IEnumerator LoadSceneWithTransition(string name)
     {
+        currentlyLoading = true;
+        yield return new WaitForSeconds(.3f);
+
         instance.transitionAnimatorController.SetBool("On", true);
 
         yield return new WaitForSeconds(.8f);
@@ -50,6 +55,6 @@ public class GameManager : MonoBehaviour
         // Wait a frame so every Awake and Start method is called
         yield return new WaitForEndOfFrame();
 
-
+        currentlyLoading = false;
     }
 }
