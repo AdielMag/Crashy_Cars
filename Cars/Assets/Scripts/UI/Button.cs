@@ -66,7 +66,7 @@ public class Button : MonoBehaviour
         mSeq.Insert(0, transform.DOScale(originalScale * 1.3f, pressTime * .3f));
         mSeq.Insert(pressTime * .3f, transform.DOScale(originalScale, pressTime * .7f));
 
-        yield return mSeq.IsComplete();
+        yield return mSeq.WaitForCompletion ();
         cantPress = false;
     }
 }

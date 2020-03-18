@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8927992186723717409}
   - component: {fileID: 8927992186723717408}
   m_Layer: 8
-  m_Name: Player Con
+  m_Name: Car Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf824b964a2971428805ab106e0fa47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 40
+  movementSpeed: 35
   joystick: {fileID: 0}
   bBrain: {fileID: 0}
   rigidBdy: {fileID: 0}
@@ -65,8 +65,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
-  pointsNeeded: 5
-  slider: {fileID: 0}
+  pointsNeeded: 10
+  moneyIndicator: {fileID: 0}
+  dollar: {fileID: 0}
 --- !u!54 &8927992186723717409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -94,5 +95,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.78
+  m_Radius: 1.15
   m_Center: {x: 0, y: 0, z: 0}

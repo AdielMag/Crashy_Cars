@@ -33,7 +33,8 @@ public class BotBrain : MonoBehaviour
         rgdbdy = mCar.target.GetComponent<Rigidbody>();
 
         pointsToChase = 
-            Mathf.RoundToInt(pointsMan.pointsNeeded / 1.75f);
+            Mathf.RoundToInt(GameObject.FindGameObjectWithTag("Player")
+            .GetComponent<PointsManager>().pointsNeeded / 1.65f);
 
         // Set random direction
         moveDirection = RandomDirection(0, 359);

@@ -51,7 +51,9 @@ public class CarController : MonoBehaviour
     public IEnumerator CarFallOff()
     {
         Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
-        pointsMan.ThrowAllPoints(lastPos);
+
+        if (!LevelManager.instance.completed)
+            pointsMan.ThrowAllPoints(lastPos);
 
         float duration = 2;
 
@@ -115,5 +117,12 @@ public class CarController : MonoBehaviour
     public void CarGotHit()
     {
         pointsMan.ThrowAllPoints(transform.position);
+    }
+
+    public void CarCompletedLevel()
+    {
+        joystick = null;
+
+        pointsMan.moneyIndicator.gameObject.SetActive(false);
     }
 }

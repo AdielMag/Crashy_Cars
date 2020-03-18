@@ -14,9 +14,6 @@ public class LevelManager : MonoBehaviour
             Destroy(instance.gameObject);
 
         instance = this;
-
-        DontDestroyOnLoad(this);
-
     }
     #endregion
 
@@ -40,7 +37,9 @@ public class LevelManager : MonoBehaviour
             SpawnMoneyCol();
     }
 
-    bool completed;
+    public Transform botsParent, winWindow;
+    [HideInInspector]
+    public bool completed;
     public void LevelCompleted()
     {
         if (completed)
@@ -48,6 +47,17 @@ public class LevelManager : MonoBehaviour
 
         completed = true;
         finishTimeline.Play();
+
+        // Disable all other cars.
+        botsParent.position += Vector3.right * 400;
+        botsParent.gameObject.SetActive(false);
+        // Make car move like a bot
+        GameObject.FindGameObjectWithTag("Player")
+            .GetComponent<CarController>().CarCompletedLevel();
+        // Show Win Window
+        winWindow.gameObject.SetActive(true);
+
+        GameManager.instance.currentLevel++;
     }
 
     [HideInInspector]

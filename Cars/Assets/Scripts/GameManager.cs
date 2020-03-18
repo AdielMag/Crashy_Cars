@@ -7,13 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;   
     private void Awake()
     {
-        if (instance && instance != this)
-            Destroy(instance.gameObject);
-
-        instance = this;
+        if (instance != null && instance != this)
+            Destroy(gameObject);
+        else
+            instance = this;
 
         DontDestroyOnLoad(this);
-
     }
 
     public Animator transitionAnimatorController;
@@ -28,12 +27,12 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        if(!currentlyLoading)
+        if(!instance.currentlyLoading)
             instance.StartCoroutine
-                (LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
+                (instance.LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
     }
 
-    bool currentlyLoading;
+    bool currentlyLoading = false;
     IEnumerator LoadSceneWithTransition(string name)
     {
         currentlyLoading = true;
