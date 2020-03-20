@@ -17,7 +17,7 @@ public class PointsManager : MonoBehaviour
     bool isBot;
     private void Start()
     {
-        isBot = GetComponent<CarController>().bBrain;
+        isBot = !GetComponent<CarController>().joystick;
 
         if (dollar)
             dollar.localScale = Vector3.zero;
@@ -32,7 +32,9 @@ public class PointsManager : MonoBehaviour
         UpdateIndicator();
 
         if (!isBot && points >= pointsNeeded && LevelManager.instance)
+        {
             LevelManager.instance.LevelCompleted();
+        }
     }
 
     private void UpdateIndicator()

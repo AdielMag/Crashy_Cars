@@ -121,7 +121,11 @@ public class CarController : MonoBehaviour
 
     public void CarCompletedLevel()
     {
+        Debug.Log(joystick + ", Joystick");
+
         joystick = null;
+
+        Debug.Log(pointsMan.moneyIndicator + ", pointsMan.moneyIndicator");
 
         pointsMan.moneyIndicator.gameObject.SetActive(false);
     }

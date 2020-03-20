@@ -42,20 +42,37 @@ public class LevelManager : MonoBehaviour
     public bool completed;
     public void LevelCompleted()
     {
+        Debug.Log("Completed");
         if (completed)
             return;
 
+        Debug.Log("Completed2");
+
         completed = true;
+
+        Debug.Log(finishTimeline+",Completed");
+
         finishTimeline.Play();
 
+
         // Disable all other cars.
+        Debug.Log(botsParent + ",Completed");
+
         botsParent.position += Vector3.right * 400;
         botsParent.gameObject.SetActive(false);
         // Make car move like a bot
+        Debug.Log("car completed level");
+
         GameObject.FindGameObjectWithTag("Player")
             .GetComponent<CarController>().CarCompletedLevel();
+        Debug.Log("car completed level2");
+
         // Show Win Window
+        Debug.Log(winWindow+", Win window");
+
         winWindow.gameObject.SetActive(true);
+
+        Debug.Log(GameManager.instance + ", GameManager");
 
         GameManager.instance.currentLevel++;
     }
