@@ -5,6 +5,7 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
     public Transform target;
+    public float yOffset;
 
     public Wheel[] wheels;
 
@@ -33,7 +34,7 @@ public class Car : MonoBehaviour
     private void Update()
     {
         if (target)
-            transform.position = target.position;
+            transform.position = target.position + Vector3.up * yOffset;
 
         if (!cCon || !cCon.rigidBdy)
             return;
@@ -137,7 +138,7 @@ public class Car : MonoBehaviour
     public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.7f,groundLayerMask))
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.9f,groundLayerMask))
             isGrounded = true;
         else
             isGrounded = false;
