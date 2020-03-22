@@ -6,7 +6,7 @@ public class ShopManager : MonoBehaviour
 {
     public Transform carIndicator;
 
-    int currentCarNum;
+    int currentCarNum=1;
 
     int carPrice = 200;
     
