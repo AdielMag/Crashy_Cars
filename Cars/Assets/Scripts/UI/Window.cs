@@ -26,12 +26,11 @@ public class Window : MonoBehaviour
         Show();
     }
 
+    Sequence mSeq;
     void Show()
     {
+        mSeq = DOTween.Sequence();
         transform.localScale = Vector3.zero;
-
-
-        Sequence mSeq = DOTween.Sequence();
 
         mSeq.Append(transform.DOScale(originalScale * scaleShowPunch, showTime * .4f));
         mSeq.Append(transform.DOScale(originalScale, showTime * .6f));
@@ -44,7 +43,7 @@ public class Window : MonoBehaviour
 
     IEnumerator HideCoroutine()
     {
-        Sequence mSeq = DOTween.Sequence();
+        mSeq = DOTween.Sequence();
 
         mSeq.Append(transform.DOScale(originalScale * scaleShowPunch, showTime * .4f));
         mSeq.Append(transform.DOScale(Vector3.zero, showTime * .6f));
@@ -52,5 +51,11 @@ public class Window : MonoBehaviour
         yield return mSeq.WaitForCompletion();
 
         gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        mSeq.Kill();
+        StopAllCoroutines();
     }
 }
