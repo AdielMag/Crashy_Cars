@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7bd6916686d83654a83e62302decb156
+guid: 4f3133705f48e5f4886de2fd08be249e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1958676783162264248
-    second: PlayButton_0
+      213: -7491821541795427111
+    second: Equip_0
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -109,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayButton_0
+      name: Equip_0
       rect:
         serializedVersion: 2
-        x: 131
-        y: 140
-        width: 369
-        height: 224
+        x: 86
+        y: 127
+        width: 462
+        height: 243
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,8 +123,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08d7555862484aa4c81007ab682d475b
-      internalID: -1958676783162264248
+      spriteID: 6f1f916f2f2d52844b07f889eeae9e7d
+      internalID: -7491821541795427111
       vertices: []
       indices: 
       edges: []
@@ -132,7 +132,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 208a1ea7e92669549b4c681702b5fb29
+    spriteID: 19975a571d25ad24a92027e986a6d052
     internalID: 0
     vertices: []
     indices: 

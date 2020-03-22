@@ -4,9 +4,11 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class Button : MonoBehaviour
+[RequireComponent(typeof (Button))]
+public class MButton : MonoBehaviour
 {
     public Color pressColor = Color.white;
+    public float showScale = 1.2f;
     public float pressScale = 1.1f;
 
     [Header("Times")]
@@ -21,9 +23,16 @@ public class Button : MonoBehaviour
 
     private void Awake()
     {
+        originalScale = transform.localScale;
+
+        Button m_Button = GetComponent<Button>();
+        m_Button.onClick.AddListener(Press);
+
+        if (!GetComponent<Image>())
+            return;
+
         image = GetComponent<Image>();
 
-        originalScale = transform.localScale;
         originalColor = image.color;
         transparentColor = originalColor;
         transparentColor.a = 0;
@@ -38,12 +47,16 @@ public class Button : MonoBehaviour
     {
         transform.localScale = Vector3.zero;
 
-        image.color = transparentColor;
-
         Sequence mSeq = DOTween.Sequence();
-        mSeq.Append(image.DOColor(originalColor, showTime*.2f));
 
-        mSeq.Append(transform.DOScale(originalScale * 1.2f, showTime*.4f));
+        if (image)
+        {
+            image.color = transparentColor;
+
+            mSeq.Append(image.DOColor(originalColor, showTime * .2f));
+        }
+
+        mSeq.Append(transform.DOScale(originalScale * showScale, showTime*.4f));
         mSeq.Append(transform.DOScale(originalScale, showTime * .6f));
 
     }
@@ -60,10 +73,13 @@ public class Button : MonoBehaviour
         cantPress = true;
 
         Sequence mSeq = DOTween.Sequence();
-        mSeq.Append(image.DOColor(pressColor, pressTime * .33f));
-        mSeq.Append(image.DOColor(originalColor, pressTime * .77f));
+        if (image)
+        {
+            mSeq.Append(image.DOColor(pressColor, pressTime * .33f));
+            mSeq.Append(image.DOColor(originalColor, pressTime * .77f));
+        }
 
-        mSeq.Insert(0, transform.DOScale(originalScale * 1.3f, pressTime * .3f));
+        mSeq.Insert(0, transform.DOScale(originalScale * pressScale, pressTime * .3f));
         mSeq.Insert(pressTime * .3f, transform.DOScale(originalScale, pressTime * .7f));
 
         yield return mSeq.WaitForCompletion ();
