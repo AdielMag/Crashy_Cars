@@ -50,10 +50,10 @@ public class CarController : MonoBehaviour
 
     public IEnumerator CarFallOff()
     {
-        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
+        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.25f;
 
         if (!LevelManager.instance.completed)
-            pointsMan.ThrowAllPoints(lastPos);
+            pointsMan.ThrowPoints(1,lastPos);
 
         float duration = 2;
 
@@ -116,7 +116,7 @@ public class CarController : MonoBehaviour
 
     public void CarGotHit()
     {
-        pointsMan.ThrowAllPoints(transform.position);
+        pointsMan.ThrowPoints(.5f,transform.position);
     }
 
     public void CarCompletedLevel()

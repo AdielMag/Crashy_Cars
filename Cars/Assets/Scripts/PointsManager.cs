@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.AI;
+
 
 
 public class PointsManager : MonoBehaviour
@@ -49,19 +51,16 @@ public class PointsManager : MonoBehaviour
         }
     }
 
-    public void ThrowAllPoints(Vector3 lastPos)
+    public void ThrowPoints(float amount,Vector3 lastPos)
     {
         for (int i = points; i > 0; i--)
         {
             Transform moneyCollectable =
                 objPool.SpawnFromPool("Money Collectable",
-                lastPos, Quaternion.identity).transform;
+                transform.position, Quaternion.identity).transform;
 
-            float radius = 10;
-            Vector3 throwDir = new Vector3(
-                Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
 
-            Vector3 targetPos = new Vector3(moneyCollectable.position.x + throwDir.x, 0, moneyCollectable.position.z + throwDir.z);
+            Vector3 targetPos = RandomNavmeshLocation(lastPos);
 
             Sequence mSeq = DOTween.Sequence();
 
@@ -72,5 +71,19 @@ public class PointsManager : MonoBehaviour
         points = 0;
 
         UpdateIndicator();
+    }
+
+    float radius = 10;
+    public Vector3 RandomNavmeshLocation(Vector3 castPos)
+    {
+        Vector3 randomDirection = Random.insideUnitSphere * radius;
+        randomDirection += castPos;
+        NavMeshHit hit;
+        Vector3 finalPosition = Vector3.zero;
+        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
+        {
+            finalPosition = hit.position;
+        }
+        return finalPosition;
     }
 }
