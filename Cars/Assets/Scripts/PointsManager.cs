@@ -53,7 +53,7 @@ public class PointsManager : MonoBehaviour
 
     public void ThrowPoints(float amount,Vector3 lastPos)
     {
-        for (int i = points; i > 0; i--)
+        for (int i = Mathf.RoundToInt(points * amount); i > 0; i--)
         {
             Transform moneyCollectable =
                 objPool.SpawnFromPool("Money Collectable",
@@ -68,7 +68,7 @@ public class PointsManager : MonoBehaviour
             mSeq.Append(moneyCollectable.DOJump(targetPos, Random.Range(1, 3f), 1, time));
         }
 
-        points = 0;
+        points -= Mathf.RoundToInt(points * amount);
 
         UpdateIndicator();
     }

@@ -7,6 +7,8 @@ public class ShopManager : MonoBehaviour
     public Transform carIndicator;
     public Transform buyEquipIndicator;
 
+    public CoinsIndicator coinsIndicator;
+
     int currentCarNum =1;
 
     int carPrice = 200;
@@ -76,7 +78,16 @@ public class ShopManager : MonoBehaviour
         if (BoughtCar(currentCarNum))
             EquipCar();
         else
+        {
+            if (coinsIndicator.coins < carPrice)
+            {
+                coinsIndicator.GetComponent<MButton>().Press();
+                return;
+            }
+            coinsIndicator.coins -= carPrice;
+
             BuyCar();
+        }
     }
 
     void BuyCar()

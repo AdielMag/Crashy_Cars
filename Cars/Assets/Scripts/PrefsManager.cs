@@ -10,7 +10,7 @@ public class PrefsManager : MonoBehaviour
         instance = this;
     }
 
-    public enum Pref { Sound, Vibration , FirstTime, CurrentCar}
+    public enum Pref { Sound, Vibration , FirstTime, CurrentCar,Coins}
 
     public void ChangePref(Pref type, bool state = true, int num = 0)
     {
@@ -20,6 +20,8 @@ public class PrefsManager : MonoBehaviour
             PlayerPrefs.SetInt("FirstTime", state ? 0 : 1);
         else if (type == Pref.CurrentCar)
             PlayerPrefs.SetInt("CurrentCar", num);
+        else if (type == Pref.Coins)
+            PlayerPrefs.SetInt("Coins", num);
     }
 
     public bool GetPref(Pref type)
@@ -40,7 +42,12 @@ public class PrefsManager : MonoBehaviour
         int target;
 
         if (type == Pref.CurrentCar)
+        {
             target = PlayerPrefs.GetInt("CurrentCar");
+            target = target < 1 ? 1 : target;
+        }
+        else if (type == Pref.Coins)
+            target = PlayerPrefs.GetInt("Coins");
         else
             target = 0;
 

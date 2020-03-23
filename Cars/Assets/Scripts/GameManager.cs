@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadSceneWithTransition(string name)
     {
         currentlyLoading = true;
-        yield return new WaitForSeconds(.3f);
+        yield return new WaitForSeconds(.1f);
 
         instance.transitionAnimatorController.SetBool("On", true);
 
