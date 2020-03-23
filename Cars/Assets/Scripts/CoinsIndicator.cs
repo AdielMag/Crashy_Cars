@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class CoinsIndicator : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class CoinsIndicator : MonoBehaviour
 
     public TextMeshProUGUI numbers;
 
-    private void Start()
+    private void Awake()
     {
         prefMan = PrefsManager.instance;
 
@@ -25,9 +26,18 @@ public class CoinsIndicator : MonoBehaviour
         }
         else
             coins = prefMan.GetNumPref(PrefsManager.Pref.Coins);
+    }
 
+
+    private void Update()
+    {
         numbers.text = coins.ToString();
     }
 
-   
+    public void AddCoins(int amount)
+    {
+        prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins + amount);
+
+        DOTween.To(() => coins, x => coins = x, coins + amount, 7);
+    }
 }

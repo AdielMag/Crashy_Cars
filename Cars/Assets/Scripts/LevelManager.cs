@@ -17,6 +17,9 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
+    public int rewardCoins = 25;
+
+    [Space]
     public PlayableDirector finishTimeline;
 
     float lastTimeSpawnedMoney, moneySpawnWaitTime = 3;
@@ -38,6 +41,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public Transform botsParent, winWindow;
+    public CoinsIndicator coinIndic;
     [HideInInspector]
     public bool completed;
     public void LevelCompleted()
@@ -64,6 +68,9 @@ public class LevelManager : MonoBehaviour
         winWindow.gameObject.SetActive(true);
 
         GameManager.instance.currentLevel++;
+
+        // Add coins reward
+        coinIndic.AddCoins(rewardCoins);
     }
 
     [HideInInspector]

@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 4e52615396dd22b44a7000d5ea88dde4
+guid: 67069694f8341b3458d00a0dd2120aa6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5817172033013975044
-    second: NextLevel 1_0
-  - first:
-      213: 3586605864353234983
-    second: NextLevel 1_1
+      213: 3827136672426700466
+    second: Reward_0
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -112,22 +109,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NextLevel 1_0
+      name: Reward_0
       rect:
         serializedVersion: 2
-        x: 28
+        x: 192
         y: 120
-        width: 977
-        height: 251
+        width: 688
+        height: 248
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3df36a3b659163f438d414383229e5a7
-      internalID: 5817172033013975044
+      spriteID: 6592c3ddf79a4a14588123ba33ffa2a4
+      internalID: 3827136672426700466
       vertices: []
       indices: 
       edges: []
@@ -135,7 +132,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5f79cb145c89d214db25266db600f78a
+    spriteID: 6f3e5d60cc84038469d9f425af4818ea
     internalID: 0
     vertices: []
     indices: 
