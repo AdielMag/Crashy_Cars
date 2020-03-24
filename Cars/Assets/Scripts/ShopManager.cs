@@ -84,21 +84,21 @@ public class ShopManager : MonoBehaviour
                 coinsIndicator.GetComponent<MButton>().Press();
                 return;
             }
-            coinsIndicator.coins -= carPrice;
-
             BuyCar();
         }
+
+        CheckAndShowCarStatus(currentCarNum);
     }
 
     void BuyCar()
     {
         PlayerPrefs.SetInt("Car" + currentCarNum.ToString(), 1);
+
+        coinsIndicator.ChangeCoins(-carPrice);
     }
     void EquipCar()
     {
         PrefsManager.instance.ChangePref(PrefsManager.Pref.CurrentCar, true, currentCarNum);
-
-        CheckAndShowCarStatus(currentCarNum);
     }
 }
 

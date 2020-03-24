@@ -144,7 +144,11 @@ public class ObjectPooler : MonoBehaviour
         return objectToSpawn;
     }
 
-    public void HidePools()
+    public void HideCollectables()
     {
+        foreach(GameObject obj in poolDictionary["Money Collectable"])
+        {
+            obj.SetActive(false);
+        }       
     }
 }

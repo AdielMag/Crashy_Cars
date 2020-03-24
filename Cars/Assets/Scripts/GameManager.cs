@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string name)
     {
+        ObjectPooler.instance.HideCollectables();
+
         instance.StartCoroutine(LoadSceneWithTransition(name));
     }
 
@@ -27,9 +29,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        if(!instance.currentlyLoading)
+        if (!instance.currentlyLoading)
+        {
+            ObjectPooler.instance.HideCollectables();
+
             instance.StartCoroutine
                 (instance.LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
+        }
     }
 
     bool currentlyLoading = false;

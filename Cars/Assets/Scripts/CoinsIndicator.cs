@@ -34,7 +34,7 @@ public class CoinsIndicator : MonoBehaviour
         numbers.text = coins.ToString();
     }
 
-    public void AddCoins(int amount)
+    public void ChangeCoins(int amount)
     {
         prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins + amount);
 

@@ -70,7 +70,7 @@ public class LevelManager : MonoBehaviour
         GameManager.instance.currentLevel++;
 
         // Add coins reward
-        coinIndic.AddCoins(rewardCoins);
+        coinIndic.ChangeCoins(rewardCoins);
     }
 
     [HideInInspector]
