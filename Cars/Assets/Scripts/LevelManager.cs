@@ -96,28 +96,4 @@ public class LevelManager : MonoBehaviour
         }
         return finalPosition;
     }
-
-    IEnumerator LevelCompletedVibration()
-    {
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-    }
 }

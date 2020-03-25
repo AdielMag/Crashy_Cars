@@ -48,7 +48,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -1.25, y: 31.269958}
+  m_AnchoredPosition: {x: -1.25, y: 31.27002}
   m_SizeDelta: {x: 956.45, y: 1320.55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7211249757188816869
@@ -768,7 +768,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 11.100006, y: 0}
+  m_AnchoredPosition: {x: 2, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!198 &7211249757519097021
@@ -1657,7 +1657,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 5
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6501,7 +6501,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 1
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fe8c674a4d883c04ca875a225f069fcb, type: 2}
   m_sharedMaterial: {fileID: 703117323941612727, guid: fe8c674a4d883c04ca875a225f069fcb,
@@ -7708,8 +7708,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -10998,7 +10998,7 @@ PrefabInstance:
     - target: {fileID: 4459558978973607721, guid: aff8d8f2abb6ace489c28c4fc75f5ede,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -121.69995
+      value: -121.69971
       objectReference: {fileID: 0}
     - target: {fileID: 4459558978973607721, guid: aff8d8f2abb6ace489c28c4fc75f5ede,
         type: 3}

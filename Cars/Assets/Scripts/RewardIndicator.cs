@@ -24,6 +24,8 @@ public class RewardIndicator : MonoBehaviour
     Sequence mSeq;
     IEnumerator FillSlider()
     {
+        InvokeRepeating("Vibration.VibratePop()", 0, .2f);
+
         pSystem.Play();
         mSeq = DOTween.Sequence();
 
@@ -44,14 +46,15 @@ public class RewardIndicator : MonoBehaviour
 
         yield return mSeq.WaitForCompletion();
 
-
-
         pSystem.Stop();
+        CancelInvoke();   
     }
 
     private void OnDisable()
     {
         mSeq.Kill();
         StopAllCoroutines();
+        CancelInvoke();
     }
+
 }

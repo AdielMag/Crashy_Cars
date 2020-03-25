@@ -12,6 +12,7 @@ public class Car : MonoBehaviour
     Transform mesh;
 
     CarController cCon;
+    bool isBot;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class Car : MonoBehaviour
             return;
 
         cCon = target.GetComponent<CarController>();
+        isBot = !cCon.joystick;
 
         targetRot = Quaternion.LookRotation(Vector3.up, Vector3.up);
 
@@ -99,23 +101,35 @@ public class Car : MonoBehaviour
             return;
 
         // Skid marks
-        if (currentSwivel.x > 94 || currentSwivel.x < 86)
+        if (currentSwivel.x > 93 || currentSwivel.x < 85)
         {
+            HandleDriftVibrations(true);
+
             foreach (Wheel wheel in wheels)
                 wheel.HandleEmission(true);
-
-            if (!keepVibrate)
-            {
-                keepVibrate = true;
-                StartCoroutine(DriftVibrate());
-            }
         }
         else
+        {
+            HandleDriftVibrations(false);
+
             foreach (Wheel wheel in wheels)
-            {
-                keepVibrate = false;
                 wheel.HandleEmission(false);
-            }
+        }
+    }
+
+    
+    float lastTimeVibrated;
+    void HandleDriftVibrations(bool state)
+    {
+        if (isBot)
+            return;
+
+        if (Time.time > lastTimeVibrated + .03f)
+        {
+            lastTimeVibrated = Time.time;
+            Vibration.VibratePop();
+        }
+        
     }
 
     void WheelsRotation(Vector3 direction)
@@ -153,14 +167,5 @@ public class Car : MonoBehaviour
             isGrounded = true;
         else
             isGrounded = false;
-    }
-
-    bool keepVibrate = false;
-    IEnumerator DriftVibrate()
-    {
-        Vibration.VibratePop();
-        yield return new WaitForSeconds(.02f);
-        if(keepVibrate)
-            StartCoroutine(DriftVibrate());
     }
 }
