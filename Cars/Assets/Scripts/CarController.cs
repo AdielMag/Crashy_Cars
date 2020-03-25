@@ -91,6 +91,15 @@ public class CarController : MonoBehaviour
     bool cantHitCars;
     IEnumerator HitCar()
     {
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+
+
         cantHitCars = true;
         yield return new WaitForSeconds(1);
         cantHitCars = false;

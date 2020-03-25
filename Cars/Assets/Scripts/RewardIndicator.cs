@@ -24,7 +24,7 @@ public class RewardIndicator : MonoBehaviour
     Sequence mSeq;
     IEnumerator FillSlider()
     {
-        InvokeRepeating("Vibration.VibratePop()", 0, .2f);
+        InvokeRepeating("Vibrate", 0, .05f);
 
         pSystem.Play();
         mSeq = DOTween.Sequence();
@@ -57,4 +57,8 @@ public class RewardIndicator : MonoBehaviour
         CancelInvoke();
     }
 
+    void Vibrate()
+    {
+        Vibration.VibratePop();
+    }
 }

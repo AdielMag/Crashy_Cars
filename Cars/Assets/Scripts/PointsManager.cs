@@ -29,15 +29,21 @@ public class PointsManager : MonoBehaviour
 
     public void AddPoints(int amount = 1)
     {
-        Vibration.VibratePeek();
-
         points += amount;
 
         UpdateIndicator();
 
-        if (!isBot && points >= pointsNeeded && LevelManager.instance)
+        if (!isBot)
         {
-            LevelManager.instance.LevelCompleted();
+            Vibration.VibratePeek();
+            Vibration.VibratePeek();
+            Vibration.VibratePeek();
+
+
+            if (points >= pointsNeeded && LevelManager.instance)
+            {
+                LevelManager.instance.LevelCompleted();
+            }
         }
     }
 

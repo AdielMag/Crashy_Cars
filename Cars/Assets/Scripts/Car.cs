@@ -48,12 +48,12 @@ public class Car : MonoBehaviour
                 cCon.rigidBdy.angularVelocity.z));
 
         CarSwivel();
-        HandleSkidMarks();
     }
 
     private void FixedUpdate()
     {
         RotationDeltaHandler();
+        HandleSkidMarks();
     }
 
     Quaternion targetRot;
@@ -101,30 +101,24 @@ public class Car : MonoBehaviour
             return;
 
         // Skid marks
-        if (currentSwivel.x > 93 || currentSwivel.x < 85)
-        {
-            HandleDriftVibrations(true);
-
+        if (currentSwivel.x > 93 || currentSwivel.x < 87)
             foreach (Wheel wheel in wheels)
                 wheel.HandleEmission(true);
-        }
         else
-        {
-            HandleDriftVibrations(false);
-
             foreach (Wheel wheel in wheels)
                 wheel.HandleEmission(false);
-        }
+
+        HandleDriftVibrations(currentSwivel.x > 96 || currentSwivel.x < 84);
     }
 
-    
+    public GameObject indic;
     float lastTimeVibrated;
     void HandleDriftVibrations(bool state)
     {
-        if (isBot)
+        if (isBot||!state||!isGrounded)
             return;
 
-        if (Time.time > lastTimeVibrated + .03f)
+        if (Time.time > lastTimeVibrated + .1f)
         {
             lastTimeVibrated = Time.time;
             Vibration.VibratePop();
