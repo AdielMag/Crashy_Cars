@@ -19,7 +19,7 @@ public class CoinsIndicator : MonoBehaviour
         // Get the coins amount from prefs
         if (prefMan.GetPref(PrefsManager.Pref.FirstTime))
         {
-            coins = 50;
+            coins = 200;
             prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins);
 
             prefMan.ChangePref(PrefsManager.Pref.FirstTime, false);

@@ -97,10 +97,27 @@ public class LevelManager : MonoBehaviour
         return finalPosition;
     }
 
-    /*
-    private void OnDrawGizmos()
+    IEnumerator LevelCompletedVibration()
     {
-        Gizmos.DrawWireSphere(transform.position,radius);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
     }
-    */
 }

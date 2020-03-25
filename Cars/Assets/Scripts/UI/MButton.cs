@@ -65,6 +65,8 @@ public class MButton : MonoBehaviour
     bool cantPress;
     public void Press()
     {
+        Vibration.VibratePop();
+
         if (!cantPress)
             StartCoroutine(PressCoroutine());
     }

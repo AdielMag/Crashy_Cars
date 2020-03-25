@@ -64,6 +64,18 @@ public class BotBrain : MonoBehaviour
             }
         }
 
+        else if(obstacleHit.transform != null)
+        {
+            if (!cantChangeEdgeDir)
+            {
+                Vector3 dir = (edgeHit.point - Vector3.zero);
+
+                float angle = Vector3.SignedAngle(Vector3.right, -dir, Vector3.up);
+
+                StartCoroutine(EdgeChangeDir(angle - 45, angle - 145));
+            }
+        }
+
         else if (!cantChangeSwivelDir && !cantChangeEdgeDir)
         {
             float angle = Vector3.SignedAngle(Vector3.right, -transform.right, Vector3.up);
@@ -87,7 +99,7 @@ public class BotBrain : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.right * rgdbdy.velocity.magnitude);
 
         Physics.Raycast(forwardRay, out edgeHit, edgeRayLength, edgeLm);
-        Physics.Raycast(forwardRay, out obstacleHit, edgeRayLength, obstacleLM);
+        Physics.Raycast(forwardRay.origin+ Vector3.up*.1f,forwardRay.direction, out obstacleHit, edgeRayLength, obstacleLM);
 
         carsHit = Physics.OverlapSphere(transform.position, carsRadius, carsLM);
         moneyHit = Physics.OverlapSphere(transform.position, moneyRadius, moneyLM);

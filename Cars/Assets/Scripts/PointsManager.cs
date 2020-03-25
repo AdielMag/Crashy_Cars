@@ -29,6 +29,8 @@ public class PointsManager : MonoBehaviour
 
     public void AddPoints(int amount = 1)
     {
+        Vibration.VibratePeek();
+
         points += amount;
 
         UpdateIndicator();
@@ -53,7 +55,9 @@ public class PointsManager : MonoBehaviour
 
     public void ThrowPoints(float amount,Vector3 lastPos)
     {
-        for (int i = Mathf.RoundToInt(points * amount); i > 0; i--)
+        int throwAmount = isBot ? points : Mathf.RoundToInt(points * amount);
+
+        for (int i = throwAmount; i > 0; i--)
         {
             Transform moneyCollectable =
                 objPool.SpawnFromPool("Money Collectable",
@@ -68,7 +72,7 @@ public class PointsManager : MonoBehaviour
             mSeq.Append(moneyCollectable.DOJump(targetPos, Random.Range(1, 3f), 1, time));
         }
 
-        points -= Mathf.RoundToInt(points * amount);
+        points -= throwAmount;
 
         UpdateIndicator();
     }

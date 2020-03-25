@@ -95,16 +95,27 @@ public class Car : MonoBehaviour
 
     void HandleSkidMarks()
     {
-        if (cCon.rigidBdy.velocity.magnitude < 7)
+        if (cCon.rigidBdy.velocity.magnitude < 5)
             return;
 
         // Skid marks
         if (currentSwivel.x > 94 || currentSwivel.x < 86)
+        {
             foreach (Wheel wheel in wheels)
                 wheel.HandleEmission(true);
+
+            if (!keepVibrate)
+            {
+                keepVibrate = true;
+                StartCoroutine(DriftVibrate());
+            }
+        }
         else
             foreach (Wheel wheel in wheels)
+            {
+                keepVibrate = false;
                 wheel.HandleEmission(false);
+            }
     }
 
     void WheelsRotation(Vector3 direction)
@@ -142,5 +153,14 @@ public class Car : MonoBehaviour
             isGrounded = true;
         else
             isGrounded = false;
+    }
+
+    bool keepVibrate = false;
+    IEnumerator DriftVibrate()
+    {
+        Vibration.VibratePop();
+        yield return new WaitForSeconds(.02f);
+        if(keepVibrate)
+            StartCoroutine(DriftVibrate());
     }
 }
