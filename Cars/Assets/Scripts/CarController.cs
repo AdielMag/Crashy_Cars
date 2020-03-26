@@ -53,7 +53,7 @@ public class CarController : MonoBehaviour
         Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.25f;
 
         if (!LevelManager.instance.completed)
-            pointsMan.ThrowPoints(1,lastPos);
+            pointsMan.ThrowPoints(.65f,lastPos);
 
         float duration = 2;
 

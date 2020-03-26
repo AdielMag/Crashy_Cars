@@ -26,6 +26,8 @@ public class CoinsIndicator : MonoBehaviour
         }
         else
             coins = prefMan.GetNumPref(PrefsManager.Pref.Coins);
+
+        Debug.Log(coins+", "+prefMan.GetNumPref(PrefsManager.Pref.Coins));
     }
 
 
@@ -38,6 +40,6 @@ public class CoinsIndicator : MonoBehaviour
     {
         prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins + amount);
 
-        DOTween.To(() => coins, x => coins = x, coins + amount, 7);
+        DOTween.To(() => coins, x => coins = x, coins + amount, 3);
     }
 }

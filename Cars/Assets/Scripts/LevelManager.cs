@@ -17,26 +17,26 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
-    public int rewardCoins = 25;
+    int rewardCoins = 25;
 
     [Space]
     public PlayableDirector finishTimeline;
 
-    float lastTimeSpawnedMoney, moneySpawnWaitTime = 3;
+    float lastTimeSpawnedMoney, moneySpawnWaitTime = 1.5f;
 
     ObjectPooler objPool;
     private void Start()
     {
         objPool = ObjectPooler.instance;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
             SpawnMoneyCol();
 
     }
 
     private void Update()
     {
-        if (Time.time > lastTimeSpawnedMoney + moneySpawnWaitTime && moneyColCount < 10)
+        if (Time.time > lastTimeSpawnedMoney + moneySpawnWaitTime && moneyColCount < 25)
             SpawnMoneyCol();
     }
 
