@@ -17,8 +17,6 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
-    int rewardCoins = 25;
-
     [Space]
     public PlayableDirector finishTimeline;
 
@@ -57,20 +55,18 @@ public class LevelManager : MonoBehaviour
 
 
         // Disable all other cars.
-        botsParent.position += Vector3.right * 400;
+        botsParent.position += Vector3.right * 400 + Vector3.up * 100;
         botsParent.gameObject.SetActive(false);
 
         // Make car move like a bot
         GameObject.FindGameObjectWithTag("Player")
             .GetComponent<CarController>().CarCompletedLevel();
 
-        // Show Win Window
-        winWindow.gameObject.SetActive(true);
-
         GameManager.instance.currentLevel++;
 
-        // Add coins reward
-        coinIndic.ChangeCoins(rewardCoins);
+        ObjectPooler.instance.HideCollectables();
+
+        enabled = false;
     }
 
     [HideInInspector]

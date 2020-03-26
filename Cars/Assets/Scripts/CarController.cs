@@ -130,11 +130,10 @@ public class CarController : MonoBehaviour
 
     public void CarCompletedLevel()
     {
-        Debug.Log(joystick + ", Joystick");
+        rigidBdy.isKinematic = true;
+        rigidBdy.useGravity = false;
 
-        joystick = null;
-
-        Debug.Log(pointsMan.moneyIndicator + ", pointsMan.moneyIndicator");
+        enabled = false;
 
         pointsMan.moneyIndicator.gameObject.SetActive(false);
     }

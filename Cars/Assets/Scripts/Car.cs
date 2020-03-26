@@ -28,7 +28,7 @@ public class Car : MonoBehaviour
 
         cCon.bBrain = GetComponent<BotBrain>();
 
-        if(transform.childCount>1)
+        if (transform.childCount > 1)
             target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
 
     }
@@ -75,8 +75,8 @@ public class Car : MonoBehaviour
             }
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 7);
-
+        transform.rotation =
+            Quaternion.Lerp(transform.rotation, targetRot, Time.deltaTime * 7);
     }
 
     Vector3 currentSwivel,targetSwivel;
@@ -108,7 +108,7 @@ public class Car : MonoBehaviour
             foreach (Wheel wheel in wheels)
                 wheel.HandleEmission(false);
 
-        HandleDriftVibrations(currentSwivel.x > 96 || currentSwivel.x < 84);
+        HandleDriftVibrations(currentSwivel.x > 95 || currentSwivel.x < 85);
     }
 
     public GameObject indic;
@@ -157,7 +157,7 @@ public class Car : MonoBehaviour
     public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 2f,groundLayerMask))
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.9f,groundLayerMask))
             isGrounded = true;
         else
             isGrounded = false;

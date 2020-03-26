@@ -96,7 +96,7 @@ public class BotBrain : MonoBehaviour
         forwardRay = new Ray(transform.position, transform.right);
 
         edgeRayLength = Mathf.Lerp(0, origEdgeRayLength, rgdbdy.velocity.magnitude);
-        Debug.DrawLine(transform.position, transform.position + transform.right * rgdbdy.velocity.magnitude);
+        //Debug.DrawLine(transform.position, transform.position + transform.right * rgdbdy.velocity.magnitude);
 
         Physics.Raycast(forwardRay, out edgeHit, edgeRayLength, edgeLm);
         Physics.Raycast(forwardRay.origin+ Vector3.up*.1f,forwardRay.direction, out obstacleHit, edgeRayLength, obstacleLM);

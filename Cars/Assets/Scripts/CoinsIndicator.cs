@@ -10,9 +10,11 @@ public class CoinsIndicator : MonoBehaviour
 
     public int coins = 0;
 
+    public int coinsToAdd = 0;
+
     public TextMeshProUGUI numbers;
 
-    private void Awake()
+    private void Start()
     {
         prefMan = PrefsManager.instance;
 
@@ -27,9 +29,10 @@ public class CoinsIndicator : MonoBehaviour
         else
             coins = prefMan.GetNumPref(PrefsManager.Pref.Coins);
 
-        Debug.Log(coins+", "+prefMan.GetNumPref(PrefsManager.Pref.Coins));
-    }
 
+        if (coinsToAdd > 0)
+            ChangeCoins(coinsToAdd);
+    }
 
     private void Update()
     {
@@ -38,6 +41,8 @@ public class CoinsIndicator : MonoBehaviour
 
     public void ChangeCoins(int amount)
     {
+        if (prefMan == null)
+            prefMan = PrefsManager.instance;
         prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins + amount);
 
         DOTween.To(() => coins, x => coins = x, coins + amount, 3);

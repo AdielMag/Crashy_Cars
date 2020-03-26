@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;   
     private void Awake()
     {
+        Application.targetFrameRate = 300;
+
         if (instance != null && instance != this)
             Destroy(gameObject);
         else
@@ -19,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string name)
     {
-        ObjectPooler.instance.HideCollectables();
 
         instance.StartCoroutine(LoadSceneWithTransition(name));
     }
@@ -31,7 +32,6 @@ public class GameManager : MonoBehaviour
     {
         if (!instance.currentlyLoading)
         {
-            ObjectPooler.instance.HideCollectables();
 
             instance.StartCoroutine
                 (instance.LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
