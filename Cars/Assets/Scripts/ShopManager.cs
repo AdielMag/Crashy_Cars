@@ -72,7 +72,7 @@ public class ShopManager : MonoBehaviour
             return false;
 
     }
-
+    
     public void BuyEquipCar()
     {
         if (BoughtCar(currentCarNum))

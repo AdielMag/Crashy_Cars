@@ -157,7 +157,7 @@ public class Car : MonoBehaviour
     public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 1.9f,groundLayerMask))
+        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 3f,groundLayerMask))
             isGrounded = true;
         else
             isGrounded = false;
