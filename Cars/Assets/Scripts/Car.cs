@@ -97,18 +97,25 @@ public class Car : MonoBehaviour
 
     void HandleSkidMarks()
     {
-        if (cCon.rigidBdy.velocity.magnitude < 5)
-            return;
+        bool lowVelocity = cCon.rigidBdy.velocity.magnitude < 8;
 
         // Skid marks
-        if (currentSwivel.x > 93 || currentSwivel.x < 87)
+        if (!lowVelocity && (currentSwivel.x > 93 || currentSwivel.x < 87))
             foreach (Wheel wheel in wheels)
-                wheel.HandleEmission(true);
+                wheel.HandleSkidMarks(true);
         else
             foreach (Wheel wheel in wheels)
-                wheel.HandleEmission(false);
+                wheel.HandleSkidMarks(false);
 
-        HandleDriftVibrations(currentSwivel.x > 95 || currentSwivel.x < 85);
+        // Smoke
+        if (!lowVelocity && (currentSwivel.x > 96f || currentSwivel.x < 84f))
+            foreach (Wheel wheel in wheels)
+                wheel.HandleSmoke(true);
+        else
+            foreach (Wheel wheel in wheels)
+                wheel.HandleSmoke(false);
+
+        HandleDriftVibrations(!lowVelocity && (currentSwivel.x > 95 || currentSwivel.x < 85));
     }
 
     public GameObject indic;
@@ -136,7 +143,6 @@ public class Car : MonoBehaviour
     }
 
     // Data methods
-
     Vector3 lastRotation, currentRotation;
     float rotationDelta;
     void RotationDeltaHandler()

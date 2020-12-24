@@ -5,6 +5,7 @@ using UnityEngine;
 public class Wheel : MonoBehaviour
 {
     TrailRenderer trail;
+    ParticleSystem smokeEmission;
     Vector3 origPos,targetPos;
 
     [HideInInspector]
@@ -15,6 +16,7 @@ public class Wheel : MonoBehaviour
         actualWheel = transform.GetChild(0);
 
         trail = transform.GetChild(1).GetComponentInChildren<TrailRenderer>();
+        smokeEmission = transform.GetChild(2).GetComponent<ParticleSystem>();
 
         origPos = transform.localPosition;
     }
@@ -34,10 +36,11 @@ public class Wheel : MonoBehaviour
         }
 
         asd = targetPos;
-        actualWheel.localPosition = Vector3.Lerp(actualWheel.localPosition, targetPos, Time.deltaTime * 9);
+        actualWheel.localPosition = 
+            Vector3.Lerp(actualWheel.localPosition, targetPos, Time.deltaTime * 9);
     }
 
-    public void HandleEmission(bool state)
+    public void HandleSkidMarks(bool state)
     {
         if (hit.point != null)
         {
@@ -49,7 +52,19 @@ public class Wheel : MonoBehaviour
         else if (trail.emitting)
             trail.emitting = false;
     }
-
+    public void HandleSmoke(bool state)
+    {
+        var emission = smokeEmission.emission;
+        if (hit.point != null)
+        {
+            if (!state && emission.enabled)
+                emission.enabled = false;
+            else if (state && !emission.enabled)
+                emission.enabled = true;
+        }
+        else if (emission.enabled)
+            emission.enabled = false;
+    }
     RaycastHit hit;
     bool grounded()
     {
