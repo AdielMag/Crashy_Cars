@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualWheel: {fileID: 0}
-  grouasdned: 0
   asd: {x: 0, y: 0, z: 0}
 --- !u!1 &3894837223923340717
 GameObject:
@@ -4774,6 +4773,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4786,6 +4786,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -4865,7 +4866,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualWheel: {fileID: 0}
-  grouasdned: 0
   asd: {x: 0, y: 0, z: 0}
 --- !u!114 &8573562778819864336
 MonoBehaviour:
@@ -4880,7 +4880,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualWheel: {fileID: 0}
-  grouasdned: 0
   asd: {x: 0, y: 0, z: 0}
 --- !u!114 &8573562778289950880
 MonoBehaviour:
@@ -4895,7 +4894,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualWheel: {fileID: 0}
-  grouasdned: 0
   asd: {x: 0, y: 0, z: 0}
 --- !u!1 &7032239232778281815
 GameObject:
@@ -9603,6 +9601,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9615,6 +9614,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9696,14 +9696,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  yOffset: 0
   wheels:
   - {fileID: 8573562778819864336}
   - {fileID: 8573562778289950880}
   - {fileID: 8573562779362745318}
   - {fileID: 8573562778438214068}
+  indic: {fileID: 0}
+  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
 --- !u!1001 &8573562778408286325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9759,61 +9762,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 474646314, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 474646314, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
+    - target: {fileID: 148525107, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 148525108, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.075
       objectReference: {fileID: 0}
-    - target: {fileID: 556196485, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 556196485, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2050700418, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 2050700418, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
+    - target: {fileID: 148525109, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 474646313, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 148525107, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_Layer
+    - target: {fileID: 474646314, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 474646314, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 474646315, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_Parameters.alignment
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 556196484, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2050700417, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_Layer
-      value: 0
+    - target: {fileID: 556196485, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.075
       objectReference: {fileID: 0}
-    - target: {fileID: 474646315, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_Parameters.alignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148525109, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
-      propertyPath: m_Parameters.alignment
-      value: 0
+    - target: {fileID: 556196485, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 556196486, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
       propertyPath: m_Parameters.alignment
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050700417, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050700418, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 2050700418, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2050700419, guid: 19c00265a4f7b43489bdceefa77c2092, type: 3}
       propertyPath: m_Parameters.alignment

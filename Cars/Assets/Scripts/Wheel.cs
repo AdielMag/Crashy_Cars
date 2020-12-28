@@ -18,6 +18,8 @@ public class Wheel : MonoBehaviour
         trail = transform.GetChild(1).GetComponentInChildren<TrailRenderer>();
         smokeEmission = transform.GetChild(2).GetComponent<ParticleSystem>();
 
+        var emission = smokeEmission.emission;
+        emission.enabled = false;
         origPos = transform.localPosition;
     }
 

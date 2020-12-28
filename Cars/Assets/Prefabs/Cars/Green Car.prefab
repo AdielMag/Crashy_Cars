@@ -77,14 +77,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  yOffset: 0
   wheels:
   - {fileID: 2519547732294384562}
   - {fileID: 7074115308015431113}
   - {fileID: 2141891293147375184}
   - {fileID: 6825526091191848833}
+  indic: {fileID: 0}
+  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
 --- !u!1 &2230237153425400901
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,6 +4794,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4803,6 +4807,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9597,6 +9602,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9609,6 +9615,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9699,12 +9706,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5807470190173332935, guid: c0b5a1ab38a43044a91864eb9b9fbede,
+    - target: {fileID: 2295701746252655199, guid: c0b5a1ab38a43044a91864eb9b9fbede,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.075
       objectReference: {fileID: 0}
-    - target: {fileID: 5807470190173332935, guid: c0b5a1ab38a43044a91864eb9b9fbede,
+    - target: {fileID: 2295701746252655199, guid: c0b5a1ab38a43044a91864eb9b9fbede,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0
@@ -9729,12 +9736,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 2295701746252655199, guid: c0b5a1ab38a43044a91864eb9b9fbede,
+    - target: {fileID: 5807470190173332935, guid: c0b5a1ab38a43044a91864eb9b9fbede,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.075
       objectReference: {fileID: 0}
-    - target: {fileID: 2295701746252655199, guid: c0b5a1ab38a43044a91864eb9b9fbede,
+    - target: {fileID: 5807470190173332935, guid: c0b5a1ab38a43044a91864eb9b9fbede,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0

@@ -14,7 +14,7 @@ public class Car : MonoBehaviour
     CarController cCon;
     bool isBot;
 
-    private void Start()
+    private void Awake()
     {
         mesh = transform.GetChild(0);
 
@@ -31,6 +31,7 @@ public class Car : MonoBehaviour
         if (transform.childCount > 1)
             target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
 
+        cCon.m_CarFallOff.AddListener(CarFallOff);
     }
 
     private void Update()
@@ -88,7 +89,7 @@ public class Car : MonoBehaviour
         if (!isGrounded)
             targetSwivel.z = cCon.rigidBdy.velocity.y * 4;
         else
-            targetSwivel.z = 0;
+            targetSwivel.z = Quaternion.LookRotation(-hit.normal).eulerAngles.z;
 
         currentSwivel.z = Mathf.Lerp(currentSwivel.z, targetSwivel.z, Time.deltaTime * 7);
 
@@ -159,13 +160,28 @@ public class Car : MonoBehaviour
     }
 
     RaycastHit hit;
-    bool isGrounded;
+    private bool isGrounded;
     public LayerMask groundLayerMask;
     void CheckGrounded()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * .5f, -Vector3.up, out hit, 3f,groundLayerMask))
+        if (Physics.Raycast(
+            transform.position + Vector3.up * 1f,
+            -Vector3.up, out hit, 3f, groundLayerMask))
+        {
             isGrounded = true;
+        }
         else
             isGrounded = false;
+    }
+
+    void CarFallOff()
+    {
+        StartCoroutine(RotateCarAfterFallOFf());
+    }
+
+    IEnumerator RotateCarAfterFallOFf()
+    {
+        yield return new WaitForSeconds(2.4f);
+        currentSwivel = targetSwivel = new Vector3(90 - rotationDelta, 0, 0);
     }
 }

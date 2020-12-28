@@ -21,7 +21,7 @@ public class PointsManager : MonoBehaviour
     {
         isBot = !GetComponent<CarController>().joystick;
 
-        if (dollar)
+        //if (dollar)
             dollar.localScale = Vector3.zero;
 
         objPool = ObjectPooler.instance;
@@ -40,9 +40,9 @@ public class PointsManager : MonoBehaviour
             Vibration.VibratePeek();
 
 
-            if (points >= pointsNeeded && LevelManager.instance)
+            if (points >= pointsNeeded && MoneyModeManager.instance)
             {
-                LevelManager.instance.LevelCompleted();
+                MoneyModeManager.instance.LevelCompleted();
             }
         }
     }

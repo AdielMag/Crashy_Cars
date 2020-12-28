@@ -1,45 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Playables;
 
 public class LevelManager : MonoBehaviour
 {
-    #region Singelton
     public static LevelManager instance;
-    private void Awake()
+    virtual public void Awake()
     {
         if (instance && instance != this)
             Destroy(instance.gameObject);
 
         instance = this;
     }
-    #endregion
 
     [Space]
     public PlayableDirector finishTimeline;
+    public Transform botsParent, winWindow;
 
-    float lastTimeSpawnedMoney, moneySpawnWaitTime = 1.5f;
+    [HideInInspector]
+    public ObjectPooler objPool;
 
-    ObjectPooler objPool;
-    private void Start()
+    virtual public void Start()
     {
         objPool = ObjectPooler.instance;
-
-        for (int i = 0; i < 15; i++)
-            SpawnMoneyCol();
-
     }
 
-    private void Update()
+    virtual public void Update()
     {
-        if (Time.time > lastTimeSpawnedMoney + moneySpawnWaitTime && moneyColCount < 25)
-            SpawnMoneyCol();
     }
 
-    public Transform botsParent, winWindow;
-    public CoinsIndicator coinIndic;
     [HideInInspector]
     public bool completed;
     public void LevelCompleted()
@@ -67,29 +57,5 @@ public class LevelManager : MonoBehaviour
         ObjectPooler.instance.HideCollectables();
 
         enabled = false;
-    }
-
-    [HideInInspector]
-    public int moneyColCount;
-    void SpawnMoneyCol()
-    {
-        objPool.SpawnFromPool("Money Collectable", RandomNavmeshLocation(), Quaternion.identity);
-
-        lastTimeSpawnedMoney = Time.time;
-        moneyColCount++;
-    }
-
-    float radius = 50;
-    public Vector3 RandomNavmeshLocation()
-    {
-        Vector3 randomDirection = Random.insideUnitSphere * radius;
-        randomDirection += transform.position;
-        NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomDirection, out hit, radius, 1))
-        {
-            finalPosition = hit.position;
-        }
-        return finalPosition;
     }
 }

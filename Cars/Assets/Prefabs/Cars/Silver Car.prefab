@@ -46,14 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  yOffset: 0
   wheels:
   - {fileID: 8299091133700806955}
   - {fileID: 4320279561444150666}
   - {fileID: 1284815696667093225}
   - {fileID: 948608886799394792}
+  indic: {fileID: 0}
+  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1025
 --- !u!1 &2640210793851922237
 GameObject:
   m_ObjectHideFlags: 0
@@ -4813,6 +4816,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -4825,6 +4829,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9597,6 +9602,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9609,6 +9615,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -9699,16 +9706,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8221862535696540432, guid: 9f14ffa559e6d214db9b0ec960921311,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.075
-      objectReference: {fileID: 0}
-    - target: {fileID: 8221862535696540432, guid: 9f14ffa559e6d214db9b0ec960921311,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2775527260614073244, guid: 9f14ffa559e6d214db9b0ec960921311,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -9730,6 +9727,16 @@ PrefabInstance:
       value: -0.075
       objectReference: {fileID: 0}
     - target: {fileID: 7749848249418570591, guid: 9f14ffa559e6d214db9b0ec960921311,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221862535696540432, guid: 9f14ffa559e6d214db9b0ec960921311,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.075
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221862535696540432, guid: 9f14ffa559e6d214db9b0ec960921311,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0

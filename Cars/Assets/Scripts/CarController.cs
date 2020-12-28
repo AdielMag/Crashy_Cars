@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.Events;
 using DG.Tweening;
 
 public class CarController : MonoBehaviour
@@ -18,6 +19,11 @@ public class CarController : MonoBehaviour
     PointsManager pointsMan;
     ObjectPooler objPool;
 
+    private void Awake()
+    {
+        m_CarFallOff = new UnityEvent();
+    }
+
     private void Start()
     {
         rigidBdy = GetComponent<Rigidbody>();
@@ -25,12 +31,16 @@ public class CarController : MonoBehaviour
         objPool = ObjectPooler.instance;
 
         rigidBdy.maxAngularVelocity = 1000000;
-
         startPos = transform.position;
+
+        m_CarFallOff.AddListener(StartCarFallOff);
     }
 
     private void Update()
     {
+        if (falling)
+            return;
+
         if (joystick)
             Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
         else if (bBrain)
@@ -48,43 +58,78 @@ public class CarController : MonoBehaviour
 
     Vector3 startPos;
 
+    public UnityEvent m_CarFallOff { get; set; }
+    bool falling;
+    void StartCarFallOff()
+    {
+        StartCoroutine(CarFallOff());
+    }
     public IEnumerator CarFallOff()
     {
-        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.25f;
+        falling = true;
 
-        if (!LevelManager.instance.completed)
-            pointsMan.ThrowPoints(.65f,lastPos);
+        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
 
-        float duration = 2;
-
-        if (!joystick)
+        if (MoneyModeManager.instance) // Money gamem mode
         {
-            yield return new WaitForSeconds(duration);
-            transform.position = startPos;
+            if (!MoneyModeManager.instance.completed)
+                pointsMan.ThrowPoints(.65f, lastPos);
+
+            float duration = 2;
+
+            if (!joystick)
+            {
+                yield return new WaitForSeconds(duration + .4f);
+                transform.position = startPos;
+            }
+            else
+            {
+                inGameCam.m_Follow = null;
+                inGameCam.m_LookAt = null;
+
+                yield return new WaitForSeconds(.4f);
+
+                fallCam.enabled = true;
+                inGameCam.enabled = false;
+
+                yield return new WaitForSeconds(duration);
+
+                // Set the position to close to where you fell
+                transform.position = startPos;
+
+                fallCam.enabled = false;
+                inGameCam.enabled = true;
+
+                inGameCam.m_Follow = transform;
+                inGameCam.m_LookAt = transform;
+            }
+
+            falling = false;
+
+            objPool.SpawnFromPool("RespawnGlow",
+                transform.position - Vector3.up * .25f,
+                Quaternion.LookRotation(Vector3.up));
         }
-        else
+        else if (LastManStandingModeManager.instance)
         {
-            inGameCam.m_Follow = null;
-            inGameCam.m_LookAt = null;
+            if (!joystick)
+            {
+                gameObject.SetActive(false);
 
-            yield return new WaitForSeconds(.4f);
+                // Bot has fallen. Update manager and check if player won
+                LastManStandingModeManager.instance.BotHasFallen();
+            }
+            else
+            {
+                inGameCam.m_Follow = null;
+                inGameCam.m_LookAt = null;
 
-            fallCam.enabled = true;
-            inGameCam.enabled = false;
+                // Player lost! update manager
+                LastManStandingModeManager.instance.PlayerHasFallen();
 
-            // Throw half of your money
-
-
-            yield return new WaitForSeconds(duration);
-
-            // Set the position to close to where you fell
-            transform.position = startPos;
-
-            fallCam.enabled = false;
-            inGameCam.enabled = true;
-
-            inGameCam.m_Follow = transform;
-            inGameCam.m_LookAt = transform;
+                yield return new WaitForSeconds(2);
+                gameObject.SetActive(false);
+            }
         }
     }
 

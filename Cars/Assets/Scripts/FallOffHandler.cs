@@ -8,7 +8,7 @@ public class FallOffHandler : MonoBehaviour
     {
         if (other.GetComponent<CarController>())
         {
-            StartCoroutine(other.GetComponent<CarController>().CarFallOff());
+            other.GetComponent<CarController>().m_CarFallOff.Invoke();
         }
     }
 }

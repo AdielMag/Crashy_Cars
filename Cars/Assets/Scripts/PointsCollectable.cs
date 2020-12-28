@@ -9,7 +9,7 @@ public class PointsCollectable : MonoBehaviour,IPooledObject
 
     Vector3 origScale;
 
-    private void Start()
+    private void Awake()
     {
         origScale = transform.localScale;
     }
@@ -53,8 +53,8 @@ public class PointsCollectable : MonoBehaviour,IPooledObject
 
         yield return new WaitForSeconds(.5f);
 
-        if (LevelManager.instance)
-            LevelManager.instance.moneyColCount--;
+        if (MoneyModeManager.instance != null)
+            MoneyModeManager.instance.moneyColCount--;
 
         gameObject.SetActive(false);
     }

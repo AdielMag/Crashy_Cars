@@ -601,15 +601,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 707976183, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 2232
+      value: 3003
       objectReference: {fileID: 0}
     - target: {fileID: 707976183, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 6331
+      value: 8518
       objectReference: {fileID: 0}
     - target: {fileID: 707976183, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1664
+      value: 1966
       objectReference: {fileID: 0}
     - target: {fileID: 707976183, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -650,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: pools.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: pools.Array.data[0].prefab
@@ -685,6 +685,27 @@ PrefabInstance:
     - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
       propertyPath: pools.Array.data[1].poolObjectChild
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[2].tag
+      value: RespawnGlow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[2].prefab
+      value: 
+      objectReference: {fileID: 3448051399874433753, guid: 1c3068c444c0fff4f8e5249e89785a06,
+        type: 3}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[2].size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[2].poolObjectChild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[2].parent
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3931704033044346254, guid: a633e2b179ec95341973928e238c6ea8,
         type: 3}
