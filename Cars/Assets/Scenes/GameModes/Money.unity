@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7363,7 +7363,6 @@ GameObject:
   m_Component:
   - component: {fileID: 596376261}
   - component: {fileID: 596376260}
-  - component: {fileID: 596376262}
   m_Layer: 0
   m_Name: Level Manager
   m_TagString: Untagged
@@ -7380,14 +7379,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 596376259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07b1d358f46cdd44a8a1573dd48464d9, type: 3}
+  m_Script: {fileID: 11500000, guid: b7510430393be734eb32a7c0cfd18f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   finishTimeline: {fileID: 450594360}
   botsParent: {fileID: 1534611392}
   winWindow: {fileID: 286405951}
-  coinIndic: {fileID: 1620580452}
+  objPool: {fileID: 0}
   completed: 0
+  coinIndic: {fileID: 1620580452}
   moneyColCount: 0
 --- !u!4 &596376261
 Transform:
@@ -7403,25 +7403,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &596376262
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596376259}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &647091036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73765,7 +73746,6 @@ MonoBehaviour:
   - {fileID: 1481268555}
   - {fileID: 1324376806}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -88016,7 +87996,6 @@ MonoBehaviour:
   - {fileID: 6390760242994615275}
   - {fileID: 2925649340803714487}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -97898,7 +97877,6 @@ MonoBehaviour:
   - {fileID: 5135919441648008464}
   - {fileID: 6301526225367286280}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -97988,7 +97966,6 @@ MonoBehaviour:
   - {fileID: 2045618031}
   - {fileID: 1726993888}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -138263,7 +138240,6 @@ MonoBehaviour:
   - {fileID: 383589576}
   - {fileID: 2034520402}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -147811,7 +147787,6 @@ MonoBehaviour:
   - {fileID: 2015650653}
   - {fileID: 131340557}
   indic: {fileID: 0}
-  isGrounded: 0
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1

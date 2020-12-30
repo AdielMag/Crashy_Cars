@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class LevelManager : MonoBehaviour
+public abstract class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     virtual public void Awake()
@@ -25,7 +25,6 @@ public class LevelManager : MonoBehaviour
     {
         objPool = ObjectPooler.instance;
     }
-
     virtual public void Update()
     {
     }
