@@ -224,6 +224,7 @@ public class CarController : MonoBehaviour
 
         if(hit.transform != null)
         {
+            Debug.Log("Ram");
             // Make sure the target will be hitted (slow it down?)
         }
 

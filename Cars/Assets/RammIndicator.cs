@@ -7,27 +7,43 @@ public class RammIndicator : MonoBehaviour
     [SerializeField]
     private Transform _player;
 
+    private Transform _spriteParent;
+    private Rigidbody _rigidbody;
+
+    private float _carSpeed;
+
     private void Start()
     {
         _player =
-            GameObject.FindGameObjectWithTag("Player")
-            .GetComponent<CarController>().mCar.transform;
+            GameObject.FindGameObjectWithTag("Player").transform;
+
+        _rigidbody = _player.GetComponent<Rigidbody>();
+
+        _player = _player.GetComponent<CarController>().mCar.transform;
+
+        _spriteParent = transform.GetChild(0);
     }
 
     private void LateUpdate()
     {
         transform.position = TargetPos();
-        transform.rotation = TargetEuler();
+        transform.forward = TargetForward();
+
+        _carSpeed =
+            Mathf.Lerp(_carSpeed,
+            _rigidbody.velocity.magnitude / 15,
+            Time.deltaTime * 5);
+
+        _carSpeed = Mathf.Clamp01(_carSpeed);
+
+        _spriteParent.localScale = new Vector3(_carSpeed, 1, 1);
     }
 
     Vector3 TargetPos() {
-        return _player.position - Vector3.up * .95f;
+        return _player.position - Vector3.up * .925f;
     }
-    Quaternion TargetEuler()
+    Vector3 TargetForward()
     {
-        Vector3 euler =
-            new Vector3(0, _player.localRotation.eulerAngles.y, 0);
-
-        return Quaternion.Euler(euler);
+        return -_player.up;
     }
 }
