@@ -57,4 +57,24 @@ public abstract class LevelManager : MonoBehaviour
 
         enabled = false;
     }
+
+
+    public void BotHasFallen()
+    {
+        int activeBots = 0;
+
+        for (int i = 0; i < botsParent.childCount; i++)
+        {
+            if (botsParent.GetChild(i).gameObject.activeInHierarchy)
+                activeBots++;
+        }
+
+        if (activeBots == 0)
+            LevelCompleted();
+    }
+
+    public void PlayerHasFallen()
+    {
+
+    }
 }

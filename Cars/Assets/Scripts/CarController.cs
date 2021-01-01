@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class CarController : MonoBehaviour
@@ -10,11 +11,14 @@ public class CarController : MonoBehaviour
     public float movementSpeed = 7;
 
     [Header("Inputs")]
-    public DynamicJoystick joystick;
+    public Joystick joystick;
     public BotBrain bBrain;
 
     [HideInInspector]
     public Rigidbody rigidBdy;
+    [HideInInspector]
+    public Car mCar;
+
 
     PointsManager pointsMan;
     ObjectPooler objPool;
@@ -22,6 +26,12 @@ public class CarController : MonoBehaviour
     private void Awake()
     {
         m_CarFallOff = new UnityEvent();
+
+        if (joystick)
+        {
+            joystick.PointerUp = new UnityEvent();
+            joystick.PointerUp.AddListener(TryToRamm);
+        }
     }
 
     private void Start()
@@ -70,10 +80,10 @@ public class CarController : MonoBehaviour
 
         Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
 
-        if (MoneyModeManager.instance) // Money gamem mode
+        if (LevelManager.instance) // Money gamem mode
         {
-            if (!MoneyModeManager.instance.completed)
-                pointsMan.ThrowPoints(.65f, lastPos);
+           // if (!MoneyModeManager.instance.completed)
+           //     pointsMan.ThrowPoints(.65f, lastPos);
 
             float duration = 2;
 
@@ -110,14 +120,14 @@ public class CarController : MonoBehaviour
                 transform.position - Vector3.up * .25f,
                 Quaternion.LookRotation(Vector3.up));
         }
-        else if (LastManStandingModeManager.instance)
+        else 
         {
             if (!joystick)
             {
                 gameObject.SetActive(false);
 
                 // Bot has fallen. Update manager and check if player won
-                LastManStandingModeManager.instance.BotHasFallen();
+                LevelManager.instance.BotHasFallen();
             }
             else
             {
@@ -125,7 +135,7 @@ public class CarController : MonoBehaviour
                 inGameCam.m_LookAt = null;
 
                 // Player lost! update manager
-                LastManStandingModeManager.instance.PlayerHasFallen();
+                LevelManager.instance.PlayerHasFallen();
 
                 yield return new WaitForSeconds(2);
                 gameObject.SetActive(false);
@@ -139,11 +149,6 @@ public class CarController : MonoBehaviour
         Vibration.VibratePeek();
         Vibration.VibratePeek();
         Vibration.VibratePeek();
-        Vibration.VibratePeek();
-        Vibration.VibratePeek();
-        Vibration.VibratePeek();
-        Vibration.VibratePeek();
-
 
         cantHitCars = true;
         yield return new WaitForSeconds(1);
@@ -154,15 +159,22 @@ public class CarController : MonoBehaviour
     {
         if (collision.transform.GetComponent<CarController>())
         {
+            /*
             if (Physics.Raycast(transform.position, rigidBdy.velocity.normalized, 3))
                 rigidBdy.AddForce(-collision.relativeVelocity / 4, ForceMode.Impulse);
             else
                 rigidBdy.AddForce(collision.relativeVelocity / 1.5f, ForceMode.Impulse);
+            */
 
-            if (rigidBdy.velocity.magnitude > 7 && !cantHitCars)
+            if (rigidBdy.velocity.magnitude > 4 && !cantHitCars)
             {
-                objPool.SpawnFromPool("HitVFX", collision.GetContact(0).point+ Vector3.up*1.5f, Quaternion.identity);
+                objPool.SpawnFromPool
+                    ("HitVFX",
+                    collision.GetContact(0).point + Vector3.up * 1.5f,
+                    Quaternion.identity);
+
                 StartCoroutine(HitCar());
+
                 collision.transform.GetComponent<CarController>().CarGotHit();
             }
         }
@@ -170,7 +182,8 @@ public class CarController : MonoBehaviour
 
     public void CarGotHit()
     {
-        pointsMan.ThrowPoints(.5f,transform.position);
+        if (MoneyModeManager.instance != null)
+            pointsMan.ThrowPoints(.5f, transform.position);
     }
 
     public void CarCompletedLevel()
@@ -180,6 +193,47 @@ public class CarController : MonoBehaviour
 
         enabled = false;
 
-        pointsMan.moneyIndicator.gameObject.SetActive(false);
+        if (MoneyModeManager.instance != null)
+            pointsMan.moneyIndicator.gameObject.SetActive(false);
+    }
+
+    private void TryToRamm() 
+    {
+        // If not the player
+        if (!joystick)
+            return;
+
+        // Check if grounded
+        if (!Physics.Raycast(transform.position, -Vector3.up, 5))
+            return;
+
+        Vector3 forwardDir =
+            new Vector3(joystick.Horizontal, 0, joystick.Vertical);
+        Quaternion forwardRot = Quaternion.LookRotation(forwardDir);
+
+        // Check if someone is in range of ramming
+        Vector3 boxExtents = new Vector3(1.7f, 1.5f, .5f);
+        Physics.BoxCast(
+            transform.position - Vector3.up * .28f,
+            boxExtents,
+            forwardDir,
+            out RaycastHit hit,
+            forwardRot,
+            10,
+            LayerMask.GetMask("Controllers"));
+
+        if(hit.transform != null)
+        {
+            // Make sure the target will be hitted (slow it down?)
+        }
+
+
+        // Launch forward
+        rigidBdy.AddForce(forwardDir.normalized * 30, ForceMode.Impulse);
+
+        // Launch target to the air
+        // Increase car size
+       
+        // Set cooldown
     }
 }

@@ -14,6 +14,11 @@ public class Car : MonoBehaviour
     CarController cCon;
     bool isBot;
 
+    private void OnDisable()
+    {
+        cCon.m_CarFallOff.RemoveListener(CarFallOff);
+    }
+
     private void Awake()
     {
         mesh = transform.GetChild(0);
@@ -28,8 +33,10 @@ public class Car : MonoBehaviour
 
         cCon.bBrain = GetComponent<BotBrain>();
 
-        if (transform.childCount > 1)
+        if (isBot)
             target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
+        else
+            cCon.mCar = this;
 
         cCon.m_CarFallOff.AddListener(CarFallOff);
     }
