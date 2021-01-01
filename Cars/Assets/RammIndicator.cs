@@ -5,21 +5,20 @@ using UnityEngine;
 public class RammIndicator : MonoBehaviour
 {
     [SerializeField]
-    private Transform _player;
+    private Transform _playerCar;
+
 
     private Transform _spriteParent;
-    private Rigidbody _rigidbody;
-
-    private float _carSpeed;
+    private CarController _cCon;
 
     private void Start()
     {
-        _player =
+        _playerCar =
             GameObject.FindGameObjectWithTag("Player").transform;
 
-        _rigidbody = _player.GetComponent<Rigidbody>();
+        _cCon = _playerCar.GetComponent<CarController>();
 
-        _player = _player.GetComponent<CarController>().mCar.transform;
+        _playerCar = _cCon.mCar.transform;
 
         _spriteParent = transform.GetChild(0);
     }
@@ -29,21 +28,14 @@ public class RammIndicator : MonoBehaviour
         transform.position = TargetPos();
         transform.forward = TargetForward();
 
-        _carSpeed =
-            Mathf.Lerp(_carSpeed,
-            _rigidbody.velocity.magnitude / 15,
-            Time.deltaTime * 5);
-
-        _carSpeed = Mathf.Clamp01(_carSpeed);
-
-        _spriteParent.localScale = new Vector3(_carSpeed, 1, 1);
+        _spriteParent.localScale = new Vector3(_cCon.currentVelocityPrecentage, 1, 1);
     }
 
     Vector3 TargetPos() {
-        return _player.position - Vector3.up * .925f;
+        return _playerCar.position - Vector3.up * .925f;
     }
     Vector3 TargetForward()
     {
-        return -_player.up;
+        return -_playerCar.up;
     }
 }

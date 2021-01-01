@@ -9,6 +9,7 @@ using DG.Tweening;
 public class CarController : MonoBehaviour
 {
     public float movementSpeed = 7;
+    public float currentVelocityPrecentage { get; private set; }
 
     [Header("Inputs")]
     public Joystick joystick;
@@ -55,11 +56,24 @@ public class CarController : MonoBehaviour
             Movement(new Vector3(joystick.Vertical, 0, -joystick.Horizontal));
         else if (bBrain)
             Movement(new Vector3(bBrain.moveDirection.y, 0, -bBrain.moveDirection.x));
+
+        currentVelocityPrecentage = CalculateCarCurrentSpeed();
     }
 
     void Movement(Vector3 input)
     {
         rigidBdy.angularVelocity = input * (input.normalized.magnitude * movementSpeed);
+    }
+
+    float CalculateCarCurrentSpeed()
+    {
+        float targetVelocity = 15;
+
+        float carSpeed = rigidBdy.velocity.magnitude / targetVelocity;
+
+        carSpeed = Mathf.Clamp01(carSpeed);
+
+        return carSpeed;
     }
 
     [Space]
@@ -219,10 +233,10 @@ public class CarController : MonoBehaviour
             forwardDir,
             out RaycastHit hit,
             forwardRot,
-            10,
+            10 * currentVelocityPrecentage,
             LayerMask.GetMask("Controllers"));
 
-        if(hit.transform != null)
+        if (hit.transform != null)
         {
             Debug.Log("Ram");
             // Make sure the target will be hitted (slow it down?)
@@ -230,7 +244,7 @@ public class CarController : MonoBehaviour
 
 
         // Launch forward
-        rigidBdy.AddForce(forwardDir.normalized * 30, ForceMode.Impulse);
+        rigidBdy.AddForce(forwardDir.normalized * (45* currentVelocityPrecentage), ForceMode.Impulse);
 
         // Launch target to the air
         // Increase car size
