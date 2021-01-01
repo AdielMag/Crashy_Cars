@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class RammIndicator : MonoBehaviour
 {
     [SerializeField]
     private Transform _playerCar;
 
+    [Space]
+    [SerializeField]
+    private Color _cooldownColor;
+    [SerializeField]
+    private Color  _succesColor;
 
     private Transform _spriteParent;
+    private SpriteRenderer _spriteRen;
     private CarController _cCon;
+
+    private Color _origColor;
 
     private void Start()
     {
@@ -21,6 +30,10 @@ public class RammIndicator : MonoBehaviour
         _playerCar = _cCon.mCar.transform;
 
         _spriteParent = transform.GetChild(0);
+        _spriteRen = _spriteParent.GetComponentInChildren<SpriteRenderer>();
+        _origColor = _spriteRen.color;
+
+        _cCon.m_TriedToRamm += TriedToRamm;
     }
 
     private void LateUpdate()
@@ -28,7 +41,8 @@ public class RammIndicator : MonoBehaviour
         transform.position = TargetPos();
         transform.forward = TargetForward();
 
-        _spriteParent.localScale = new Vector3(_cCon.currentVelocityPrecentage, 1, 1);
+        _spriteParent.localScale =
+            new Vector3(_cCon.currentVelocityPrecentage, 1, 1);
     }
 
     Vector3 TargetPos() {
@@ -37,5 +51,14 @@ public class RammIndicator : MonoBehaviour
     Vector3 TargetForward()
     {
         return -_playerCar.up;
+    }
+
+    private void TriedToRamm(float cooldown,bool succesful)
+    {
+        Color targetColor = succesful ? _succesColor : _cooldownColor;
+
+        _spriteRen.DOColor(targetColor, cooldown * .2f)
+            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, cooldown * .4f)
+            .OnComplete(() => _spriteRen.DOColor(_origColor, cooldown * .4f)));
     }
 }

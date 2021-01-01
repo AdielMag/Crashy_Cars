@@ -44,7 +44,8 @@ public class CarController : MonoBehaviour
         rigidBdy.maxAngularVelocity = 1000000;
         startPos = transform.position;
 
-        m_CarFallOff.AddListener(StartCarFallOff);
+        if (joystick)
+            m_CarFallOff.AddListener(StartCarFallOff);
     }
 
     private void Update()
@@ -67,7 +68,7 @@ public class CarController : MonoBehaviour
 
     float CalculateCarCurrentSpeed()
     {
-        float targetVelocity = 15;
+        float targetVelocity = 10;
 
         float carSpeed = rigidBdy.velocity.magnitude / targetVelocity;
 
@@ -92,12 +93,12 @@ public class CarController : MonoBehaviour
     {
         falling = true;
 
-        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero)/1.5f;
+        Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero) / 1.5f;
 
         if (LevelManager.instance) // Money gamem mode
         {
-           // if (!MoneyModeManager.instance.completed)
-           //     pointsMan.ThrowPoints(.65f, lastPos);
+            // if (!MoneyModeManager.instance.completed)
+            //     pointsMan.ThrowPoints(.65f, lastPos);
 
             float duration = 2;
 
@@ -134,7 +135,7 @@ public class CarController : MonoBehaviour
                 transform.position - Vector3.up * .25f,
                 Quaternion.LookRotation(Vector3.up));
         }
-        else 
+        else
         {
             if (!joystick)
             {
@@ -211,22 +212,25 @@ public class CarController : MonoBehaviour
             pointsMan.moneyIndicator.gameObject.SetActive(false);
     }
 
+
+    public delegate void RammedDelegate(float cooldown,bool succes);
+    public RammedDelegate m_TriedToRamm;
+
+    float lastTimeRammed;
+    float timeToWaitBetweenRamms = 2;
     private void TryToRamm() 
     {
-        // If not the player
-        if (!joystick)
+        if (!CanRamm())
             return;
 
-        // Check if grounded
-        if (!Physics.Raycast(transform.position, -Vector3.up, 5))
-            return;
+        bool succes = false;
 
         Vector3 forwardDir =
             new Vector3(joystick.Horizontal, 0, joystick.Vertical);
         Quaternion forwardRot = Quaternion.LookRotation(forwardDir);
 
         // Check if someone is in range of ramming
-        Vector3 boxExtents = new Vector3(1.7f, 1.5f, .5f);
+        Vector3 boxExtents = new Vector3(1.8f, 1.5f, .5f);
         Physics.BoxCast(
             transform.position - Vector3.up * .28f,
             boxExtents,
@@ -238,17 +242,34 @@ public class CarController : MonoBehaviour
 
         if (hit.transform != null)
         {
-            Debug.Log("Ram");
+            succes = true;
             // Make sure the target will be hitted (slow it down?)
         }
 
 
         // Launch forward
-        rigidBdy.AddForce(forwardDir.normalized * (45* currentVelocityPrecentage), ForceMode.Impulse);
+        rigidBdy.AddForce(forwardDir.normalized * (35* currentVelocityPrecentage), ForceMode.Impulse);
 
         // Launch target to the air
         // Increase car size
-       
+
         // Set cooldown
+        lastTimeRammed = Time.time;
+
+        m_TriedToRamm.Invoke(timeToWaitBetweenRamms, succes);
     }
+
+    private bool CanRamm()
+    {
+        // If cooldown not passed
+        if (Time.time < lastTimeRammed + timeToWaitBetweenRamms)
+            return false;
+
+        // Check if grounded
+        if (!Physics.Raycast(transform.position, -Vector3.up, 5))
+            return false;
+
+        return true;
+    }
+
 }
