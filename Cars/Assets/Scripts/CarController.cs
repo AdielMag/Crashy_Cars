@@ -217,7 +217,8 @@ public class CarController : MonoBehaviour
     public RammedDelegate m_TriedToRamm;
 
     float lastTimeRammed;
-    float timeToWaitBetweenRamms = 2;
+    [HideInInspector]
+    public float timeToWaitBetweenRamms = 2;
     private void TryToRamm() 
     {
         if (!CanRamm())

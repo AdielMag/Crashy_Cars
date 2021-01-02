@@ -57,8 +57,8 @@ public class RammIndicator : MonoBehaviour
     {
         Color targetColor = succesful ? _succesColor : _cooldownColor;
 
-        _spriteRen.DOColor(targetColor, cooldown * .2f)
-            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, cooldown * .4f)
-            .OnComplete(() => _spriteRen.DOColor(_origColor, cooldown * .4f)));
+        _spriteRen.DOColor(targetColor, cooldown * .1f)
+            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, cooldown * .7f)
+            .OnComplete(() => _spriteRen.DOColor(_origColor, cooldown * .2f)));
     }
 }
