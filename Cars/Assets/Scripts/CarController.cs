@@ -8,6 +8,7 @@ using DG.Tweening;
 
 public class CarController : MonoBehaviour
 {
+    [Space]
     public float movementSpeed = 7;
     public float currentVelocityPrecentage { get; private set; }
 
@@ -26,8 +27,6 @@ public class CarController : MonoBehaviour
 
     private void Awake()
     {
-        m_CarFallOff = new UnityEvent();
-
         if (joystick)
         {
             joystick.PointerUp = new UnityEvent();
@@ -45,7 +44,7 @@ public class CarController : MonoBehaviour
         startPos = transform.position;
 
         if (joystick)
-            m_CarFallOff.AddListener(StartCarFallOff);
+            m_CarFallOff += StartCarFallOff;
     }
 
     private void Update()
@@ -68,7 +67,7 @@ public class CarController : MonoBehaviour
 
     float CalculateCarCurrentSpeed()
     {
-        float targetVelocity = 10;
+        float targetVelocity = 7;
 
         float carSpeed = rigidBdy.velocity.magnitude / targetVelocity;
 
@@ -83,13 +82,14 @@ public class CarController : MonoBehaviour
 
     Vector3 startPos;
 
-    public UnityEvent m_CarFallOff { get; set; }
+    public delegate void FallOffDelegate(float duration);
+    public FallOffDelegate m_CarFallOff;
     bool falling;
-    void StartCarFallOff()
+    void StartCarFallOff(float duration)
     {
-        StartCoroutine(CarFallOff());
+        StartCoroutine(CarFallOff(duration));
     }
-    public IEnumerator CarFallOff()
+    public IEnumerator CarFallOff(float duration)
     {
         falling = true;
 
@@ -99,8 +99,6 @@ public class CarController : MonoBehaviour
         {
             // if (!MoneyModeManager.instance.completed)
             //     pointsMan.ThrowPoints(.65f, lastPos);
-
-            float duration = 2;
 
             if (!joystick)
             {
@@ -117,7 +115,7 @@ public class CarController : MonoBehaviour
                 fallCam.enabled = true;
                 inGameCam.enabled = false;
 
-                yield return new WaitForSeconds(duration);
+                yield return new WaitForSeconds(duration - .3f);
 
                 // Set the position to close to where you fell
                 transform.position = startPos;
@@ -212,13 +210,16 @@ public class CarController : MonoBehaviour
             pointsMan.moneyIndicator.gameObject.SetActive(false);
     }
 
-
     public delegate void RammedDelegate(float cooldown,bool succes);
     public RammedDelegate m_TriedToRamm;
 
     float lastTimeRammed;
-    [HideInInspector]
-    public float timeToWaitBetweenRamms = 2;
+    public float timeToWaitBetweenRamms
+    {
+        get => timeToWaitBetweenRamms;
+        set => timeToWaitBetweenRamms = 2;
+    }
+
     private void TryToRamm() 
     {
         if (!CanRamm())
@@ -226,8 +227,8 @@ public class CarController : MonoBehaviour
 
         bool succes = false;
 
-        Vector3 forwardDir =
-            new Vector3(joystick.Horizontal, 0, joystick.Vertical);
+        Vector3 forwardDir = mCar.transform.right.normalized;
+           // new Vector3(joystick.Horizontal, 0, joystick.Vertical);
         Quaternion forwardRot = Quaternion.LookRotation(forwardDir);
 
         // Check if someone is in range of ramming
@@ -245,14 +246,15 @@ public class CarController : MonoBehaviour
         {
             succes = true;
             // Make sure the target will be hitted (slow it down?)
+            hit.transform.GetComponent<CarController>().GotRammed();
+
+            // Launch target to the air
+            // Increase car size
         }
 
-
         // Launch forward
-        rigidBdy.AddForce(forwardDir.normalized * (35* currentVelocityPrecentage), ForceMode.Impulse);
-
-        // Launch target to the air
-        // Increase car size
+        rigidBdy.AddForce(forwardDir.normalized
+            * (35* currentVelocityPrecentage), ForceMode.Impulse);
 
         // Set cooldown
         lastTimeRammed = Time.time;
@@ -273,4 +275,5 @@ public class CarController : MonoBehaviour
         return true;
     }
 
+    public void GotRammed() { }
 }

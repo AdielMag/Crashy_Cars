@@ -16,7 +16,7 @@ public class Car : MonoBehaviour
 
     private void OnDisable()
     {
-        cCon.m_CarFallOff.RemoveListener(CarFallOff);
+        cCon.m_CarFallOff -= CarFallOff;
     }
 
     private void Awake()
@@ -38,7 +38,7 @@ public class Car : MonoBehaviour
         else
             cCon.mCar = this;
 
-        cCon.m_CarFallOff.AddListener(CarFallOff);
+        cCon.m_CarFallOff += CarFallOff;
     }
 
     private void Update()
@@ -181,14 +181,14 @@ public class Car : MonoBehaviour
             isGrounded = false;
     }
 
-    void CarFallOff()
+    void CarFallOff(float duration)
     {
-        StartCoroutine(RotateCarAfterFallOFf());
+        StartCoroutine(RotateCarAfterFallOFf(duration));
     }
 
-    IEnumerator RotateCarAfterFallOFf()
+    IEnumerator RotateCarAfterFallOFf(float duration)
     {
-        yield return new WaitForSeconds(2.4f);
+        yield return new WaitForSeconds(duration + .1f);
         currentSwivel = targetSwivel = new Vector3(90 - rotationDelta, 0, 0);
     }
 }

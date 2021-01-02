@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class RammIndicator : MonoBehaviour
 {
-    [SerializeField]
     private Transform _playerCar;
 
     [Space]
@@ -34,6 +33,7 @@ public class RammIndicator : MonoBehaviour
         _origColor = _spriteRen.color;
 
         _cCon.m_TriedToRamm += TriedToRamm;
+        _cCon.m_CarFallOff += CarFell;
     }
 
     private void LateUpdate()
@@ -46,7 +46,7 @@ public class RammIndicator : MonoBehaviour
     }
 
     Vector3 TargetPos() {
-        return _playerCar.position - Vector3.up * .925f;
+        return _playerCar.position - Vector3.up * .85f;
     }
     Vector3 TargetForward()
     {
@@ -58,7 +58,14 @@ public class RammIndicator : MonoBehaviour
         Color targetColor = succesful ? _succesColor : _cooldownColor;
 
         _spriteRen.DOColor(targetColor, cooldown * .1f)
-            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, cooldown * .7f)
+            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, cooldown * .8f)
             .OnComplete(() => _spriteRen.DOColor(_origColor, cooldown * .2f)));
+    }
+
+    private void CarFell(float duration)
+    {
+        _spriteRen.DOColor(_cooldownColor, .1f)
+            .OnComplete(() => _spriteRen.DOColor(_cooldownColor, 1.9f)
+            .OnComplete(() => _spriteRen.DOColor(_origColor, .2f)));
     }
 }
