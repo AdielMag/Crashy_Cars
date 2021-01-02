@@ -21,7 +21,6 @@ public class CarController : MonoBehaviour
     [HideInInspector]
     public Car mCar;
 
-
     PointsManager pointsMan;
     ObjectPooler objPool;
 
@@ -49,7 +48,7 @@ public class CarController : MonoBehaviour
 
     private void Update()
     {
-        if (falling)
+        if (cantMove)
             return;
 
         if (joystick)
@@ -84,14 +83,14 @@ public class CarController : MonoBehaviour
 
     public delegate void FallOffDelegate(float duration);
     public FallOffDelegate m_CarFallOff;
-    bool falling;
+    bool cantMove;
     void StartCarFallOff(float duration)
     {
         StartCoroutine(CarFallOff(duration));
     }
     public IEnumerator CarFallOff(float duration)
     {
-        falling = true;
+        cantMove = true;
 
         Vector3 lastPos = Vector3.zero + (transform.position - Vector3.zero) / 1.5f;
 
@@ -127,7 +126,7 @@ public class CarController : MonoBehaviour
                 inGameCam.m_LookAt = transform;
             }
 
-            falling = false;
+            cantMove = false;
 
             objPool.SpawnFromPool("RespawnGlow",
                 transform.position - Vector3.up * .25f,
@@ -179,7 +178,8 @@ public class CarController : MonoBehaviour
                 rigidBdy.AddForce(collision.relativeVelocity / 1.5f, ForceMode.Impulse);
             */
 
-            if (rigidBdy.velocity.magnitude > 4 && !cantHitCars)
+
+            if (collision.relativeVelocity.magnitude > 14 && !cantHitCars)
             {
                 objPool.SpawnFromPool
                     ("HitVFX",
@@ -188,7 +188,14 @@ public class CarController : MonoBehaviour
 
                 StartCoroutine(HitCar());
 
-                collision.transform.GetComponent<CarController>().CarGotHit();
+                if (lastTimeRammed + .35f > Time.time)
+                {
+                    collision.transform.GetComponent<CarController>()
+                        .GotRammed(collision.contacts[0].point);
+
+                    // Increase car size
+                    carTakedowns++;
+                }
             }
         }
     }
@@ -214,11 +221,9 @@ public class CarController : MonoBehaviour
     public RammedDelegate m_TriedToRamm;
 
     float lastTimeRammed;
-    public float timeToWaitBetweenRamms
-    {
-        get => timeToWaitBetweenRamms;
-        set => timeToWaitBetweenRamms = 2;
-    }
+    [HideInInspector]
+    public float timeToWaitBetweenRamms = 2;
+    public int carTakedowns { get; private set; }
 
     private void TryToRamm() 
     {
@@ -246,10 +251,9 @@ public class CarController : MonoBehaviour
         {
             succes = true;
             // Make sure the target will be hitted (slow it down?)
-            hit.transform.GetComponent<CarController>().GotRammed();
-
-            // Launch target to the air
-            // Increase car size
+            Rigidbody targetRgb = hit.transform.GetComponent<Rigidbody>();
+            targetRgb.drag = .8f;
+            targetRgb.angularDrag = 15;
         }
 
         // Launch forward
@@ -275,5 +279,10 @@ public class CarController : MonoBehaviour
         return true;
     }
 
-    public void GotRammed() { }
+    public void GotRammed(Vector3 collisionPoint)
+    {
+        cantMove = true;
+
+        rigidBdy.AddExplosionForce(1000, collisionPoint-Vector3.up*2, 1000);
+    }
 }

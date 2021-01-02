@@ -7435,6 +7435,27 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[3].tag
+      value: LaunchForward
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 8586098070076696832, guid: bfa248ad3cd4e734dbe10a7c02acc478,
+        type: 3}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[3].size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1924154403, guid: a633e2b179ec95341973928e238c6ea8, type: 3}
+      propertyPath: pools.Array.data[3].poolObjectChild
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3931704033044346254, guid: a633e2b179ec95341973928e238c6ea8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18234,7 +18255,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 1
+    m_Time: 1.6
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
