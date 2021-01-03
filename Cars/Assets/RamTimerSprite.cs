@@ -15,9 +15,11 @@ public class RamTimerSprite : MonoBehaviour
 
         _material = GetComponent<SpriteRenderer>().sharedMaterial;
 
-        GameObject.FindGameObjectWithTag("Player")
-            .GetComponent<CarController>()
-            .m_TriedToRamm += StartCooldown;
+        CarController cCon = GameObject.FindGameObjectWithTag("Player")
+            .GetComponent<CarController>();
+
+        cCon.m_TriedToRamm += StartCooldown;
+  
 
         _material.SetFloat("_Arc2", 360);
     }
@@ -30,7 +32,7 @@ public class RamTimerSprite : MonoBehaviour
 
 
     Tween _tween;
-    public void StartCooldown(float time, bool succesful)
+    private void StartCooldown(float time, bool succesful)
     {
         _material.SetFloat("_Arc2", 0);
 
@@ -38,4 +40,6 @@ public class RamTimerSprite : MonoBehaviour
 
         _tween = _material.DOFloat(360, "_Arc2", time);
     }
+
+
 }

@@ -34,6 +34,7 @@ public class RammIndicator : MonoBehaviour
 
         _cCon.m_TriedToRamm += TriedToRamm;
         _cCon.m_CarFallOff += CarFell;
+        _cCon.m_TakeDown += TakedownScale;
     }
 
     private void LateUpdate()
@@ -41,8 +42,8 @@ public class RammIndicator : MonoBehaviour
         transform.position = TargetPos();
         transform.forward = TargetForward();
 
-        _spriteParent.localScale =
-            new Vector3(_cCon.currentVelocityPrecentage, 1, 1);
+        //_spriteParent.localScale =
+        //    new Vector3(_cCon.currentVelocityPrecentage, 1, 1);
     }
 
     Vector3 TargetPos() {
@@ -67,5 +68,13 @@ public class RammIndicator : MonoBehaviour
         _spriteRen.DOColor(_cooldownColor, .1f)
             .OnComplete(() => _spriteRen.DOColor(_cooldownColor, 1.9f)
             .OnComplete(() => _spriteRen.DOColor(_origColor, .2f)));
+    }
+
+    private void TakedownScale(int size, float duration)
+    {
+        _spriteParent.DOLocalMoveX(
+            _spriteParent.transform.localPosition.x + .085f, duration);
+
+        _spriteParent.DOScaleZ(1 + (.05f * size), duration);
     }
 }

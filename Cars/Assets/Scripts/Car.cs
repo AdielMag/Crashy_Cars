@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Car : MonoBehaviour
 {
@@ -11,17 +12,22 @@ public class Car : MonoBehaviour
 
     Transform mesh;
 
+    private Transform _carVFX;
+
     CarController cCon;
     bool isBot;
 
     private void OnDisable()
     {
         cCon.m_CarFallOff -= CarFallOff;
+        cCon.m_TakeDown -= TakedownScale;
     }
 
     private void Awake()
     {
         mesh = transform.GetChild(0);
+
+        _carVFX = transform.GetChild(2);
 
         if (!target)
             return;
@@ -39,6 +45,8 @@ public class Car : MonoBehaviour
             cCon.mCar = this;
 
         cCon.m_CarFallOff += CarFallOff;
+        cCon.m_TriedToRamm += TriedToRam;
+        cCon.m_TakeDown += TakedownScale;
     }
 
     private void Update()
@@ -181,7 +189,7 @@ public class Car : MonoBehaviour
             isGrounded = false;
     }
 
-    void CarFallOff(float duration)
+    private void CarFallOff(float duration)
     {
         StartCoroutine(RotateCarAfterFallOFf(duration));
     }
@@ -190,5 +198,32 @@ public class Car : MonoBehaviour
     {
         yield return new WaitForSeconds(duration + .1f);
         currentSwivel = targetSwivel = new Vector3(90 - rotationDelta, 0, 0);
+    }
+
+    private void TriedToRam(float cooldown,bool success)
+    {
+        StartCoroutine(ShowFireTrails(cooldown / 3));   
+    }
+
+    IEnumerator ShowFireTrails(float cooldown)
+    {
+        ParticleSystem[] trails =
+            _carVFX.GetChild(0).GetComponentsInChildren<ParticleSystem>();
+
+        for (int i = 0; i < trails.Length; i++)
+            trails[i].Play(true);
+
+        yield return new WaitForSeconds(cooldown);
+
+        for (int i = 0; i < trails.Length; i++)
+            trails[i].Stop(true);
+
+    }
+
+    private void TakedownScale(int size, float duration)
+    {
+        transform.DOScale(1 + (.2f * size), duration);
+
+        yOffset += size > 3 ? size * .03f : -.03f;
     }
 }

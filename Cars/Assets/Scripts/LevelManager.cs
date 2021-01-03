@@ -58,14 +58,14 @@ public abstract class LevelManager : MonoBehaviour
         enabled = false;
     }
 
-
-    public void BotHasFallen()
+    public void BotHasBeenTakenOut(Transform takenBot)
     {
         int activeBots = 0;
 
         for (int i = 0; i < botsParent.childCount; i++)
         {
-            if (botsParent.GetChild(i).gameObject.activeInHierarchy)
+            if (takenBot != botsParent.GetChild(i) &&
+                    botsParent.GetChild(i).gameObject.activeInHierarchy)
                 activeBots++;
         }
 

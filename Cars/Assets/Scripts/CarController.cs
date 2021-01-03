@@ -8,6 +8,10 @@ using DG.Tweening;
 
 public class CarController : MonoBehaviour
 {
+    [Tooltip("Used to calculate size and takedown scaling")]
+    [Range(1,10)]
+    public int carValue = 1;
+
     [Space]
     public float movementSpeed = 7;
     public float currentVelocityPrecentage { get; private set; }
@@ -20,6 +24,8 @@ public class CarController : MonoBehaviour
     public Rigidbody rigidBdy;
     [HideInInspector]
     public Car mCar;
+
+    private Collider coll;
 
     PointsManager pointsMan;
     ObjectPooler objPool;
@@ -36,6 +42,7 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         rigidBdy = GetComponent<Rigidbody>();
+        coll = GetComponent<Collider>();
         pointsMan = GetComponent<PointsManager>();
         objPool = ObjectPooler.instance;
 
@@ -44,6 +51,8 @@ public class CarController : MonoBehaviour
 
         if (joystick)
             m_CarFallOff += StartCarFallOff;
+
+        m_TakeDown += TakedownScale;
     }
 
     private void Update()
@@ -66,6 +75,8 @@ public class CarController : MonoBehaviour
 
     float CalculateCarCurrentSpeed()
     {
+        return 1;
+
         float targetVelocity = 7;
 
         float carSpeed = rigidBdy.velocity.magnitude / targetVelocity;
@@ -139,7 +150,7 @@ public class CarController : MonoBehaviour
                 gameObject.SetActive(false);
 
                 // Bot has fallen. Update manager and check if player won
-                LevelManager.instance.BotHasFallen();
+                LevelManager.instance.BotHasBeenTakenOut(transform);
             }
             else
             {
@@ -188,13 +199,16 @@ public class CarController : MonoBehaviour
 
                 StartCoroutine(HitCar());
 
-                if (lastTimeRammed + .35f > Time.time)
+                if (lastTimeRammed + (timeToWaitBetweenRamms / 3) > Time.time)
                 {
-                    collision.transform.GetComponent<CarController>()
-                        .GotRammed(collision.contacts[0].point);
+                    CarController hitCCon =
+                        collision.transform.GetComponent<CarController>();
 
-                    // Increase car size
-                    carTakedowns++;
+                    hitCCon.GotRammed(collision.contacts[0].point);
+
+                    carValue += hitCCon.carValue;
+
+                    m_TakeDown.Invoke(carValue, 1);
                 }
             }
         }
@@ -217,7 +231,7 @@ public class CarController : MonoBehaviour
             pointsMan.moneyIndicator.gameObject.SetActive(false);
     }
 
-    public delegate void RammedDelegate(float cooldown,bool succes);
+    public delegate void RammedDelegate(float cooldown,bool success);
     public RammedDelegate m_TriedToRamm;
 
     float lastTimeRammed;
@@ -258,7 +272,8 @@ public class CarController : MonoBehaviour
 
         // Launch forward
         rigidBdy.AddForce(forwardDir.normalized
-            * (35* currentVelocityPrecentage), ForceMode.Impulse);
+            * (33.5f * currentVelocityPrecentage + (carValue * 1.5f))
+            , ForceMode.Impulse);
 
         // Set cooldown
         lastTimeRammed = Time.time;
@@ -283,6 +298,26 @@ public class CarController : MonoBehaviour
     {
         cantMove = true;
 
-        rigidBdy.AddExplosionForce(1000, collisionPoint-Vector3.up*2, 1000);
+        rigidBdy.AddExplosionForce(1000, collisionPoint - Vector3.up * 3, 1000);
+
+        coll.isTrigger = true;
+
+        StartCoroutine(DisableObj());
+
+        IOModeManager.instance.BotHasBeenTakenOut(transform);
+    }
+
+    public delegate void TakeDownDelegate(int targetSize,float duration);
+    public TakeDownDelegate m_TakeDown;
+
+    private void TakedownScale(int size, float duration)
+    {
+        transform.DOScale(1 + (.04f * size), duration);
+    }
+
+    IEnumerator DisableObj()
+    {
+        yield return new WaitForSeconds(3f);
+        gameObject.SetActive(false);
     }
 }
