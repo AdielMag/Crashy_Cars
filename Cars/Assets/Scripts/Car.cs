@@ -225,5 +225,7 @@ public class Car : MonoBehaviour
         transform.DOScale(1 + (.2f * size), duration);
 
         yOffset += size > 3 ? size * .03f : -.03f;
+
+        _carVFX.GetChild(1).GetComponent<ParticleSystem>().Play(true);
     }
 }
