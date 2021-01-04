@@ -13,6 +13,9 @@ public class Car : MonoBehaviour
     Transform mesh;
 
     private Transform _carVFX;
+    private TrailCollision _trailCol;
+
+    private float _origSize;
 
     CarController cCon;
     bool isBot;
@@ -47,6 +50,13 @@ public class Car : MonoBehaviour
         cCon.m_CarFallOff += CarFallOff;
         cCon.m_TriedToRamm += TriedToRam;
         cCon.m_TakeDown += TakedownScale;
+
+        _trailCol = _carVFX.GetChild(0)
+            .GetChild(2).GetComponent<TrailCollision>();
+
+        _trailCol.cCon = cCon;
+
+        _origSize = transform.localScale.x;
     }
 
     private void Update()
@@ -181,7 +191,7 @@ public class Car : MonoBehaviour
     {
         if (Physics.Raycast(
             transform.position + Vector3.up * 1f,
-            -Vector3.up, out hit, 3f, groundLayerMask))
+            -Vector3.up, out hit, 2.7f + cCon.carValue * .3f, groundLayerMask))
         {
             isGrounded = true;
         }
@@ -207,6 +217,8 @@ public class Car : MonoBehaviour
 
     IEnumerator ShowFireTrails(float cooldown)
     {
+        _trailCol.enabled = true;
+
         ParticleSystem[] trails =
             _carVFX.GetChild(0).GetComponentsInChildren<ParticleSystem>();
 
@@ -218,13 +230,15 @@ public class Car : MonoBehaviour
         for (int i = 0; i < trails.Length; i++)
             trails[i].Stop(true);
 
+        _trailCol.enabled = false;
+        _trailCol.LastPointExists = false;
     }
 
     private void TakedownScale(int size, float duration)
     {
-        transform.DOScale(1 + (.2f * size), duration);
+        transform.DOScale(_origSize + (.05f * size), duration);
 
-        yOffset += size > 3 ? size * .03f : -.03f;
+        yOffset -= .01f;
 
         _carVFX.GetChild(1).GetComponent<ParticleSystem>().Play(true);
     }

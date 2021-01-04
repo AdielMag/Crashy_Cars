@@ -36,7 +36,6 @@ public abstract class LevelManager : MonoBehaviour
         if (completed)
             return;
 
-
         completed = true;
 
 

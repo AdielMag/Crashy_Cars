@@ -205,13 +205,17 @@ public class CarController : MonoBehaviour
                         collision.transform.GetComponent<CarController>();
 
                     hitCCon.GotRammed(collision.contacts[0].point);
-
-                    carValue += hitCCon.carValue;
-
-                    m_TakeDown.Invoke(carValue, 1);
+                    CarRammedSuccefuly(hitCCon);
                 }
             }
         }
+    }
+
+    public void CarRammedSuccefuly(CarController hitCCon)
+    {
+        carValue += hitCCon.carValue;
+
+        m_TakeDown.Invoke(carValue, 1);
     }
 
     public void CarGotHit()
@@ -238,6 +242,8 @@ public class CarController : MonoBehaviour
     [HideInInspector]
     public float timeToWaitBetweenRamms = 2;
     public int carTakedowns { get; private set; }
+
+    private TrailCollision ramTrailCol;
 
     private void TryToRamm() 
     {
@@ -298,7 +304,7 @@ public class CarController : MonoBehaviour
     {
         cantMove = true;
 
-        rigidBdy.AddExplosionForce(1000, collisionPoint - Vector3.up * 3, 1000);
+        rigidBdy.AddExplosionForce(500, collisionPoint - Vector3.up * 5, 500);
 
         coll.isTrigger = true;
 
@@ -312,12 +318,12 @@ public class CarController : MonoBehaviour
 
     private void TakedownScale(int size, float duration)
     {
-        transform.DOScale(1 + (.04f * size), duration);
+        transform.DOScale(1 + (.01f * size), duration);
     }
 
     IEnumerator DisableObj()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         gameObject.SetActive(false);
     }
 }
