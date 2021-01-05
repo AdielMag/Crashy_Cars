@@ -44,8 +44,8 @@ public class Car : MonoBehaviour
 
         if (isBot)
             target.GetComponent<PointsManager>().dollar = transform.GetChild(1);
-        else
-            cCon.mCar = this;
+
+        cCon.mCar = this;
 
         cCon.m_CarFallOff += CarFallOff;
         cCon.m_TriedToRamm += TriedToRam;

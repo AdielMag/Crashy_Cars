@@ -9681,6 +9681,18 @@ MonoBehaviour:
   moneyRadius: 10
   beingChased: 0
   chaseTarget: {fileID: 0}
+--- !u!114 &9091967065976709036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8659225830867030969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a53884e060af247a99fece94751aa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4812957350500785878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9993,6 +10005,12 @@ PrefabInstance:
 --- !u!4 &5603428008568858706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1083237894359676548, guid: 2287d4dbf45a68646a8fac8442811816,
+    type: 3}
+  m_PrefabInstance: {fileID: 4812957350500785878}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8659225830867030969 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4242618681781325167, guid: 2287d4dbf45a68646a8fac8442811816,
     type: 3}
   m_PrefabInstance: {fileID: 4812957350500785878}
   m_PrefabAsset: {fileID: 0}

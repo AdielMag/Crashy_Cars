@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8927992186723717415}
   - component: {fileID: 8927992186723717414}
-  - component: {fileID: 8927992186723717411}
   - component: {fileID: 8927992186723717409}
   - component: {fileID: 8927992186723717408}
   m_Layer: 8
   m_Name: Car Controller
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,28 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf824b964a2971428805ab106e0fa47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 35
+  carValue: 1
+  movementSpeed: 30
   joystick: {fileID: 0}
   bBrain: {fileID: 0}
   rigidBdy: {fileID: 0}
+  mCar: {fileID: 0}
   inGameCam: {fileID: 0}
   fallCam: {fileID: 0}
---- !u!114 &8927992186723717411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8927992186723717413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 527da8cb7720e3142ad78fe62842ccc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  points: 0
-  pointsNeeded: 10
-  moneyIndicator: {fileID: 0}
-  dollar: {fileID: 0}
+  timeToWaitBetweenRamms: 2
 --- !u!54 &8927992186723717409
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78,7 +64,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0.4
-  m_AngularDrag: 4
+  m_AngularDrag: 6
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0

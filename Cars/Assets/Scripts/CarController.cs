@@ -50,7 +50,11 @@ public class CarController : MonoBehaviour
         startPos = transform.position;
 
         if (joystick)
+        {
             m_CarFallOff += StartCarFallOff;
+
+
+        }
 
         m_TakeDown += TakedownScale;
     }
