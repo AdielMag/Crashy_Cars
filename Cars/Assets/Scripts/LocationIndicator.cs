@@ -23,6 +23,15 @@ public class LocationIndicator : MonoBehaviour
 
         screenMeasures = new Vector2(Screen.width - _indicator.rect.width,
             Screen.height - _indicator.rect.height);
+
+        CarController cCon;
+
+        if (GetComponentInParent<Car>())
+            cCon = GetComponentInParent<Car>().cCon;
+        else
+            cCon = transform.parent.GetComponentInParent<Car>().cCon;
+
+        cCon.m_GotRammed += Disable;
     }
 
     private void SetIndicatorImage()
@@ -57,6 +66,9 @@ public class LocationIndicator : MonoBehaviour
 
     void OnBecameInvisible()
     {
+        if (!enabled)
+            return;
+
         _indicator.gameObject.SetActive(true);
 
         m_Update = UpdateIndicator;
@@ -64,7 +76,6 @@ public class LocationIndicator : MonoBehaviour
 
     private void Empty() { }
 
-    public Vector3 sd;
     private void UpdateIndicator()
     {
         _indicator.localPosition = TargetPos();
@@ -77,8 +88,6 @@ public class LocationIndicator : MonoBehaviour
 
         screenPos.x -= screenMeasures.x / 2;
         screenPos.y -= screenMeasures.y / 2;
-
-        sd = screenPos;
 
         screenPos.x = Mathf.Clamp(screenPos.x, -screenMeasures.x / 2, screenMeasures.x/2);
         screenPos.y = Mathf.Clamp(screenPos.y, -screenMeasures.y / 2, screenMeasures.y/2);
@@ -93,15 +102,24 @@ public class LocationIndicator : MonoBehaviour
 
         Vector3 targetDir = Vector3.zero;
 
-        if (localPos.y > screenMeasures.y / 2)
-            targetDir.z = 180;
-        else if (localPos.y < screenMeasures.y / 2)
-            targetDir.z = 0;
-        else if (localPos.x > screenMeasures.x / 2)
-            targetDir.z =90;
-        else
-            targetDir.z = -90;
+        targetDir.z = Quaternion.LookRotation(
+            _indicator.parent.forward, Vector3.zero - localPos).eulerAngles.z;
 
         return targetDir;
+    }
+
+    public float SignedAngle(Vector3 from, Vector3 to, Vector3 normal)
+    {
+        // angle in [0,180]
+        float angle = Vector3.Angle(from, to);
+        float sign = Mathf.Sign(Vector3.Dot(normal, Vector3.Cross(from, to)));
+        return angle * sign;
+    }
+
+    private void Disable(Vector3 point)
+    {
+        enabled = false;
+
+        _indicator.gameObject.SetActive(false);
     }
 }

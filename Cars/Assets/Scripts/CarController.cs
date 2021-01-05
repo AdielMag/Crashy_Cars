@@ -57,6 +57,7 @@ public class CarController : MonoBehaviour
         }
 
         m_TakeDown += TakedownScale;
+        m_GotRammed += GotRammed;
     }
 
     private void Update()
@@ -207,7 +208,7 @@ public class CarController : MonoBehaviour
 
                     StartCoroutine(HitCar());
 
-                    hitCCon.GotRammed(collision.contacts[0].point);
+                    hitCCon.m_GotRammed(collision.contacts[0].point);
                     CarRammedSuccefuly(hitCCon);
                 }
             }
@@ -303,7 +304,7 @@ public class CarController : MonoBehaviour
         return true;
     }
 
-    public void GotRammed(Vector3 collisionPoint)
+    private void GotRammed(Vector3 collisionPoint)
     {
         cantMove = true;
 
@@ -334,4 +335,7 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         gameObject.SetActive(false);
     }
+
+    public delegate void GotRammedDelegate(Vector3 collisionPoint);
+    public GotRammedDelegate m_GotRammed;
 }

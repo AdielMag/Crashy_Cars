@@ -17,7 +17,8 @@ public class Car : MonoBehaviour
 
     private float _origSize;
 
-    CarController cCon;
+    [HideInInspector]
+    public CarController cCon;
     bool isBot;
 
     private void OnDisable()
