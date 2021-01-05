@@ -8,11 +8,13 @@ public class MyJoystickEditor : FloatingJoystickEditor
 {
     [Space]
     private SerializedProperty ramTimer;
+    private SerializedProperty firstTouchIndicator;
 
     protected override void OnEnable()
     {
         base.OnEnable();
         ramTimer = serializedObject.FindProperty("_ramTimer");
+        firstTouchIndicator = serializedObject.FindProperty("_firstTouchIndicator");
     }
 
     public override void OnInspectorGUI()
@@ -25,5 +27,8 @@ public class MyJoystickEditor : FloatingJoystickEditor
         base.DrawValues();
         EditorGUILayout.PropertyField(ramTimer,
             new GUIContent("Ram Timer", "Ram timer Rec Transform."));
+        EditorGUILayout.PropertyField(firstTouchIndicator,
+            new GUIContent("First Touch Indicator",
+            "First touch indicator Transform."));
     }
 }

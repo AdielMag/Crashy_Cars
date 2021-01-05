@@ -192,17 +192,12 @@ public class CarController : MonoBehaviour
 
             if (collision.relativeVelocity.magnitude > 14 && !cantHitCars)
             {
-                objPool.SpawnFromPool
-                    ("HitVFX",
-                    collision.GetContact(0).point + Vector3.up * 1.5f,
-                    Quaternion.identity);
-
-                StartCoroutine(HitCar());
-
                 if (lastTimeRammed + (timeToWaitBetweenRamms / 3) > Time.time)
                 {
                     CarController hitCCon =
                         collision.transform.GetComponent<CarController>();
+
+                    StartCoroutine(HitCar());
 
                     hitCCon.GotRammed(collision.contacts[0].point);
                     CarRammedSuccefuly(hitCCon);
@@ -311,6 +306,11 @@ public class CarController : MonoBehaviour
         StartCoroutine(DisableObj());
 
         IOModeManager.instance.BotHasBeenTakenOut(transform);
+
+        objPool.SpawnFromPool
+                    ("HitVFX",
+                    transform.position,
+                    Quaternion.identity);
     }
 
     public delegate void TakeDownDelegate(int targetSize,float duration);

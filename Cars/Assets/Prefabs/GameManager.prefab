@@ -274,7 +274,7 @@ MonoBehaviour:
     poolObjectChild: 1
     parent: {fileID: 0}
   - tag: HitVFX
-    prefab: {fileID: 8194040910039264301, guid: f76835ffa41884b40861b94c891a71fd,
+    prefab: {fileID: 4656561423531039842, guid: 82c830105f647eb4fa9f7c65b2ae7057,
       type: 3}
     size: 20
     poolObjectChild: 1
