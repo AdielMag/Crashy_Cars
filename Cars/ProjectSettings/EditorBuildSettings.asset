@@ -20,10 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameModes/IO.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/GameModes/LastManStanding.unity
-    guid: f9a4cade1036457469440b876eff217e
-  - enabled: 1
-    path: Assets/Scenes/GameModes/Race.unity
-    guid: 743c340faa8f24b4bbcc6145149b9b37
   m_configObjects: {}

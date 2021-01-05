@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadScene(string name)
     {
+        Time.timeScale = 1.35f;
 
         instance.StartCoroutine(LoadSceneWithTransition(name));
     }
@@ -30,11 +31,18 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel()
     {
+        Time.timeScale = 1;
+
         if (!instance.currentlyLoading)
         {
-
             instance.StartCoroutine
-                (instance.LoadSceneWithTransition("Level_" + instance.currentLevel.ToString()));
+                (instance.LoadSceneWithTransition("IO"));
+
+            /*
+            instance.StartCoroutine
+                (instance.LoadSceneWithTransition("Level_" +
+                instance.currentLevel.ToString()));
+            */
         }
     }
 
@@ -46,7 +54,7 @@ public class GameManager : MonoBehaviour
 
         instance.transitionAnimatorController.SetBool("On", true);
 
-        yield return new WaitForSeconds(.8f);
+        yield return new WaitForSeconds(.4f);
 
         // Start loading the scene
         AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(name, LoadSceneMode.Single);

@@ -238,7 +238,7 @@ public class Car : MonoBehaviour
     {
         transform.DOScale(_origSize + (.05f * size), duration);
 
-        yOffset -= .01f;
+        yOffset += size < 3 ? .0115f : .0225f;
 
         _carVFX.GetChild(1).GetComponent<ParticleSystem>().Play(true);
     }

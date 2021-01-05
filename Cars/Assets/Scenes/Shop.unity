@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2810,12 +2810,12 @@ PrefabInstance:
     - target: {fileID: 198767759131780796, guid: 9e8337d240aa37b49b47f3f284ec5f87,
         type: 3}
       propertyPath: ShapeModule.m_Scale.z
-      value: 4.2043657
+      value: 9.342232
       objectReference: {fileID: 0}
     - target: {fileID: 198767759131780796, guid: 9e8337d240aa37b49b47f3f284ec5f87,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 20
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 198767759131780796, guid: 9e8337d240aa37b49b47f3f284ec5f87,
         type: 3}
@@ -2941,6 +2941,16 @@ PrefabInstance:
         type: 3}
       propertyPath: ColorModule.gradient.minGradient.key1.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198767759131780796, guid: 9e8337d240aa37b49b47f3f284ec5f87,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 12.898691
+      objectReference: {fileID: 0}
+    - target: {fileID: 198767759131780796, guid: 9e8337d240aa37b49b47f3f284ec5f87,
+        type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 5.1629066
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8337d240aa37b49b47f3f284ec5f87, type: 3}
