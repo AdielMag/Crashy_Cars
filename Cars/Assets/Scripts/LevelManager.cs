@@ -68,9 +68,11 @@ public abstract class LevelManager : MonoBehaviour
                 activeBots++;
         }
 
-        if (activeBots == 0)
+        if (CompletedLevel(takenBot))
             LevelCompleted();
     }
+
+    abstract public bool CompletedLevel(Transform takenBot);
 
     public void PlayerHasFallen()
     {

@@ -172,6 +172,10 @@ public class CarController : MonoBehaviour
         Vibration.VibratePeek();
         Vibration.VibratePeek();
         Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
+        Vibration.VibratePeek();
 
         cantHitCars = true;
         yield return new WaitForSeconds(1);

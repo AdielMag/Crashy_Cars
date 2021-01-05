@@ -58,4 +58,9 @@ public class MoneyModeManager : LevelManager
         }
         return finalPosition;
     }
+
+    public override bool CompletedLevel(Transform takenBot)
+    {
+        throw new System.NotImplementedException();
+    }
 }
