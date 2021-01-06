@@ -9,9 +9,15 @@ public enum UIAnimationType
     Scale,
     Fade
 }
+public enum UpdateMode
+{
+    Normal,
+    UnscaledTime
+}
 
 public class UiTweener : MonoBehaviour
 {
+    public UpdateMode updateMode;
     public UIAnimationType animationType;
     public Ease easeType = Ease.Linear;
     public float duration;
@@ -104,6 +110,9 @@ public class UiTweener : MonoBehaviour
                 _tweenObj.OnComplete(() => gameObject.SetActive(false));
             }
         }
+
+        _tweenObj.SetUpdate(updateMode == UpdateMode.UnscaledTime);
+
 
         if (OnFinishEvent.GetPersistentEventCount() > 0)
             _tweenObj.OnComplete(() => OnFinishEvent.Invoke());

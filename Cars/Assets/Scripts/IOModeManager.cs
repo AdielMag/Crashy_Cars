@@ -6,6 +6,8 @@ public class IOModeManager : LevelManager
 {
     private List<Transform> currentBots;
 
+    public GameObject _tutorial;
+
     override public void Start()
     {
         base.Start();
@@ -14,6 +16,11 @@ public class IOModeManager : LevelManager
         for (int i = 0; i < botsParent.childCount; i++)
             currentBots.Add(botsParent.GetChild(i));
 
+        if (PrefsManager.instance.GetPref(PrefsManager.Pref.FirstTime))
+        {
+            _tutorial.SetActive(true);
+            ChangeTimeScale(0);
+        }
     }
 
     public override bool CompletedLevel(Transform takenBot)
@@ -27,5 +34,15 @@ public class IOModeManager : LevelManager
             return true;
         else
             return false;
+    }
+
+    public void ChangeTimeScale(float target)
+    {
+        Time.timeScale = target;
+    }
+
+    public void SetNotFirstTime()
+    {
+        PrefsManager.instance.ChangePref(PrefsManager.Pref.FirstTime, false);
     }
 }

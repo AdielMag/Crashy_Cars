@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
             instance = this;
 
         DontDestroyOnLoad(this);
+
+        PlayerPrefs.DeleteAll();
     }
 
     public Animator transitionAnimatorController;

@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dea6c0b47cf6e40a8bf21f88bc4c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMode: 0
   animationType: 2
   easeType: 0
   duration: 1
@@ -405,6 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54dea6c0b47cf6e40a8bf21f88bc4c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  updateMode: 0
   animationType: 2
   easeType: 0
   duration: 1

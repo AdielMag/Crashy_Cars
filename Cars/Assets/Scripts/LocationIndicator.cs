@@ -15,6 +15,13 @@ public class LocationIndicator : MonoBehaviour
 
     private void Start()
     {
+
+        if (!IOModeManager.instance)
+        {
+            enabled = false;
+            return;
+        }
+
         _cam = Camera.main;
 
         m_Update = Empty;
