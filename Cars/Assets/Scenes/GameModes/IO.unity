@@ -7932,6 +7932,7 @@ MonoBehaviour:
   finishTimeline: {fileID: 450594360}
   botsParent: {fileID: 1534611392}
   winWindow: {fileID: 286405951}
+  lostWindow: {fileID: 7211249757763036034}
   objPool: {fileID: 0}
   completed: 0
   _tutorial: {fileID: 1164102716}
@@ -18702,7 +18703,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 65333
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -85378,6 +85379,12 @@ GameObject:
 --- !u!1 &7211249757763036033 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7211249758307777309, guid: 691b74b4ebe9af94e8d07c8eff1955e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7211249757763036031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &7211249757763036034 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3860057225626628410, guid: 691b74b4ebe9af94e8d07c8eff1955e2,
     type: 3}
   m_PrefabInstance: {fileID: 7211249757763036031}
   m_PrefabAsset: {fileID: 0}

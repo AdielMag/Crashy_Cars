@@ -32,21 +32,25 @@ public class LocationIndicator : MonoBehaviour
 
         _cam = Camera.main;
 
-        m_Update = Empty;
+        StartCoroutine(SetM_Update());
 
         SetIndicatorImage();
 
         screenMeasures = new Vector2(Screen.width - _indicator.rect.width,
             Screen.height - _indicator.rect.height);
 
-        CarController cCon;
+        if (type == IndicatorType.Car)
+        {
+            CarController cCon;
 
-        if (GetComponentInParent<Car>())
-            cCon = GetComponentInParent<Car>().cCon;
-        else
-            cCon = transform.parent.GetComponentInParent<Car>().cCon;
+            if (GetComponentInParent<Car>())
+                cCon = GetComponentInParent<Car>().cCon;
+            else
+                cCon = transform.parent.GetComponentInParent<Car>().cCon;
 
-        cCon.m_GotRammed += Disable;
+            cCon.m_GotRammed += Disable;
+        }
+
     }
 
     private Transform _indicatorsParent;
@@ -168,5 +172,21 @@ public class LocationIndicator : MonoBehaviour
         enabled = false;
 
         _indicator.gameObject.SetActive(false);
+    }
+
+    private void OnDisable()
+    {
+        if (_indicator)
+            _indicator.gameObject.SetActive(false);
+    }
+
+    IEnumerator SetM_Update()
+    {
+        m_Update = Empty;
+
+        yield return new WaitForEndOfFrame();
+
+        if (!GetComponent<MeshRenderer>().isVisible)
+            m_Update = UpdateIndicator;
     }
 }

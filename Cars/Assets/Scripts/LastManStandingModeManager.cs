@@ -29,4 +29,9 @@ public class LastManStandingModeManager : LevelManager
     {
         throw new System.NotImplementedException();
     }
+
+    public override void PlayerLost()
+    {
+        throw new System.NotImplementedException();
+    }
 }

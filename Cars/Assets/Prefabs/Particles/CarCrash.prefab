@@ -24088,7 +24088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d921b1d72307c840ac753a1ba8a8ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 2
+  time: 3
 --- !u!1 &4656606770681614710
 GameObject:
   m_ObjectHideFlags: 0
@@ -28923,7 +28923,7 @@ GameObject:
   - component: {fileID: 2704294011269190685}
   - component: {fileID: 3625057633791313977}
   m_Layer: 1
-  m_Name: Sphere
+  m_Name: Location Indicator handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28938,7 +28938,7 @@ Transform:
   m_GameObject: {fileID: 8476243978827640528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.05523186, y: 0.05523186, z: 0.05523186}
+  m_LocalScale: {x: 0.0020391052, y: 0.0020391052, z: 0.0020391052}
   m_Children: []
   m_Father: {fileID: 4650548096639770162}
   m_RootOrder: 4
@@ -29003,4 +29003,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  _indicator: {fileID: 0}

@@ -51,7 +51,7 @@ public class CarController : MonoBehaviour
 
         if (joystick)
         {
-            m_CarFallOff += StartCarFallOff;
+            //m_CarFallOff += StartCarFallOff;
         }
 
         m_TakeDown += TakedownScale;
@@ -331,6 +331,9 @@ public class CarController : MonoBehaviour
                     ("HitVFX",
                     transform.position,
                     Quaternion.identity);
+
+        if (joystick)
+            LevelManager.instance.PlayerLost();
     }
 
     private void TakedownScale(int size, float duration)
@@ -343,6 +346,4 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(8f);
         gameObject.SetActive(false);
     }
-
-    
 }

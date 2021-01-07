@@ -9,9 +9,9 @@ public class IOModeManager : LevelManager
     private List<Transform> currentBots;
 
     [Header("UI")]
-    [SerializeField]private GameObject _tutorial;
+    [SerializeField] private GameObject _tutorial;
     [SerializeField] private Slider completionBarPreFill;
-    [SerializeField]private Slider completionBar;
+    [SerializeField] private Slider completionBar;
 
     override public void Start()
     {
@@ -76,4 +76,12 @@ public class IOModeManager : LevelManager
         _tutorial.SetActive(true);
         ChangeTimeScale(0);
     }
+
+    public override void PlayerLost()
+    {
+        completionBar.GetComponent<UiTweener>().Disable();
+
+        lostWindow.gameObject.SetActive(true);
+    }
+
 }

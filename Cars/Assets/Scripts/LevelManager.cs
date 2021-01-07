@@ -16,7 +16,7 @@ public abstract class LevelManager : MonoBehaviour
 
     [Space]
     public PlayableDirector finishTimeline;
-    public Transform botsParent, winWindow;
+    public Transform botsParent, winWindow, lostWindow;
 
     [HideInInspector]
     public ObjectPooler objPool;
@@ -78,4 +78,6 @@ public abstract class LevelManager : MonoBehaviour
     {
 
     }
+
+    abstract public void PlayerLost();
 }
