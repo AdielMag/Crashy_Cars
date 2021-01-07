@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -670,6 +670,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car Controller_Bot 02
       objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
       propertyPath: inGameCam
@@ -889,6 +894,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car Controller_Bot 04
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
@@ -1131,6 +1141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car Controller_Bot 01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
@@ -1736,6 +1751,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car Controller_Bot 03
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
@@ -2382,6 +2402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Car Controller_Bot 05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
@@ -34503,6 +34528,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1358435221}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1418443126 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 851211207, guid: 691b74b4ebe9af94e8d07c8eff1955e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7211249757763036031}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1426055206
 GameObject:
   m_ObjectHideFlags: 0
@@ -54776,6 +54807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car Controller_Bot 06
       objectReference: {fileID: 0}
+    - target: {fileID: 8927992186723717413, guid: ede2c1e0e44b7064aacd49a496267eee,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 8927992186723717414, guid: ede2c1e0e44b7064aacd49a496267eee,
         type: 3}
       propertyPath: inGameCam
@@ -65272,6 +65308,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cool RedCar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8794080650876665377, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794080650876665377, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794080650876665377, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794080650876665377, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794080650876665377, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
+      objectReference: {fileID: 0}
+    - target: {fileID: 9091967065976709036, guid: ae91e571ed8c8614ba3c2bb77864e166,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae91e571ed8c8614ba3c2bb77864e166, type: 3}
 --- !u!1001 &853792625478843509
@@ -65286,10 +65352,20 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 146793611}
+    - target: {fileID: 3658631681400009792, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
     - target: {fileID: 3732319844032649120, guid: a2ee614141a8de34d9a676d46bab26df,
         type: 3}
       propertyPath: m_Name
       value: Police Car (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5220652898616250144, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6706913555017909696, guid: a2ee614141a8de34d9a676d46bab26df,
         type: 3}
@@ -65346,6 +65422,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6791750459146731174, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791750459146731174, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791750459146731174, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791750459146731174, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6791750459146731174, guid: a2ee614141a8de34d9a676d46bab26df,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2ee614141a8de34d9a676d46bab26df, type: 3}
 --- !u!1001 &2571618893555587778
@@ -65355,10 +65456,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1577749884}
     m_Modifications:
+    - target: {fileID: 547255462492953323, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
     - target: {fileID: 986173160061001411, guid: 7f6e21efdea13c441b0142a82baf4b37,
         type: 3}
       propertyPath: m_Name
       value: Green Car (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508419407977454294, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508419407977454294, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508419407977454294, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508419407977454294, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508419407977454294, guid: 7f6e21efdea13c441b0142a82baf4b37,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
       objectReference: {fileID: 0}
     - target: {fileID: 7576648573378196226, guid: 7f6e21efdea13c441b0142a82baf4b37,
         type: 3}
@@ -84752,6 +84883,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1577749884}
     m_Modifications:
+    - target: {fileID: 1903390247499526562, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
+    - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
+      objectReference: {fileID: 0}
     - target: {fileID: 2571201331047420995, guid: 1a72db110f7a81644add2a5df45cba70,
         type: 3}
       propertyPath: target
@@ -84826,6 +84987,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1577749884}
     m_Modifications:
+    - target: {fileID: 101588930808182075, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
+    - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
+      objectReference: {fileID: 0}
     - target: {fileID: 8573562779048518351, guid: d4d592e38ff3974439cdf280bff2f1ff,
         type: 3}
       propertyPath: m_Name
@@ -84959,6 +85150,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3996386670156332381, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: _indicator
+      value: 
+      objectReference: {fileID: 1418443126}
+    - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: _chasePrecentage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: _chaseTryCooldown
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: _allowedAngleToRam
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: carsRadius
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
+        type: 3}
+      propertyPath: edgeLm.m_Bits
+      value: 33280
       objectReference: {fileID: 0}
     - target: {fileID: 8672176273874715572, guid: b43ffa1505e435644b9d9b50e08b09ec,
         type: 3}

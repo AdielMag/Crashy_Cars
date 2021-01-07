@@ -23,6 +23,19 @@ public class BotBrain : MonoBehaviour
     public Transform chaseTarget;
     public Vector2 moveDirection { get; private set; }
 
+    [Header("Chase Difficulty Variables")]
+
+    [Tooltip("Precentage of time that " +
+    "the bot will chase the player when encuountring him")]
+    [SerializeField] private float _chasePrecentage = 40;
+    [Tooltip("Cooldown between trying to set a new chase target")]
+    [SerializeField] private float _chaseTryCooldown = 5;
+    [Tooltip("Min angle that lets the bot to try" +
+        " and ram the player - less is more accurate")]
+    [SerializeField] private float _allowedAngleToRam = 35;
+    [Tooltip("Min distance from target to allow ram")]
+    [SerializeField] private float _allowedDistanceFromTargetToRam = 9;
+
     Car mCar;
     PointsManager pointsMan;
     Rigidbody rgdbdy;
@@ -41,6 +54,8 @@ public class BotBrain : MonoBehaviour
         moveDirection = RandomDirection(0, 359);
 
         origEdgeRayLength = edgeRayLength;
+
+        currentChaseTryColldown = _chaseTryCooldown;
     }
 
      private void FixedUpdate()
@@ -49,8 +64,28 @@ public class BotBrain : MonoBehaviour
 
         if (chaseTarget)
         {
-            moveDirection = ChaseTargetDirection();
-            return;
+            float distance =
+                Vector3.Distance(transform.position, chaseTarget.position);
+            if (distance > 38 || distance <3.5f)
+                chaseTarget = null;
+            else
+            {
+                moveDirection = ChaseTargetDirection();
+
+                float angleToTarget =
+                    Vector3.SignedAngle(transform.right,
+                    transform.position - chaseTarget.position, Vector3.up);
+
+                // Can ram?
+                if (distance < _allowedDistanceFromTargetToRam 
+                    && angleToTarget < _allowedAngleToRam)
+                {
+                    mCar.cCon.TryToRamm();
+                    chaseTarget = null;
+                }
+
+                return;
+            }
         }
             
         if (edgeHit.transform != null)
@@ -92,37 +127,52 @@ public class BotBrain : MonoBehaviour
     RaycastHit obstacleHit;
 
     Ray forwardRay,rightRay,leftRay;
-    void Collisions()
+    private void Collisions()
     {
         forwardRay = new Ray(transform.position, transform.right);
 
         edgeRayLength = Mathf.Lerp(0, origEdgeRayLength, rgdbdy.velocity.magnitude);
-        //Debug.DrawLine(transform.position, transform.position + transform.right * rgdbdy.velocity.magnitude);
+       // Debug.DrawLine(forwardRay.origin, forwardRay.origin +
+       //     forwardRay.direction * rgdbdy.velocity.magnitude);
 
         Physics.Raycast(forwardRay, out edgeHit, edgeRayLength, edgeLm);
-        Physics.Raycast(forwardRay.origin+ Vector3.up*.1f,forwardRay.direction, out obstacleHit, edgeRayLength, obstacleLM);
+        Physics.Raycast(forwardRay.origin + Vector3.up * .1f, forwardRay.direction, out obstacleHit, edgeRayLength, obstacleLM);
 
         carsHit = Physics.OverlapSphere(transform.position, carsRadius, carsLM);
         moneyHit = Physics.OverlapSphere(transform.position, moneyRadius, moneyLM);
 
-        SetCurrentChaseTarget();
+        if (timeToWaitUntilNextChaseTry < Time.time
+            && !chaseTarget && carsHit.Length >= 0)
+            SetCurrentChaseTarget();
     }
 
-    void SetCurrentChaseTarget()
+    private float timeToWaitUntilNextChaseTry;
+    private float currentChaseTryColldown;
+    private void SetCurrentChaseTarget()
     {
-        chaseTarget = null;
+        timeToWaitUntilNextChaseTry =
+            Time.time + currentChaseTryColldown;
 
-        if (pointsMan.points < pointsToChase)
-            if (carsHit.Length > 0)
+        if (_chasePrecentage < Random.Range(0, 101))
+        {
+            _chasePrecentage *= 1.1f;
+            currentChaseTryColldown /= 1.25f;
+            return;
+        }
+        else
+            currentChaseTryColldown = _chaseTryCooldown;
+
+
+        foreach (Collider car in carsHit)
+        {
+            if (car.transform.tag == "Player")
             {
-                foreach (Collider car in carsHit)
-                    if (car.transform != mCar.target)
-                        if (car.GetComponent<PointsManager>().points >= pointsToChase)
-                        {
-                            chaseTarget = car.transform;
-                            return;
-                        }
+                chaseTarget = car.transform;
+                return;
             }
+            if (chaseTarget == null && car.transform != mCar.cCon.transform)
+                chaseTarget = car.transform;
+        }
 
         if (moneyHit.Length > 0)
             chaseTarget = moneyHit[0].transform;
@@ -196,4 +246,8 @@ public class BotBrain : MonoBehaviour
 
         cantChangeSwivelDir = false;
     }
+
+    // Difficulty variables
+
+    // Ramm Min angle (the lower the more accurate)
 }

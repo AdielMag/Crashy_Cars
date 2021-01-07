@@ -253,7 +253,7 @@ public class CarController : MonoBehaviour
 
     private TrailCollision ramTrailCol;
 
-    private void TryToRamm() 
+    public void TryToRamm() 
     {
         if (!CanRamm())
             return;
@@ -321,7 +321,8 @@ public class CarController : MonoBehaviour
 
         StartCoroutine(DisableObj());
 
-        IOModeManager.instance.BotHasBeenTakenOut(transform);
+        if(joystick)
+            LevelManager.instance.BotHasBeenTakenOut(transform);
 
         objPool.SpawnFromPool
                     ("HitVFX",

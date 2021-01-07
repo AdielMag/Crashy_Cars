@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LocationIndicator : MonoBehaviour
 {
+    [SerializeField]
     private RectTransform _indicator;
 
     private delegate void UpdateFunction();
@@ -15,7 +16,6 @@ public class LocationIndicator : MonoBehaviour
 
     private void Start()
     {
-
         if (!IOModeManager.instance)
         {
             enabled = false;
@@ -43,12 +43,9 @@ public class LocationIndicator : MonoBehaviour
 
     private void SetIndicatorImage()
     {
-        Transform indicatorsParent = GameObject
-            .FindGameObjectWithTag("MainCanvas").transform.GetChild(6);
+        GameObject obj = Instantiate(_indicator.gameObject);
 
-        GameObject obj = Instantiate(indicatorsParent.GetChild(0).gameObject);
-
-        obj.transform.SetParent(indicatorsParent);
+        obj.transform.SetParent(_indicator.parent);
 
         _indicator = obj.GetComponent<RectTransform>();
 
