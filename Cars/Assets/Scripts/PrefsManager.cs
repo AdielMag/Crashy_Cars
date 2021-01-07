@@ -31,7 +31,10 @@ public class PrefsManager : MonoBehaviour
         if (type == Pref.Vibration)
             target = PlayerPrefs.GetInt("CanVibrate") == 0 ? true : false;
         else if (type == Pref.FirstTime)
-            target = PlayerPrefs.GetInt("FirstTime") == 0 ? true : false;
+        {
+            int i = PlayerPrefs.GetInt("FirstTime");
+            target = i == 0 ? true : false;
+        }
         else
             target = false;
 

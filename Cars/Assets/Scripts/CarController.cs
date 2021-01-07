@@ -52,8 +52,6 @@ public class CarController : MonoBehaviour
         if (joystick)
         {
             m_CarFallOff += StartCarFallOff;
-
-
         }
 
         m_TakeDown += TakedownScale;
@@ -172,16 +170,22 @@ public class CarController : MonoBehaviour
     }
 
     bool cantHitCars;
-    IEnumerator HitCar()
+    IEnumerator RammedVibrations()
     {
         Vibration.VibratePeek();
         Vibration.VibratePeek();
+        yield return new WaitForSeconds(.05f);
         Vibration.VibratePeek();
         Vibration.VibratePeek();
+        yield return new WaitForSeconds(.05f);
         Vibration.VibratePeek();
         Vibration.VibratePeek();
-        Vibration.VibratePeek();
+        yield return new WaitForSeconds(.05f);
 
+
+    }
+    IEnumerator WaitUntilCanHitCarsAgain()
+    {
         cantHitCars = true;
         yield return new WaitForSeconds(1);
         cantHitCars = false;
@@ -206,9 +210,9 @@ public class CarController : MonoBehaviour
                     CarController hitCCon =
                         collision.transform.GetComponent<CarController>();
 
-                    StartCoroutine(HitCar());
+                    StartCoroutine(WaitUntilCanHitCarsAgain());
 
-                    hitCCon.m_GotRammed(collision.contacts[0].point);
+                    hitCCon.m_GotRammed(transform.position);
                     CarRammedSuccefuly(hitCCon);
                 }
             }
@@ -306,9 +310,12 @@ public class CarController : MonoBehaviour
 
     private void GotRammed(Vector3 collisionPoint)
     {
+        StartCoroutine(RammedVibrations());
+
         cantMove = true;
 
-        rigidBdy.AddExplosionForce(500, collisionPoint - Vector3.up * 5, 500);
+        rigidBdy.AddExplosionForce(1500, collisionPoint - Vector3.up * 6
+            + (collisionPoint-transform.position ).normalized * 5, 1500);
 
         coll.isTrigger = true;
 
@@ -332,7 +339,7 @@ public class CarController : MonoBehaviour
 
     IEnumerator DisableObj()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
         gameObject.SetActive(false);
     }
 

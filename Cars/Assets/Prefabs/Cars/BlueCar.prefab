@@ -9716,6 +9716,7 @@ MonoBehaviour:
   - {fileID: 2178500816797382577}
   - {fileID: 7993904029431775596}
   - {fileID: 7575310966667708578}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -9756,6 +9757,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2077281618103840373}
     m_Modifications:
+    - target: {fileID: 1753737341651752737, guid: 36ee9afd088fbcd43a3720bb2be61aba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.45900056
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753737341651752737, guid: 36ee9afd088fbcd43a3720bb2be61aba,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.427
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753737341651752737, guid: 36ee9afd088fbcd43a3720bb2be61aba,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.848
+      objectReference: {fileID: 0}
     - target: {fileID: 6143211753407897285, guid: 36ee9afd088fbcd43a3720bb2be61aba,
         type: 3}
       propertyPath: m_LocalPosition.x

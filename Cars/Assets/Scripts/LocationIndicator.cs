@@ -44,7 +44,7 @@ public class LocationIndicator : MonoBehaviour
     private void SetIndicatorImage()
     {
         Transform indicatorsParent = GameObject
-            .FindGameObjectWithTag("MainCanvas").transform.GetChild(7);
+            .FindGameObjectWithTag("MainCanvas").transform.GetChild(6);
 
         GameObject obj = Instantiate(indicatorsParent.GetChild(0).gameObject);
 
@@ -66,6 +66,9 @@ public class LocationIndicator : MonoBehaviour
 
     void OnBecameVisible()
     {
+        if (!enabled)
+            return;
+
         _indicator.gameObject.SetActive(false);
 
         m_Update = Empty;

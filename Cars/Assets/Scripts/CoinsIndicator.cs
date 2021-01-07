@@ -23,8 +23,6 @@ public class CoinsIndicator : MonoBehaviour
         {
             coins = 200;
             prefMan.ChangePref(PrefsManager.Pref.Coins, false, coins);
-
-            prefMan.ChangePref(PrefsManager.Pref.FirstTime, false);
         }
         else
             coins = prefMan.GetNumPref(PrefsManager.Pref.Coins);

@@ -16,11 +16,13 @@ public class MyJoystick : FloatingJoystick
 
     public override void OnPointerDown(PointerEventData eventData)
     {
+        /*
         if (_firstTouchIndicator.gameObject.activeInHierarchy)
         {
             _firstTouchIndicator.gameObject.SetActive(false);
             StartCoroutine(ShowLiftFinger());
         }
+        */
 
         _ramTimer.anchoredPosition =
             ScreenPointToAnchoredPosition(eventData.position);
@@ -30,8 +32,10 @@ public class MyJoystick : FloatingJoystick
 
     public override void OnPointerUp(PointerEventData eventData)
     {
+        /*
         if (_firstRaiseIndicator.gameObject.activeInHierarchy)
             _firstRaiseIndicator.gameObject.SetActive(false);
+        */
 
         base.OnPointerUp(eventData);
     }

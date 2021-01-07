@@ -1,12 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class IOModeManager : LevelManager
 {
     private List<Transform> currentBots;
 
-    public GameObject _tutorial;
+    [Header("UI")]
+    [SerializeField]private GameObject _tutorial;
+    [SerializeField] private Slider completionBarPreFill;
+    [SerializeField]private Slider completionBar;
 
     override public void Start()
     {
@@ -16,24 +21,39 @@ public class IOModeManager : LevelManager
         for (int i = 0; i < botsParent.childCount; i++)
             currentBots.Add(botsParent.GetChild(i));
 
-        if (PrefsManager.instance.GetPref(PrefsManager.Pref.FirstTime))
+        if (PrefsManager.instance.GetPref(PrefsManager.Pref.FirstTime) == true)
         {
-            _tutorial.SetActive(true);
-            ChangeTimeScale(0);
+            StartCoroutine(ShowTutorial());
         }
     }
 
     public override bool CompletedLevel(Transform takenBot)
     {
         if (currentBots.Contains(takenBot))
+        {
             currentBots.Remove(takenBot);
+
+            float precentage =
+                (float)(botsParent.childCount - currentBots.Count) / (float)botsParent.childCount;
+
+            UpdateCompletionPrecentage(precentage);
+        }
         else
             Debug.LogError("The rammed bot is not listed! - check why");
 
         if (currentBots.Count == 0)
+        {
+            completionBar.GetComponent<UiTweener>().Disable();
             return true;
+        }
         else
             return false;
+    }
+
+    private void UpdateCompletionPrecentage(float precentage)
+    {
+        completionBarPreFill.value = precentage;
+        completionBar.DOValue(precentage, 2).SetEase(Ease.InOutFlash);
     }
 
     public void ChangeTimeScale(float target)
@@ -44,5 +64,12 @@ public class IOModeManager : LevelManager
     public void SetNotFirstTime()
     {
         PrefsManager.instance.ChangePref(PrefsManager.Pref.FirstTime, false);
+    }
+
+    IEnumerator ShowTutorial()
+    {
+        yield return new WaitForSeconds(3.2f);
+        _tutorial.SetActive(true);
+        ChangeTimeScale(0);
     }
 }
