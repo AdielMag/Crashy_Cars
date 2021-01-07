@@ -27,16 +27,20 @@ public class IOModeManager : LevelManager
         }
     }
 
-    public override bool CompletedLevel(Transform takenBot)
+    public override bool CompletedLevel(Transform takenBot,bool playerRammed =true)
     {
         if (currentBots.Contains(takenBot))
         {
             currentBots.Remove(takenBot);
 
-            float precentage =
-                (float)(botsParent.childCount - currentBots.Count) / (float)botsParent.childCount;
+            if (playerRammed)
+            {
+                float precentage =
+                    (float)(botsParent.childCount - currentBots.Count)
+                    / (float)botsParent.childCount;
 
-            UpdateCompletionPrecentage(precentage);
+                UpdateCompletionPrecentage(precentage);
+            }
         }
         else
             Debug.LogError("The rammed bot is not listed! - check why");

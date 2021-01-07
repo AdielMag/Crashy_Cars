@@ -153,7 +153,7 @@ public class CarController : MonoBehaviour
                 gameObject.SetActive(false);
 
                 // Bot has fallen. Update manager and check if player won
-                LevelManager.instance.BotHasBeenTakenOut(transform);
+                LevelManager.instance.BotHasBeenTakenOut(transform,false);
             }
             else
             {
@@ -224,6 +224,8 @@ public class CarController : MonoBehaviour
         carValue += hitCCon.carValue;
 
         m_TakeDown.Invoke(carValue, 1);
+
+        LevelManager.instance.BotHasBeenTakenOut(hitCCon.transform, joystick);
     }
 
     public void CarGotHit()
@@ -245,6 +247,10 @@ public class CarController : MonoBehaviour
 
     public delegate void RammedDelegate(float cooldown,bool success);
     public RammedDelegate m_TriedToRamm;
+    public delegate void TakeDownDelegate(int targetSize, float duration);
+    public TakeDownDelegate m_TakeDown;
+    public delegate void GotRammedDelegate(Vector3 collisionPoint);
+    public GotRammedDelegate m_GotRammed;
 
     float lastTimeRammed;
     [HideInInspector]
@@ -321,17 +327,11 @@ public class CarController : MonoBehaviour
 
         StartCoroutine(DisableObj());
 
-        if(joystick)
-            LevelManager.instance.BotHasBeenTakenOut(transform);
-
         objPool.SpawnFromPool
                     ("HitVFX",
                     transform.position,
                     Quaternion.identity);
     }
-
-    public delegate void TakeDownDelegate(int targetSize,float duration);
-    public TakeDownDelegate m_TakeDown;
 
     private void TakedownScale(int size, float duration)
     {
@@ -344,6 +344,5 @@ public class CarController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public delegate void GotRammedDelegate(Vector3 collisionPoint);
-    public GotRammedDelegate m_GotRammed;
+    
 }

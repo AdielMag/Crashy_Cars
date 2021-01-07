@@ -57,7 +57,7 @@ public abstract class LevelManager : MonoBehaviour
         enabled = false;
     }
 
-    public void BotHasBeenTakenOut(Transform takenBot)
+    public void BotHasBeenTakenOut(Transform takenBot,bool playerRammed = true)
     {
         int activeBots = 0;
 
@@ -68,11 +68,11 @@ public abstract class LevelManager : MonoBehaviour
                 activeBots++;
         }
 
-        if (CompletedLevel(takenBot))
+        if (CompletedLevel(takenBot, playerRammed))
             LevelCompleted();
     }
 
-    abstract public bool CompletedLevel(Transform takenBot);
+    abstract public bool CompletedLevel(Transform takenBot,bool playerRammed = true);
 
     public void PlayerHasFallen()
     {

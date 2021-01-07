@@ -25,7 +25,7 @@ public class LastManStandingModeManager : LevelManager
         base.Update();
     }
 
-    public override bool CompletedLevel(Transform takenBot)
+    public override bool CompletedLevel(Transform takenBot, bool playerRammed = true)
     {
         throw new System.NotImplementedException();
     }

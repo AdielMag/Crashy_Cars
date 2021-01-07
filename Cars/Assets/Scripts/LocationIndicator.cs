@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+enum IndicatorType
+{
+    Car,
+    Explosion
+}
+
 public class LocationIndicator : MonoBehaviour
 {
-    [SerializeField]
+    [SerializeField] private IndicatorType type;
+
     private RectTransform _indicator;
 
     private delegate void UpdateFunction();
@@ -41,11 +49,41 @@ public class LocationIndicator : MonoBehaviour
         cCon.m_GotRammed += Disable;
     }
 
+    private Transform _indicatorsParent;
     private void SetIndicatorImage()
     {
-        GameObject obj = Instantiate(_indicator.gameObject);
+        GameObject prefab;
+        switch (type)
+        {
+            default:
+                prefab = Resources.Load<GameObject>("CarOffScreenIndicator");
+                break;
+            case IndicatorType.Explosion:
+                prefab = Resources.Load<GameObject>("ExplosionOffScreenIndicator");
+                break;
+        }
 
-        obj.transform.SetParent(_indicator.parent);
+        Transform canvas =
+            GameObject.FindGameObjectWithTag("MainCanvas").transform;
+
+        for (int i = 0; i < canvas.childCount; i++)
+            if (canvas.GetChild(i).name == prefab.transform.name + " Parent")
+                _indicatorsParent = canvas.GetChild(i);
+
+        if (_indicatorsParent == null)
+        {
+            _indicatorsParent =
+                new GameObject(prefab.transform.name + " Parent").transform;
+            _indicatorsParent.SetParent(canvas);
+
+            _indicatorsParent.localRotation = Quaternion.Euler(Vector3.zero);
+            _indicatorsParent.localPosition = Vector3.zero;
+            _indicatorsParent.localScale = Vector3.one;
+        }
+
+        GameObject obj = Instantiate(prefab);
+
+        obj.transform.SetParent(_indicatorsParent);
 
         _indicator = obj.GetComponent<RectTransform>();
 
@@ -86,7 +124,9 @@ public class LocationIndicator : MonoBehaviour
     private void UpdateIndicator()
     {
         _indicator.localPosition = TargetPos();
-        _indicator.localEulerAngles = TargetEuler();
+
+        if (type == IndicatorType.Car)
+            _indicator.localEulerAngles = TargetEuler();
     }
 
     private Vector3 TargetPos()

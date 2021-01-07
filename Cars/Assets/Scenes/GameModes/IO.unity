@@ -18702,7 +18702,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 65333
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -34527,12 +34527,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2077281618103840373, guid: b43ffa1505e435644b9d9b50e08b09ec,
     type: 3}
   m_PrefabInstance: {fileID: 1358435221}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1418443126 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 851211207, guid: 691b74b4ebe9af94e8d07c8eff1955e2,
-    type: 3}
-  m_PrefabInstance: {fileID: 7211249757763036031}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1426055206
 GameObject:
@@ -65337,7 +65331,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae91e571ed8c8614ba3c2bb77864e166, type: 3}
 --- !u!1001 &853792625478843509
@@ -65356,7 +65350,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     - target: {fileID: 3732319844032649120, guid: a2ee614141a8de34d9a676d46bab26df,
         type: 3}
       propertyPath: m_Name
@@ -65460,7 +65454,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     - target: {fileID: 986173160061001411, guid: 7f6e21efdea13c441b0142a82baf4b37,
         type: 3}
       propertyPath: m_Name
@@ -84887,7 +84881,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     - target: {fileID: 2099134312262339336, guid: 1a72db110f7a81644add2a5df45cba70,
         type: 3}
       propertyPath: _chasePrecentage
@@ -84991,7 +84985,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     - target: {fileID: 1212912424773784643, guid: d4d592e38ff3974439cdf280bff2f1ff,
         type: 3}
       propertyPath: _chasePrecentage
@@ -85155,7 +85149,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _indicator
       value: 
-      objectReference: {fileID: 1418443126}
+      objectReference: {fileID: 0}
     - target: {fileID: 4820625423195839283, guid: b43ffa1505e435644b9d9b50e08b09ec,
         type: 3}
       propertyPath: _chasePrecentage
@@ -95041,7 +95035,8 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1605238163}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 101588930808182075, guid: d4d592e38ff3974439cdf280bff2f1ff, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d4d592e38ff3974439cdf280bff2f1ff, type: 3}
 --- !u!1001 &8927992185136917684
 PrefabInstance:

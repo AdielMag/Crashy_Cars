@@ -59,7 +59,7 @@ public class MoneyModeManager : LevelManager
         return finalPosition;
     }
 
-    public override bool CompletedLevel(Transform takenBot)
+    public override bool CompletedLevel(Transform takenBot, bool playerRammed = true)
     {
         throw new System.NotImplementedException();
     }
