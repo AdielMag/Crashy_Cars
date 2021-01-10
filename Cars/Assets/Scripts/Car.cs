@@ -58,6 +58,9 @@ public class Car : MonoBehaviour
         _trailCol.cCon = cCon;
 
         _origSize = transform.localScale.x;
+
+        foreach (Wheel wheel in wheels)
+            wheel.SetScaleModifier(transform.localScale.x);
     }
 
     private void Update()

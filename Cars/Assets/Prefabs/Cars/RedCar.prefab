@@ -9663,6 +9663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  timeToWaitBeforeShowing: 5
 --- !u!1 &8573562779048518351
 GameObject:
   m_ObjectHideFlags: 0

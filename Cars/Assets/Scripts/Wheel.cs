@@ -11,6 +11,8 @@ public class Wheel : MonoBehaviour
     [HideInInspector]
     public Transform actualWheel;
 
+    private float scaleDistanceModifier;
+
     private void Start()
     {
         actualWheel = transform.GetChild(0);
@@ -23,6 +25,11 @@ public class Wheel : MonoBehaviour
         origPos = transform.localPosition;
     }
 
+    public void SetScaleModifier(float currentScale)
+    {
+        scaleDistanceModifier = ((currentScale - 1.5f) / .35f) / 10;
+    }
+
     public Vector3 asd;
     private void Update()
     {
@@ -30,7 +37,7 @@ public class Wheel : MonoBehaviour
         {
             targetPos = Vector3.up * (-hit.distance + 1.1f);
 
-            targetPos.y = Mathf.Clamp(targetPos.y, -.175f, 0);
+            targetPos.y = Mathf.Clamp(targetPos.y, -.175f + scaleDistanceModifier, 0);
         }
         else
         {

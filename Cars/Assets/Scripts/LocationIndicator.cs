@@ -12,6 +12,7 @@ enum IndicatorType
 public class LocationIndicator : MonoBehaviour
 {
     [SerializeField] private IndicatorType type;
+    [SerializeField] private float timeToWaitBeforeShowing;
 
     private RectTransform _indicator;
 
@@ -113,6 +114,7 @@ public class LocationIndicator : MonoBehaviour
         m_Update = Empty;
     }
 
+    float timeThatWentInvisible;
     void OnBecameInvisible()
     {
         if (!enabled)
@@ -121,16 +123,23 @@ public class LocationIndicator : MonoBehaviour
         _indicator.gameObject.SetActive(true);
 
         m_Update = UpdateIndicator;
+
+        timeThatWentInvisible = Time.time;
     }
 
     private void Empty() { }
 
     private void UpdateIndicator()
     {
-        _indicator.localPosition = TargetPos();
+        if (timeThatWentInvisible + timeToWaitBeforeShowing < Time.time)
+        {
+            _indicator.localPosition = TargetPos();
 
-        if (type == IndicatorType.Car)
-            _indicator.localEulerAngles = TargetEuler();
+            if (type == IndicatorType.Car)
+                _indicator.localEulerAngles = TargetEuler();
+        }
+        else
+            _indicator.localPosition = new Vector3(10000, 10000, 10000);
     }
 
     private Vector3 TargetPos()

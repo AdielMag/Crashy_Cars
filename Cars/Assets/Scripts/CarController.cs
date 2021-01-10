@@ -298,7 +298,7 @@ public class CarController : MonoBehaviour
             10 * currentVelocityPrecentage,
             LayerMask.GetMask("Controllers"));
 
-        if (hit.transform != null)
+        if (hit.transform != null && hit.transform.tag != "Player")
         {
             succes = true;
             // Make sure the target will be hitted (slow it down?)
