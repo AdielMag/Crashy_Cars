@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class IOModeManager : LevelManager
 {
+    [Space]
+    [SerializeField] private List<GameObject> levelLayouts;
+
     [Header("UI")]
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject _tutorial;
@@ -17,23 +20,28 @@ public class IOModeManager : LevelManager
 
     override public void Start()
     {
-        base.Start();
 
         int currentLevel = GameManager.instance.currentLevel;
 
         levelText.text = "Level " + currentLevel.ToString();
 
+        Transform layout= Instantiate(levelLayouts[currentLevel - 1]).transform;
+
+        botsParent = layout.GetChild(0);
+
         currentBots = new List<Transform>();
         for (int i = 0; i < botsParent.childCount; i++)
             currentBots.Add(botsParent.GetChild(i));
+
+        StartCoroutine(DisableBotsAfterFixedUpdate());
 
         if (PrefsManager.instance.GetPref(PrefsManager.Pref.FirstTime) == true)
         {
             StartCoroutine(ShowTutorial());
         }
-    }
 
-    
+        base.Start();
+    }
 
     public override bool CompletedLevel(Transform takenBot,bool playerRammed =true)
     {
@@ -68,6 +76,18 @@ public class IOModeManager : LevelManager
         completionBar.DOValue(precentage, 2).SetEase(Ease.InOutFlash);
     }
 
+    IEnumerator DisableBotsAfterFixedUpdate()
+    {
+        // Used to let the controllers update ones and place the cars correctly
+        yield return new WaitForFixedUpdate();
+        botsParent.gameObject.SetActive(false);
+    }
+
+    public void EnableBots()
+    {
+        botsParent.gameObject.SetActive(true);
+    }
+
     public void ChangeTimeScale(float target)
     {
         Time.timeScale = target;
@@ -92,4 +112,10 @@ public class IOModeManager : LevelManager
         lostWindow.gameObject.SetActive(true);
     }
 
+    public void LowerFloor() // Used at the end to make cool ending effect
+    {
+        Transform floor = botsParent.parent.GetChild(1);
+
+        floor.DOMoveY(floor.position.y - 10, 2.25f).SetEase(Ease.Linear);
+    }
 }
