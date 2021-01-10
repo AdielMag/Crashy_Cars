@@ -214,8 +214,11 @@ public class CarController : MonoBehaviour
 
                     StartCoroutine(WaitUntilCanHitCarsAgain());
 
-                    hitCCon.m_GotRammed(transform.position);
-                    CarRammedSuccefuly(hitCCon);
+                    if (hitCCon.CanBeRammed())
+                    {
+                        hitCCon.m_GotRammed(transform.position);
+                        CarRammedSuccefuly(hitCCon);
+                    }
                 }
             }
         }
@@ -253,6 +256,18 @@ public class CarController : MonoBehaviour
     public TakeDownDelegate m_TakeDown;
     public delegate void GotRammedDelegate(Vector3 collisionPoint);
     public GotRammedDelegate m_GotRammed;
+
+    public bool CanBeRammed()
+    {
+        if (joystick)
+        {
+            if (lastTimeRammed + (timeToWaitBetweenRamms / 2) < Time.time)
+                return fallCam;
+            else
+                return true;
+        }
+        else return true;
+    }
 
     float lastTimeRammed;
     [HideInInspector]
