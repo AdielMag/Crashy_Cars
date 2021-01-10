@@ -485,6 +485,10 @@ MonoBehaviour:
   moneyRadius: 7
   beingChased: 0
   chaseTarget: {fileID: 0}
+  _chasePrecentage: 40
+  _chaseTryCooldown: 5
+  _allowedAngleToRam: 35
+  _allowedDistanceFromTargetToRam: 9
 --- !u!114 &128240886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,6 +508,7 @@ MonoBehaviour:
   - {fileID: 641330419}
   - {fileID: 523576837}
   - {fileID: 905674348}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -2489,6 +2494,10 @@ MonoBehaviour:
   moneyRadius: 7
   beingChased: 0
   chaseTarget: {fileID: 0}
+  _chasePrecentage: 40
+  _chaseTryCooldown: 5
+  _allowedAngleToRam: 35
+  _allowedDistanceFromTargetToRam: 9
 --- !u!114 &605386969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2508,6 +2517,7 @@ MonoBehaviour:
   - {fileID: 1175447167}
   - {fileID: 768950032}
   - {fileID: 2063786787}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -4879,6 +4889,10 @@ MonoBehaviour:
   moneyRadius: 7
   beingChased: 0
   chaseTarget: {fileID: 0}
+  _chasePrecentage: 40
+  _chaseTryCooldown: 5
+  _allowedAngleToRam: 35
+  _allowedDistanceFromTargetToRam: 9
 --- !u!114 &1226700367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4898,6 +4912,7 @@ MonoBehaviour:
   - {fileID: 2070249471}
   - {fileID: 1782094370}
   - {fileID: 353407862}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -5812,6 +5827,7 @@ MonoBehaviour:
   - {fileID: 40919616}
   - {fileID: 1114040582}
   - {fileID: 223974228}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -5845,6 +5861,10 @@ MonoBehaviour:
   moneyRadius: 7
   beingChased: 0
   chaseTarget: {fileID: 0}
+  _chasePrecentage: 40
+  _chaseTryCooldown: 5
+  _allowedAngleToRam: 35
+  _allowedDistanceFromTargetToRam: 9
 --- !u!1001 &1373761363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6044,6 +6064,10 @@ MonoBehaviour:
   moneyRadius: 7
   beingChased: 0
   chaseTarget: {fileID: 0}
+  _chasePrecentage: 40
+  _chaseTryCooldown: 5
+  _allowedAngleToRam: 35
+  _allowedDistanceFromTargetToRam: 9
 --- !u!114 &1547068511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6063,6 +6087,7 @@ MonoBehaviour:
   - {fileID: 915181348}
   - {fileID: 1546016836}
   - {fileID: 983291551}
+  cCon: {fileID: 0}
   indic: {fileID: 0}
   groundLayerMask:
     serializedVersion: 2
@@ -8346,3 +8371,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144984504}
   m_CullTransparentMesh: 0
+--- !u!1001 &5272115511999904103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468594, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5272115512497468595, guid: a197fb1d68af9ba4c8d747b86038c9df,
+        type: 3}
+      propertyPath: m_Name
+      value: Wrecking ball
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a197fb1d68af9ba4c8d747b86038c9df, type: 3}

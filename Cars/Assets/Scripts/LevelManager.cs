@@ -18,6 +18,9 @@ public abstract class LevelManager : MonoBehaviour
     public PlayableDirector finishTimeline;
     public Transform botsParent, winWindow, lostWindow;
 
+    [Space]
+    public List<GameObject> levelLayouts;
+
     [HideInInspector]
     public ObjectPooler objPool;
 

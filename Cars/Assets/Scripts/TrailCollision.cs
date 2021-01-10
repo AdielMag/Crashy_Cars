@@ -86,7 +86,10 @@ public class TrailCollision : MonoBehaviour
         if (hitCCon == cCon)
             return;
 
-        hitCCon.m_GotRammed(transform.position);
-        cCon.CarRammedSuccefuly(hitCCon);
+        if (hitCCon.CanBeRammed())
+        {
+            hitCCon.m_GotRammed(transform.position);
+            cCon.CarRammedSuccefuly(hitCCon);
+        }
     }
 }

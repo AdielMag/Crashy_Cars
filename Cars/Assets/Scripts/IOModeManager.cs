@@ -7,9 +7,6 @@ using DG.Tweening;
 
 public class IOModeManager : LevelManager
 {
-    [Space]
-    [SerializeField] private List<GameObject> levelLayouts;
-
     [Header("UI")]
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject _tutorial;

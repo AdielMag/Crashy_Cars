@@ -356,6 +356,8 @@ public class CarController : MonoBehaviour
     private void TakedownScale(int size, float duration)
     {
         transform.DOScale(1 + (.01f * size), duration);
+
+        movementSpeed *= 1.25f;
     }
 
     IEnumerator DisableObj()
