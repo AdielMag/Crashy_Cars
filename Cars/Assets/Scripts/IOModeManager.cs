@@ -2,20 +2,26 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 
 public class IOModeManager : LevelManager
 {
-    private List<Transform> currentBots;
-
     [Header("UI")]
+    [SerializeField] private TMP_Text levelText;
     [SerializeField] private GameObject _tutorial;
     [SerializeField] private Slider completionBarPreFill;
     [SerializeField] private Slider completionBar;
 
+    private List<Transform> currentBots;
+
     override public void Start()
     {
         base.Start();
+
+        int currentLevel = GameManager.instance.currentLevel;
+
+        levelText.text = "Level " + currentLevel.ToString();
 
         currentBots = new List<Transform>();
         for (int i = 0; i < botsParent.childCount; i++)
@@ -26,6 +32,8 @@ public class IOModeManager : LevelManager
             StartCoroutine(ShowTutorial());
         }
     }
+
+    
 
     public override bool CompletedLevel(Transform takenBot,bool playerRammed =true)
     {

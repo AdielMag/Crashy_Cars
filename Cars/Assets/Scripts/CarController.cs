@@ -261,8 +261,8 @@ public class CarController : MonoBehaviour
     {
         if (joystick)
         {
-            if (lastTimeRammed + (timeToWaitBetweenRamms / 2) < Time.time)
-                return fallCam;
+            if (lastTimeRammed + (timeToWaitBetweenRamms / 1.5f) > Time.time)
+                return false;
             else
                 return true;
         }
