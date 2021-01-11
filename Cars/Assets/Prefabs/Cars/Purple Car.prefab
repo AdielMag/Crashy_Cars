@@ -4875,7 +4875,7 @@ MonoBehaviour:
   moneyRadius: 10
   beingChased: 0
   chaseTarget: {fileID: 0}
-  _chasePrecentage: 40
+  _chasePrecentage: 80
   _chaseTryCooldown: 5
   _allowedAngleToRam: 35
   _allowedDistanceFromTargetToRam: 9

@@ -21,8 +21,8 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 1, g: 0.83345425, b: 0.759434, a: 1}
-  m_AmbientGroundColor: {r: 0.5613208, g: 1, b: 0.8868306, a: 1}
+  m_AmbientEquatorColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
+  m_AmbientGroundColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
@@ -141,6 +141,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 527644801}
     m_Modifications:
+    - target: {fileID: 716419485260588930, guid: f9062148eb2437649ba4da3e16a758b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 408.9004
+      objectReference: {fileID: 0}
+    - target: {fileID: 716419485260588930, guid: f9062148eb2437649ba4da3e16a758b3,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 944.19995
+      objectReference: {fileID: 0}
     - target: {fileID: 716419485262760457, guid: f9062148eb2437649ba4da3e16a758b3,
         type: 3}
       propertyPath: m_LocalPosition.x
