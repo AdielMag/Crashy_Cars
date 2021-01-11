@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GameAnalytics.Initialize();
+
+        currentLevel = 
+            PrefsManager.instance.GetNumPref(PrefsManager.Pref.CurrentLevel);
     }
 
     public Animator transitionAnimatorController;

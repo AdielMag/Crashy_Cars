@@ -9700,7 +9700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  timeToWaitBeforeShowing: 5
+  timeToWaitBeforeShowing: 2
 --- !u!1001 &5203384555142640490
 PrefabInstance:
   m_ObjectHideFlags: 0

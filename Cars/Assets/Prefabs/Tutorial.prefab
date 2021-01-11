@@ -436,6 +436,7 @@ GameObject:
   - component: {fileID: 2678664254697768071}
   - component: {fileID: 2678664254697768070}
   - component: {fileID: 2678664254697768074}
+  - component: {fileID: 331137643}
   m_Layer: 5
   m_Name: Third step
   m_TagString: Untagged
@@ -595,6 +596,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &331137643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2678664254697768064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff951f00b3d1a5448191721c8df1012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 2678664255066924124}
+  timer: 3
 --- !u!1 &2678664254870672808
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +826,7 @@ GameObject:
   - component: {fileID: 2678664255181614779}
   - component: {fileID: 2678664255181614778}
   - component: {fileID: 2678664255181614782}
+  - component: {fileID: 331137642}
   m_Layer: 5
   m_Name: Second step
   m_TagString: Untagged
@@ -974,6 +990,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &331137642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2678664255181614772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff951f00b3d1a5448191721c8df1012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 2678664255254398431}
+  timer: 3
 --- !u!1 &2678664255254398425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1246,7 @@ GameObject:
   - component: {fileID: 2678664255621611947}
   - component: {fileID: 2678664255621611946}
   - component: {fileID: 2678664255621611941}
+  - component: {fileID: 331137644}
   m_Layer: 5
   m_Name: First step
   m_TagString: Untagged
@@ -1295,6 +1326,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &331137644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2678664255621611943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff951f00b3d1a5448191721c8df1012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn: {fileID: 2678664254677232642}
+  timer: 3
 --- !u!1 &2678664255825570903
 GameObject:
   m_ObjectHideFlags: 0

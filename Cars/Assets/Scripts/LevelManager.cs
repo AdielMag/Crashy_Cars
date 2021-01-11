@@ -54,7 +54,11 @@ public abstract class LevelManager : MonoBehaviour
             .GetComponent<CarController>().CarCompletedLevel();
 
         if (GameManager.instance.currentLevel < levelLayouts.Count)
+        {
             GameManager.instance.currentLevel++;
+            PrefsManager.instance.ChangePref(PrefsManager.Pref.CurrentLevel
+                , true, GameManager.instance.currentLevel);
+        }
 
         ObjectPooler.instance.HideCollectables();
 

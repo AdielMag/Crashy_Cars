@@ -17,8 +17,7 @@ public class IOModeManager : LevelManager
 
     override public void Start()
     {
-
-        int currentLevel = 3;
+        int currentLevel = GameManager.instance.currentLevel;
 
         levelText.text = "Level " + currentLevel.ToString();
 

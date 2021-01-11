@@ -23,8 +23,11 @@ public class Car : MonoBehaviour
 
     private void OnDisable()
     {
-        cCon.m_CarFallOff -= CarFallOff;
-        cCon.m_TakeDown -= TakedownScale;
+        if (cCon)
+        {
+            cCon.m_CarFallOff -= CarFallOff;
+            cCon.m_TakeDown -= TakedownScale;
+        }
     }
 
     private void Awake()
