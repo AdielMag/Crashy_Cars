@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     {
         GameAnalytics.Initialize();
 
+        //PlayerPrefs.DeleteAll();
+
         currentLevel = 
             PrefsManager.instance.GetNumPref(PrefsManager.Pref.CurrentLevel);
     }
