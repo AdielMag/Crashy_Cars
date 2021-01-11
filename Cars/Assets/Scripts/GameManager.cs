@@ -1,6 +1,8 @@
 ﻿using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine;
+using GameAnalyticsSDK;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class GameManager : MonoBehaviour
             instance = this;
 
         DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
+        GameAnalytics.Initialize();
     }
 
     public Animator transitionAnimatorController;
